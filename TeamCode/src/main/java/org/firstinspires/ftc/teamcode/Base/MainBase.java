@@ -54,10 +54,10 @@ public class MainBase {
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
 
-        topLeft = hwMap.get(DcMotor.class, "topLeft");
-        bottomLeft = hwMap.get(DcMotor.class, "bottomLeft");
-        topRight = hwMap.get(DcMotor.class, "topRight");
-        bottomRight = hwMap.get(DcMotor.class, "bottomRight");
+        frontLeft = hwMap.get(DcMotor.class, "frontLeft");
+        backLeft = hwMap.get(DcMotor.class, "backLeft");
+        frontRight = hwMap.get(DcMotor.class, "frontRight");
+        backRight = hwMap.get(DcMotor.class, "backRight");
         jHopper1 = hwMap.get(DcMotor.class, "jHopper1");
         jHopper2 = hwMap.get(DcMotor.class, "jHopper2");
         wobbleArm = hwMap.get(DcMotor.class, "wobbleArm");
@@ -65,17 +65,17 @@ public class MainBase {
         wobbleClaw = hwMap.get(CRServo.class,"wobbleClaw");
         JHopFlap = hwMap.get(Servo.class, "JHopFlap");
 
-        topLeft.setDirection(DcMotor.Direction.REVERSE);
-        bottomLeft.setDirection(DcMotor.Direction.REVERSE);
-        topRight.setDirection(DcMotor.Direction.FORWARD);
-        bottomRight.setDirection(DcMotor.Direction.FORWARD);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
 
         jHopper2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        topLeft.setPower(0);
-        bottomLeft.setPower(0);
-        topRight.setPower(0);
-        bottomRight.setPower(0);
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
         jHopper1.setPower(0);
         jHopper2.setPower(0);
         wobbleArm.setPower(0);
@@ -161,32 +161,32 @@ public class MainBase {
         if (opmode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newTLTarget  = topLeft.getCurrentPosition() + moveCountsTL;
-            newTRTarget  = topRight.getCurrentPosition() + moveCountsTR;
-            newBLTarget  = bottomLeft.getCurrentPosition() + moveCountsBL;
-            newBRTarget  = bottomRight.getCurrentPosition() + moveCountsBR;
+            newTLTarget  = frontLeft.getCurrentPosition() + moveCountsTL;
+            newTRTarget  = frontRight.getCurrentPosition() + moveCountsTR;
+            newBLTarget  = backLeft.getCurrentPosition() + moveCountsBL;
+            newBRTarget  = backRight.getCurrentPosition() + moveCountsBR;
 
             // Set Target and Turn On RUN_TO_POSITION
-            topLeft.setTargetPosition(newTLTarget);
-            topRight.setTargetPosition(newTRTarget);
-            bottomLeft.setTargetPosition(newBLTarget);
-            bottomRight.setTargetPosition(newBRTarget);
+            frontLeft.setTargetPosition(newTLTarget);
+            frontRight.setTargetPosition(newTRTarget);
+            backLeft.setTargetPosition(newBLTarget);
+            backRight.setTargetPosition(newBRTarget);
 
-            topLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            topRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bottomLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bottomRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // start motion
             speed = Range.clip(Math.abs(speed), 0.0, 1.0);
-            topLeft.setPower(speed);
-            topRight.setPower(speed);
-            bottomLeft.setPower(speed);
-            bottomRight.setPower(speed);
+            frontLeft.setPower(speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(speed);
+            backRight.setPower(speed);
 
             // keep looping while we are still active, and ALL motors are running.
             while (opmode.opModeIsActive() &&
-                    (topLeft.isBusy() || topRight.isBusy() || bottomLeft.isBusy() || bottomRight.isBusy()) && !goodEnough) {
+                    (frontLeft.isBusy() || frontRight.isBusy() || backLeft.isBusy() || backRight.isBusy()) && !goodEnough) {
 
                 // adjust relative speed based on heading error.
                 error = getError(angle);
@@ -221,55 +221,55 @@ public class MainBase {
                     speedBR /= max;
                 }
 
-                ErrorAmount = ((Math.abs(((newBLTarget) - (bottomLeft.getCurrentPosition())))
-                        + (Math.abs(((newTLTarget) - (topLeft.getCurrentPosition()))))
-                        + (Math.abs((newBRTarget) - (bottomRight.getCurrentPosition())))
-                        + (Math.abs(((newTRTarget) - (topRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
+                ErrorAmount = ((Math.abs(((newBLTarget) - (backLeft.getCurrentPosition())))
+                        + (Math.abs(((newTLTarget) - (frontLeft.getCurrentPosition()))))
+                        + (Math.abs((newBRTarget) - (backRight.getCurrentPosition())))
+                        + (Math.abs(((newTRTarget) - (frontRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
 
-                topLeft.setPower(speedTL);
-                topRight.setPower(speedTR);
-                bottomLeft.setPower(speedBL);
-                bottomRight.setPower(speedBR);
+                frontLeft.setPower(speedTL);
+                frontRight.setPower(speedTR);
+                backLeft.setPower(speedBL);
+                backRight.setPower(speedBR);
 
                 // Display drive status for the driver.
                 /*opmode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
                 opmode.telemetry.addData("Target",  "%7d:%7d:%7d:%7d", newTLTarget, newTRTarget, newBLTarget, newBRTarget);
-                opmode.telemetry.addData("Actual",  "%7d:%7d:%7d:%7d", topLeft.getCurrentPosition(),
-                        topRight.getCurrentPosition(), bottomLeft.getCurrentPosition(), bottomRight.getCurrentPosition() );
+                opmode.telemetry.addData("Actual",  "%7d:%7d:%7d:%7d", frontLeft.getCurrentPosition(),
+                        frontRight.getCurrentPosition(), backLeft.getCurrentPosition(), backRight.getCurrentPosition() );
                 opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedTL, speedTR, speedBL, speedBR);*/
 
-                opmode.telemetry.addData("FL: ", topLeft.isBusy());
-                opmode.telemetry.addData("FR: ", topRight.isBusy());
-                opmode.telemetry.addData("BL: ", bottomLeft.isBusy());
-                opmode.telemetry.addData("BR: ", bottomRight.isBusy());
+                opmode.telemetry.addData("FL: ", frontLeft.isBusy());
+                opmode.telemetry.addData("FR: ", frontRight.isBusy());
+                opmode.telemetry.addData("BL: ", backLeft.isBusy());
+                opmode.telemetry.addData("BR: ", backRight.isBusy());
                 opmode.telemetry.addData("Good Enough: ", goodEnough);
                 opmode.telemetry.addData("Error Amount: ", ErrorAmount);
                 opmode.telemetry.addData("Amount Error: ", amountError);
                 opmode.telemetry.update();
             }
 
-            topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            topLeft.setPower(endFLPower);
-            topRight.setPower(endFRPower);
-            bottomLeft.setPower(endBLPower);
-            bottomRight.setPower(endBRPower);
+            frontLeft.setPower(endFLPower);
+            frontRight.setPower(endFRPower);
+            backLeft.setPower(endBLPower);
+            backRight.setPower(endBRPower);
         }
     }
 
     public void encoderDrive ( double speed,
-                               double topLeftInches, double topRightInches, double bottomLeftInches,
-                               double bottomRightInches, LinearOpMode opMode){
-        int newtopLeftTarget;
-        int newtopRightTarget;
-        int newbottomLeftTarget;
-        int newbottomRightTarget;
+                               double frontLeftInches, double frontRightInches, double backLeftInches,
+                               double backRightInches, LinearOpMode opMode){
+        int newfrontLeftTarget;
+        int newfrontRightTarget;
+        int newbackLeftTarget;
+        int newbackRightTarget;
         double ErrorAmount;
         boolean goodEnough = false;
 
@@ -277,64 +277,64 @@ public class MainBase {
         if (opMode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newtopLeftTarget = topLeft.getCurrentPosition() + (int) (topLeftInches * COUNTS_PER_INCH);
-            newtopRightTarget = topRight.getCurrentPosition() + (int) (topRightInches * COUNTS_PER_INCH);
-            newbottomLeftTarget = bottomLeft.getCurrentPosition() + (int) (bottomLeftInches * COUNTS_PER_INCH);
-            newbottomRightTarget = bottomRight.getCurrentPosition() + (int) (bottomRightInches * COUNTS_PER_INCH);
-            topLeft.setTargetPosition(newtopLeftTarget);
-            topRight.setTargetPosition(newtopRightTarget);
-            bottomLeft.setTargetPosition(newbottomLeftTarget);
-            bottomRight.setTargetPosition(newbottomRightTarget);
+            newfrontLeftTarget = frontLeft.getCurrentPosition() + (int) (frontLeftInches * COUNTS_PER_INCH);
+            newfrontRightTarget = frontRight.getCurrentPosition() + (int) (frontRightInches * COUNTS_PER_INCH);
+            newbackLeftTarget = backLeft.getCurrentPosition() + (int) (backLeftInches * COUNTS_PER_INCH);
+            newbackRightTarget = backRight.getCurrentPosition() + (int) (backRightInches * COUNTS_PER_INCH);
+            frontLeft.setTargetPosition(newfrontLeftTarget);
+            frontRight.setTargetPosition(newfrontRightTarget);
+            backLeft.setTargetPosition(newbackLeftTarget);
+            backRight.setTargetPosition(newbackRightTarget);
 
             // Turn On RUN_TO_POSITION
-            topLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            topRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bottomLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bottomRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-            topLeft.setPower(Math.abs(speed));
-            topRight.setPower(Math.abs(speed));
-            bottomLeft.setPower(Math.abs(speed));
-            bottomRight.setPower(Math.abs(speed));
+            frontLeft.setPower(Math.abs(speed));
+            frontRight.setPower(Math.abs(speed));
+            backLeft.setPower(Math.abs(speed));
+            backRight.setPower(Math.abs(speed));
 
             while (opMode.opModeIsActive() &&
-                    ((topLeft.isBusy() || topRight.isBusy()) || (bottomLeft.isBusy() || bottomRight.isBusy())) && !goodEnough) {
+                    ((frontLeft.isBusy() || frontRight.isBusy()) || (backLeft.isBusy() || backRight.isBusy())) && !goodEnough) {
 
                 // Display it for the driver.
-                opMode.telemetry.addData("Path1", "Running to %7d :%7d", newtopLeftTarget, newbottomLeftTarget, newtopRightTarget, newbottomRightTarget);
+                opMode.telemetry.addData("Path1", "Running to %7d :%7d", newfrontLeftTarget, newbackLeftTarget, newfrontRightTarget, newbackRightTarget);
                 opMode.telemetry.addData("Path2", "Running at %7d :%7d",
 
-                        topLeft.getCurrentPosition(),
-                        topRight.getCurrentPosition(),
-                        bottomLeft.getCurrentPosition(),
-                        bottomRight.getCurrentPosition());
-                opMode.telemetry.addData("topLeft", topLeft.getCurrentPosition());
-                opMode.telemetry.addData("bottomLeft", bottomLeft.getCurrentPosition());
-                opMode.telemetry.addData("topRight", topRight.getCurrentPosition());
-                opMode.telemetry.addData("bottomRight", bottomRight.getCurrentPosition());
+                        frontLeft.getCurrentPosition(),
+                        frontRight.getCurrentPosition(),
+                        backLeft.getCurrentPosition(),
+                        backRight.getCurrentPosition());
+                opMode.telemetry.addData("frontLeft", frontLeft.getCurrentPosition());
+                opMode.telemetry.addData("backLeft", backLeft.getCurrentPosition());
+                opMode.telemetry.addData("frontRight", frontRight.getCurrentPosition());
+                opMode.telemetry.addData("backRight", backRight.getCurrentPosition());
 
                 opMode.telemetry.update();
 
-                ErrorAmount = ((Math.abs(((newbottomLeftTarget) - (bottomLeft.getCurrentPosition())))
-                        + (Math.abs(((newtopLeftTarget) - (topLeft.getCurrentPosition()))))
-                        + (Math.abs((newbottomRightTarget) - (bottomRight.getCurrentPosition())))
-                        + (Math.abs(((newtopRightTarget) - (topRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
+                ErrorAmount = ((Math.abs(((newbackLeftTarget) - (backLeft.getCurrentPosition())))
+                        + (Math.abs(((newfrontLeftTarget) - (frontLeft.getCurrentPosition()))))
+                        + (Math.abs((newbackRightTarget) - (backRight.getCurrentPosition())))
+                        + (Math.abs(((newfrontRightTarget) - (frontRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
             }
 
-            topLeft.setPower(0);
-            topRight.setPower(0);
-            bottomLeft.setPower(0);
-            bottomRight.setPower(0);
+            frontLeft.setPower(0);
+            frontRight.setPower(0);
+            backLeft.setPower(0);
+            backRight.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -370,10 +370,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(-speed);
-                topRight.setPower(-speed);
-                bottomLeft.setPower(-speed);
-                bottomRight.setPower(-speed);
+                frontLeft.setPower(-speed);
+                frontRight.setPower(-speed);
+                backLeft.setPower(-speed);
+                backRight.setPower(-speed);
 
                 opmode.telemetry.addData("Sensor Front Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Front Distance: ", frontDistance);
@@ -386,10 +386,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(speed);
-                topRight.setPower(speed);
-                bottomLeft.setPower(speed);
-                bottomRight.setPower(speed);
+                frontLeft.setPower(speed);
+                frontRight.setPower(speed);
+                backLeft.setPower(speed);
+                backRight.setPower(speed);
 
                 opmode.telemetry.addData("Sensor Front Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Front Distance: ", frontDistance);
@@ -404,10 +404,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(speed);
-                topRight.setPower(-speed);
-                bottomLeft.setPower(-speed);
-                bottomRight.setPower(speed);
+                frontLeft.setPower(speed);
+                frontRight.setPower(-speed);
+                backLeft.setPower(-speed);
+                backRight.setPower(speed);
 
                 opmode.telemetry.addData("Sensor Left Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Left Distance: ", frontDistance);
@@ -420,10 +420,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(-speed);
-                topRight.setPower(speed);
-                bottomLeft.setPower(speed);
-                bottomRight.setPower(-speed);
+                frontLeft.setPower(-speed);
+                frontRight.setPower(speed);
+                backLeft.setPower(speed);
+                backRight.setPower(-speed);
 
                 opmode.telemetry.addData("Sensor Left Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Left Distance: ", frontDistance);
@@ -438,10 +438,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(speed);
-                topRight.setPower(-speed);
-                bottomLeft.setPower(-speed);
-                bottomRight.setPower(speed);
+                frontLeft.setPower(speed);
+                frontRight.setPower(-speed);
+                backLeft.setPower(-speed);
+                backRight.setPower(speed);
 
                 opmode.telemetry.addData("Sensor Right Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Right Distance: ", frontDistance);
@@ -454,10 +454,10 @@ public class MainBase {
                         break;
                     }
                 }
-                topLeft.setPower(-speed);
-                topRight.setPower(speed);
-                bottomLeft.setPower(speed);
-                bottomRight.setPower(-speed);
+                frontLeft.setPower(-speed);
+                frontRight.setPower(speed);
+                backLeft.setPower(speed);
+                backRight.setPower(-speed);
 
                 opmode.telemetry.addData("Sensor Right Distance: ", frontRange.getDistance(DistanceUnit.INCH));
                 opmode.telemetry.addData("Target Right Distance: ", frontDistance);
@@ -505,10 +505,10 @@ public class MainBase {
         }
 
         // Send desired speeds to motors.
-        topLeft.setPower(leftSpeed);
-        topRight.setPower(rightSpeed);
-        bottomLeft.setPower(leftSpeed);
-        bottomRight.setPower(rightSpeed);
+        frontLeft.setPower(leftSpeed);
+        frontRight.setPower(rightSpeed);
+        backLeft.setPower(leftSpeed);
+        backRight.setPower(rightSpeed);
 
         // Display it for the driver.
         opmode.telemetry.addData("Target", "%5.2f", angle);
@@ -517,5 +517,4 @@ public class MainBase {
 
         return onTarget;
     }
-    //Push from Android Studio.
 }
