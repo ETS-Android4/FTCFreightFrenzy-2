@@ -10,12 +10,12 @@ public class MainTeleOp extends LinearOpMode{
 
     MainBase base = null;
 
-    public boolean                 GP1_RB_Held = false;
-    public boolean                    SlowMode = false;
-    public boolean                GP2_DPL_Held = false;
-    public double                    CLAW_OPEN = 0.5;
-    public double                  CLAW_CLOSED = 0.1;
-    public double                    DUCK_SPEED = -0.8;
+    public boolean   GP1_RB_Held = false;
+    public boolean   GP2_LB_Held = false;
+    public boolean   SlowMode    = false;
+    public double    CLAW_OPEN   = 0.5;
+    public double    CLAW_CLOSED = 0.1;
+    public double    DUCK_SPEED  = -0.8;
 
 
     @Override
@@ -85,7 +85,7 @@ public class MainTeleOp extends LinearOpMode{
 
         //--------------------ROBOT CONTROLS--------------------\\
 
-        //---------------LEFT DUCK---------------\\
+        //---------------LEFT-DUCK---------------\\
         if (gamepad2.x){
             base.leftDuck.setPower(DUCK_SPEED);
         }
@@ -93,7 +93,7 @@ public class MainTeleOp extends LinearOpMode{
             base.leftDuck.setPower(0);
         }
 
-        //---------------RIGHT DUCK---------------\\
+        //---------------RIGHT-DUCK---------------\\
         if (gamepad2.b){
             base.rightDuck.setPower(DUCK_SPEED);
         }
@@ -101,7 +101,7 @@ public class MainTeleOp extends LinearOpMode{
             base.rightDuck.setPower(0);
         }
 
-        //---------------Lift System---------------\\
+        //---------------Lift-System---------------\\
         double liftArm = gamepad2.right_stick_y;
         if(Math.abs(liftArm) < 0.1){
             base.lift.setPower(0);
@@ -110,9 +110,9 @@ public class MainTeleOp extends LinearOpMode{
             base.lift.setPower(liftArm);
         }
 
-        //---------------LEFT CLAW---------------\\
-        if(gamepad2.dpad_left && !GP2_DPL_Held) {
-            GP2_DPL_Held = true;
+        //---------------LEFT-CLAW---------------\\
+        if(gamepad2.left_bumper && !GP2_LB_Held) {
+            GP2_LB_Held = true;
             if(Math.abs(base.leftClaw.getPosition() - CLAW_CLOSED) < 0.01){
                 base.leftClaw.setPosition(CLAW_OPEN);
             }
@@ -120,12 +120,9 @@ public class MainTeleOp extends LinearOpMode{
                 base.leftClaw.setPosition(CLAW_CLOSED);
             }
         }
-
-        if(!gamepad2.dpad_left) {
-            GP2_DPL_Held = false;
+        if(!gamepad2.left_bumper) {
+            GP2_LB_Held = false;
         }
-        telemetry.update();
-
         if((Math.abs(base.leftClaw.getPosition() - CLAW_CLOSED) < 0.01) /* && rings == 0*/){
             base.leftClaw.setPosition(CLAW_CLOSED);
         }
