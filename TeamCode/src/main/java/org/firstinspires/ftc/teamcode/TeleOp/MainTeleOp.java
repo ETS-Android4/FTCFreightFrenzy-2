@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOP;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -137,5 +137,3 @@ public class MainTeleOp extends LinearOpMode{
 
         }
     }
-
-
