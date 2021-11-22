@@ -420,4 +420,8 @@ public class MainBase {
         return onTarget;
     }
 
+    /*public void lift(double height, double speed, LinearOpMode opmode){
+
+    }*/
+
 }
