@@ -27,11 +27,10 @@ public class MainBase {
     public Servo   leftClaw    = null;
 
 
-    // Total Sensors: 2
-    /*public ModernRoboticsI2cRangeSensor frontRange   = null;
-    public ModernRoboticsI2cRangeSensor leftRange    = null;
-    public ModernRoboticsI2cRangeSensor rightRange   = null;
-    public ModernRoboticsI2cGyro        gyro         = null;*/
+    // Total Sensors: 3
+    public ModernRoboticsI2cRangeSensor backRange   = null;
+    public ModernRoboticsI2cRangeSensor sideRange   = null;
+    public ModernRoboticsI2cGyro        gyro        = null;
 
 
     static final double     COUNTS_PER_MOTOR_REV    = 386.3;
@@ -61,6 +60,16 @@ public class MainBase {
         bucket    = hwMap.get(CRServo.class,"bucket");
         leftClaw  = hwMap.get(Servo.class, "leftClaw");
 
+        backRange = hwMap.get(ModernRoboticsI2cRangeSensor.class,"backRange");
+        backRange.initialize();
+
+        sideRange  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"sideRange");
+        sideRange.initialize();
+
+        gyro = hwMap.get(ModernRoboticsI2cGyro.class,"gyro");
+        gyro.initialize();
+        gyro.calibrate();
+
         leftDT.setDirection(DcMotor.Direction.REVERSE);
         rightDT.setDirection(DcMotor.Direction.FORWARD);
 
@@ -75,21 +84,6 @@ public class MainBase {
         rightClaw.setPower(0);
         bucket.setPower(0);
         leftClaw.setPosition(0);
-
-
-        /*frontRange = hwMap.get(ModernRoboticsI2cRangeSensor.class,"frontRange");
-        frontRange.initialize();
-
-        leftRange  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"leftRange");
-        leftRange.initialize();
-
-        rightRange  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"rightRange");
-        rightRange.initialize();
-
-        gyro = hwMap.get(ModernRoboticsI2cGyro.class,"gyro");
-        gyro.initialize();
-        gyro.calibrate();*/
-
     }
 
     /*public boolean getCurrentRPM(double initTime, double currentTime, int initPos, int currentPos, LinearOpMode opMode){
@@ -105,13 +99,13 @@ public class MainBase {
         return false;
     }
 
-    /*public void getToTargetSpeed(int target_rpm){
+    public void getToTargetSpeed(int target_rpm){
         double percentOfTotal = (double)(target_rpm)/((double)5100);
         rightDuck.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDuck.setPower(percentOfTotal);
     }*/
 
-    /*public double getError (double angle){
+    public double getError (double angle){
 
         double robotError;
 
@@ -127,18 +121,15 @@ public class MainBase {
     }
 
     //Autonomous driving method that utilizes gyroscope to correct angle veer-offs during strafing
-    public void gyroDrive (double speed, double distanceTL, double distanceTR,
-                           double distanceBL, double distanceBR, double angle, double endFLPower, double endFRPower, double endBLPower,
-                           double endBRPower, LinearOpMode opmode) {
+    public void gyroDrive(double speed, double distanceTL, double distanceTR,
+                          double distanceBL, double distanceBR, double angle, double endFLPower, double endFRPower,
+                          LinearOpMode opmode) {
 
         int     newTLTarget;
         int     newTRTarget;
-        int     newBLTarget;
-        int     newBRTarget;
         int     moveCountsTL = (int)(distanceTL * MainBase.COUNTS_PER_INCH);
         int     moveCountsTR = (int)(distanceTR * MainBase.COUNTS_PER_INCH);
-        int     moveCountsBL = (int)(distanceBL * MainBase.COUNTS_PER_INCH);
-        int     moveCountsBR = (int)(distanceBR * MainBase.COUNTS_PER_INCH);
+
         double  max;
         double  leftMax;
         double  rightMax;
@@ -156,36 +147,28 @@ public class MainBase {
             // Determine new target position, and pass to motor controller
             newTLTarget  = leftDT.getCurrentPosition() + moveCountsTL;
             newTRTarget  = rightDT.getCurrentPosition() + moveCountsTR;
-            newBLTarget  = backLeft.getCurrentPosition() + moveCountsBL;
-            newBRTarget  = backRight.getCurrentPosition() + moveCountsBR;
 
             // Set Target and Turn On RUN_TO_POSITION
             leftDT.setTargetPosition(newTLTarget);
             rightDT.setTargetPosition(newTRTarget);
-            backLeft.setTargetPosition(newBLTarget);
-            backRight.setTargetPosition(newBRTarget);
 
             leftDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            // start motion
+            // Start motion
             speed = Range.clip(Math.abs(speed), 0.0, 1.0);
             leftDT.setPower(speed);
             rightDT.setPower(speed);
-            backLeft.setPower(speed);
-            backRight.setPower(speed);
 
-            // keep looping while we are still active, and ALL motors are running.
+            // Keep looping while we are still active, and ALL motors are running.
             while (opmode.opModeIsActive() &&
-                    (leftDT.isBusy() || rightDT.isBusy() || backLeft.isBusy() || backRight.isBusy()) && !goodEnough) {
+                    (leftDT.isBusy() || rightDT.isBusy()) && !goodEnough) {
 
-                // adjust relative speed based on heading error.
+                // Adjust relative speed based on heading error.
                 error = getError(angle);
                 double steer = getSteer(error, 0.15);
 
-                // if driving in reverse, the motor correction also needs to be reversed
+                // If driving in reverse, the motor correction also needs to be reversed
                 if (distanceTL > 0)
                     speedTL  = speed - steer;
                 else speedTL = speed + steer;
@@ -214,30 +197,24 @@ public class MainBase {
                     speedBR /= max;
                 }
 
-                ErrorAmount = ((Math.abs(((newBLTarget) - (backLeft.getCurrentPosition())))
-                        + (Math.abs(((newTLTarget) - (leftDT.getCurrentPosition()))))
-                        + (Math.abs((newBRTarget) - (backRight.getCurrentPosition())))
-                        + (Math.abs(((newTRTarget) - (rightDT.getCurrentPosition()))))) / COUNTS_PER_INCH);
+                ErrorAmount = (Math.abs(((newTLTarget) - (leftDT.getCurrentPosition()))))
+                        + (Math.abs(((newTRTarget) - (rightDT.getCurrentPosition())))) / COUNTS_PER_INCH;
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
 
                 leftDT.setPower(speedTL);
                 rightDT.setPower(speedTR);
-                backLeft.setPower(speedBL);
-                backRight.setPower(speedBR);
 
                 // Display drive status for the driver.
-                /*opmode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
-                opmode.telemetry.addData("Target",  "%7d:%7d:%7d:%7d", newTLTarget, newTRTarget, newBLTarget, newBRTarget);
+                opmode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
+                opmode.telemetry.addData("Target",  "%7d:%7d:%7d:%7d", newTLTarget, newTRTarget);
                 opmode.telemetry.addData("Actual",  "%7d:%7d:%7d:%7d", leftDT.getCurrentPosition(),
-                        rightDT.getCurrentPosition(), backLeft.getCurrentPosition(), backRight.getCurrentPosition() );
-                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedTL, speedTR, speedBL, speedBR);*/
+                        rightDT.getCurrentPosition());
+                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedTL, speedTR, speedBL, speedBR);
 
-                /*opmode.telemetry.addData("FL: ", leftDT.isBusy());
+                opmode.telemetry.addData("FL: ", leftDT.isBusy());
                 opmode.telemetry.addData("FR: ", rightDT.isBusy());
-                opmode.telemetry.addData("BL: ", backLeft.isBusy());
-                opmode.telemetry.addData("BR: ", backRight.isBusy());
                 opmode.telemetry.addData("Good Enough: ", goodEnough);
                 opmode.telemetry.addData("Error Amount: ", ErrorAmount);
                 opmode.telemetry.addData("Amount Error: ", amountError);
@@ -246,13 +223,9 @@ public class MainBase {
 
             leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             leftDT.setPower(endFLPower);
             rightDT.setPower(endFRPower);
-            backLeft.setPower(endBLPower);
-            backRight.setPower(endBRPower);
         }
     }
 
@@ -261,8 +234,6 @@ public class MainBase {
                                double backRightInches, LinearOpMode opMode){
         int newleftDTTarget;
         int newrightDTTarget;
-        int newbackLeftTarget;
-        int newbackRightTarget;
         double ErrorAmount;
         boolean goodEnough = false;
 
@@ -272,47 +243,33 @@ public class MainBase {
             // Determine new target position, and pass to motor controller
             newleftDTTarget = leftDT.getCurrentPosition() + (int) (leftDTInches * COUNTS_PER_INCH);
             newrightDTTarget = rightDT.getCurrentPosition() + (int) (rightDTInches * COUNTS_PER_INCH);
-            newbackLeftTarget = backLeft.getCurrentPosition() + (int) (backLeftInches * COUNTS_PER_INCH);
-            newbackRightTarget = backRight.getCurrentPosition() + (int) (backRightInches * COUNTS_PER_INCH);
             leftDT.setTargetPosition(newleftDTTarget);
             rightDT.setTargetPosition(newrightDTTarget);
-            backLeft.setTargetPosition(newbackLeftTarget);
-            backRight.setTargetPosition(newbackRightTarget);
 
             // Turn On RUN_TO_POSITION
             leftDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
             leftDT.setPower(Math.abs(speed));
             rightDT.setPower(Math.abs(speed));
-            backLeft.setPower(Math.abs(speed));
-            backRight.setPower(Math.abs(speed));
 
             while (opMode.opModeIsActive() &&
-                    ((leftDT.isBusy() || rightDT.isBusy()) || (backLeft.isBusy() || backRight.isBusy())) && !goodEnough) {
+                    ((leftDT.isBusy() || rightDT.isBusy())) && !goodEnough) {
 
                 // Display it for the driver.
-                opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newbackLeftTarget, newrightDTTarget, newbackRightTarget);
+                opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newrightDTTarget);
                 opMode.telemetry.addData("Path2", "Running at %7d :%7d",
 
                         leftDT.getCurrentPosition(),
                         rightDT.getCurrentPosition(),
-                        backLeft.getCurrentPosition(),
-                        backRight.getCurrentPosition());
-                opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition());
-                opMode.telemetry.addData("backLeft", backLeft.getCurrentPosition());
+                opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition()));
                 opMode.telemetry.addData("rightDT", rightDT.getCurrentPosition());
-                opMode.telemetry.addData("backRight", backRight.getCurrentPosition());
 
                 opMode.telemetry.update();
 
-                ErrorAmount = ((Math.abs(((newbackLeftTarget) - (backLeft.getCurrentPosition())))
-                        + (Math.abs(((newleftDTTarget) - (leftDT.getCurrentPosition()))))
-                        + (Math.abs((newbackRightTarget) - (backRight.getCurrentPosition())))
-                        + (Math.abs(((newrightDTTarget) - (rightDT.getCurrentPosition()))))) / COUNTS_PER_INCH);
+                ErrorAmount = (Math.abs(((newleftDTTarget) - (leftDT.getCurrentPosition()))))
+                        + (Math.abs(((newrightDTTarget) - (rightDT.getCurrentPosition()))) / COUNTS_PER_INCH);
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
@@ -320,14 +277,10 @@ public class MainBase {
 
             leftDT.setPower(0);
             rightDT.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
 
             // Turn off RUN_TO_POSITION
             leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -352,115 +305,73 @@ public class MainBase {
     }
 
     //Utilization of Range Sensors in Autonomous
-    public void rangeDrive (double speed, double frontDistance, double leftDistance, double rightDistance, LinearOpMode opmode) {
+    public void rangeDrive (double speed, double backDistance, double sideDistance, LinearOpMode opmode) {
 
         speed = Range.clip(Math.abs(speed), 0.0, 1.0);
 
-        if(frontDistance != -1) {
-            while (frontRange.getDistance(DistanceUnit.INCH) < frontDistance){
-                if (Math.abs(frontRange.getDistance(DistanceUnit.INCH) - frontDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(frontRange,frontDistance, opmode)){
+        if(backDistance != -1) {
+            while (backRange.getDistance(DistanceUnit.INCH) < backDistance){
+                if (Math.abs(backRange.getDistance(DistanceUnit.INCH) - backDistance) > MAX_ACCEPTABLE_ERROR){
+                    if (!rangeCheck(backRange,backDistance, opmode)){
                         break;
                     }
                 }
                 leftDT.setPower(-speed);
                 rightDT.setPower(-speed);
-                backLeft.setPower(-speed);
-                backRight.setPower(-speed);
 
-                opmode.telemetry.addData("Sensor Front Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Front Distance: ", frontDistance);
+                opmode.telemetry.addData("Sensor Front Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Front Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Backwards");
                 opmode.telemetry.update();
             }
-            while (frontRange.getDistance(DistanceUnit.INCH) > frontDistance){
-                if (Math.abs(frontRange.getDistance(DistanceUnit.INCH) - frontDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(frontRange,frontDistance,opmode)){
+            while (backRange.getDistance(DistanceUnit.INCH) > backDistance){
+                if (Math.abs(backRange.getDistance(DistanceUnit.INCH) - backDistance) > MAX_ACCEPTABLE_ERROR){
+                    if (!rangeCheck(backRange,backDistance,opmode)){
                         break;
                     }
                 }
                 leftDT.setPower(speed);
                 rightDT.setPower(speed);
-                backLeft.setPower(speed);
-                backRight.setPower(speed);
 
-                opmode.telemetry.addData("Sensor Front Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Front Distance: ", frontDistance);
+                opmode.telemetry.addData("Sensor Front Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Front Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Forwards");
                 opmode.telemetry.update();
             }
         }
-        if (leftDistance != -1) {
-            while (leftRange.getDistance(DistanceUnit.INCH) < leftDistance){
-                if (Math.abs(leftRange.getDistance(DistanceUnit.INCH) - leftDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(leftRange,leftDistance,opmode)){
+        if (sideDistance != -1) {
+            while (sideRange.getDistance(DistanceUnit.INCH) < sideDistance){
+                if (Math.abs(sideRange.getDistance(DistanceUnit.INCH) - sideDistance) > MAX_ACCEPTABLE_ERROR){
+                    if (!rangeCheck(sideRange,sideDistance,opmode)){
                         break;
                     }
                 }
                 leftDT.setPower(speed);
                 rightDT.setPower(-speed);
-                backLeft.setPower(-speed);
-                backRight.setPower(speed);
 
-                opmode.telemetry.addData("Sensor Left Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Left Distance: ", frontDistance);
+                opmode.telemetry.addData("Sensor Left Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Left Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Right");
                 opmode.telemetry.update();
             }
-            while (leftRange.getDistance(DistanceUnit.INCH) > leftDistance){
-                if (Math.abs(leftRange.getDistance(DistanceUnit.INCH) - leftDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(leftRange,leftDistance,opmode)){
+            while (sideRange.getDistance(DistanceUnit.INCH) > sideDistance){
+                if (Math.abs(sideRange.getDistance(DistanceUnit.INCH) - sideDistance) > MAX_ACCEPTABLE_ERROR){
+                    if (!rangeCheck(sideRange,sideDistance,opmode)){
                         break;
                     }
                 }
                 leftDT.setPower(-speed);
                 rightDT.setPower(speed);
-                backLeft.setPower(speed);
-                backRight.setPower(-speed);
 
-                opmode.telemetry.addData("Sensor Left Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Left Distance: ", frontDistance);
-                opmode.telemetry.addLine("Moving Left");
-                opmode.telemetry.update();
-            }
-        }
-        if (rightDistance != -1){
-            while (rightRange.getDistance(DistanceUnit.INCH) > rightDistance){
-                if (Math.abs(rightRange.getDistance(DistanceUnit.INCH) - rightDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(rightRange,rightDistance,opmode)){
-                        break;
-                    }
-                }
-                leftDT.setPower(speed);
-                rightDT.setPower(-speed);
-                backLeft.setPower(-speed);
-                backRight.setPower(speed);
-
-                opmode.telemetry.addData("Sensor Right Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Right Distance: ", frontDistance);
-                opmode.telemetry.addLine("Moving Right");
-                opmode.telemetry.update();
-            }
-            while (rightRange.getDistance(DistanceUnit.INCH) < rightDistance){
-                if (Math.abs(rightRange.getDistance(DistanceUnit.INCH) - rightDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(rightRange,rightDistance,opmode)){
-                        break;
-                    }
-                }
-                leftDT.setPower(-speed);
-                rightDT.setPower(speed);
-                backLeft.setPower(speed);
-                backRight.setPower(-speed);
-
-                opmode.telemetry.addData("Sensor Right Distance: ", frontRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Right Distance: ", frontDistance);
+                opmode.telemetry.addData("Sensor Left Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Left Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Left");
                 opmode.telemetry.update();
             }
         }
     }
 
-    public void gyroTurn (double speed, double angle, LinearOpMode opmode) {
+    public void gyroTurn(double speed, double angle, LinearOpMode opmode) {
 
         // keep looping while we are still active, and not on heading.
         while (opmode.opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF, opmode)) {
@@ -500,8 +411,6 @@ public class MainBase {
         // Send desired speeds to motors.
         leftDT.setPower(leftSpeed);
         rightDT.setPower(rightSpeed);
-        backLeft.setPower(leftSpeed);
-        backRight.setPower(rightSpeed);
 
         // Display it for the driver.
         opmode.telemetry.addData("Target", "%5.2f", angle);
@@ -510,5 +419,5 @@ public class MainBase {
 
         return onTarget;
     }
-    */
+
 }
