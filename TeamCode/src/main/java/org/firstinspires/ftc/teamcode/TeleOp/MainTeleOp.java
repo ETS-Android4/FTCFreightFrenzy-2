@@ -39,11 +39,10 @@ public class MainTeleOp extends LinearOpMode{
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
         double forward = -gamepad1.left_stick_y;
-        double right   =  gamepad1.left_stick_x;
         double turn    = gamepad1.right_stick_x;
 
-        double leftPower = forward + right + turn;
-        double rightPower = forward - right + turn;
+        double leftPower = forward + turn;
+        double rightPower = forward - turn;
         double[] powers = {leftPower, rightPower};
 
         boolean needToScale = false;
@@ -102,7 +101,7 @@ public class MainTeleOp extends LinearOpMode{
         }
 
         //---------------Lift-System---------------\\
-        double liftArm = gamepad2.right_stick_y;
+        double liftArm = -gamepad2.right_stick_y;
         if(Math.abs(liftArm) < 0.1){
             base.lift.setPower(0);
         }
@@ -123,7 +122,7 @@ public class MainTeleOp extends LinearOpMode{
         if(!gamepad2.left_bumper) {
             GP2_LB_Held = false;
         }
-        if((Math.abs(base.leftClaw.getPosition() - CLAW_CLOSED) < 0.01) /* && rings == 0*/){
+        if((Math.abs(base.leftClaw.getPosition() - CLAW_CLOSED) < 0.01)){
             base.leftClaw.setPosition(CLAW_CLOSED);
         }
 

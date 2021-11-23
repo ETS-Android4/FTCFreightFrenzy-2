@@ -14,8 +14,7 @@ public class MainBlue extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
-
+        ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
 
         base.init(hardwareMap);
 
