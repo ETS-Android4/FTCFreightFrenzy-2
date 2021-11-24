@@ -29,7 +29,7 @@ public class MainBlue extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        int position = detector.getDecision();
+        /*int position = detector.getDecision();
         detector.setTelemShow(false);
 
         //---------------- CASE LEFT ----------------
@@ -48,6 +48,6 @@ public class MainBlue extends LinearOpMode{
         else{
             //Robot movements for "Case Right" position of team marker.
 
-        }
+        }*/
     }
 }
