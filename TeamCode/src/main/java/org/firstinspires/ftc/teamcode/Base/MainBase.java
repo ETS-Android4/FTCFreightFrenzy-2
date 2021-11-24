@@ -121,23 +121,21 @@ public class MainBase {
     }
 
     //Autonomous driving method that utilizes gyroscope to correct angle veer-offs during strafing
-    public void gyroDrive(double speed, double distanceTL, double distanceTR,
-                          double distanceBL, double distanceBR, double angle, double endFLPower, double endFRPower,
-                          LinearOpMode opmode) {
+    public void gyroDrive(double speed, double distanceL, double distanceR, double angle,
+                          double endFLPower, double endFRPower,
+                          LinearOpMode opmode){
 
         int     newTLTarget;
         int     newTRTarget;
-        int     moveCountsTL = (int)(distanceTL * MainBase.COUNTS_PER_INCH);
-        int     moveCountsTR = (int)(distanceTR * MainBase.COUNTS_PER_INCH);
+        int     moveCountsTL = (int)(distanceL * MainBase.COUNTS_PER_INCH);
+        int     moveCountsTR = (int)(distanceR * MainBase.COUNTS_PER_INCH);
 
         double  max;
         double  leftMax;
         double  rightMax;
         double  error;
-        double  speedTL;
-        double  speedTR;
-        double  speedBL;
-        double  speedBR;
+        double  speedL;
+        double  speedR;
         double  ErrorAmount;
         boolean goodEnough = false;
 
@@ -169,32 +167,20 @@ public class MainBase {
                 double steer = getSteer(error, 0.15);
 
                 // If driving in reverse, the motor correction also needs to be reversed
-                if (distanceTL > 0)
-                    speedTL  = speed - steer;
-                else speedTL = speed + steer;
+                if (distanceL > 0)
+                    speedL  = speed - steer;
+                else speedL = speed + steer;
 
-                if (distanceTR > 0)
-                    speedTR  = speed + steer;
-                else speedTR = speed - steer;
-
-                if (distanceBL > 0)
-                    speedBL  = speed - steer;
-                else speedBL = speed + steer;
-
-                if (distanceBR > 0)
-                    speedBR  = speed + steer;
-                else speedBR = speed - steer;
+                if (distanceR > 0)
+                    speedR  = speed + steer;
+                else speedR = speed - steer;
 
                 // Normalize speeds if either one exceeds +/- 1.0
-                leftMax  = Math.max(Math.abs(speedTL), Math.abs(speedTR));
-                rightMax = Math.max(Math.abs(speedBL), Math.abs(speedBR));
-                max      = Math.max(leftMax,rightMax);
+                max = Math.max(speedL,speedR);
                 if (max > 1.0)
                 {
-                    speedTL /= max;
-                    speedTR /= max;
-                    speedBL /= max;
-                    speedBR /= max;
+                    speedL /= max;
+                    speedR /= max;
                 }
 
                 ErrorAmount = (Math.abs(((newTLTarget) - (leftDT.getCurrentPosition()))))
@@ -203,15 +189,15 @@ public class MainBase {
                     goodEnough = true;
                 }
 
-                leftDT.setPower(speedTL);
-                rightDT.setPower(speedTR);
+                leftDT.setPower(speedL);
+                rightDT.setPower(speedR);
 
                 // Display drive status for the driver.
                 opmode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
                 opmode.telemetry.addData("Target",  "%7d:%7d:%7d:%7d", newTLTarget, newTRTarget);
                 opmode.telemetry.addData("Actual",  "%7d:%7d:%7d:%7d", leftDT.getCurrentPosition(),
                         rightDT.getCurrentPosition());
-                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedTL, speedTR, speedBL, speedBR);
+                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedL, speedR);
 
                 opmode.telemetry.addData("FL: ", leftDT.isBusy());
                 opmode.telemetry.addData("FR: ", rightDT.isBusy());
@@ -229,9 +215,8 @@ public class MainBase {
         }
     }
 
-    public void encoderDrive ( double speed,
-                               double leftDTInches, double rightDTInches, double backLeftInches,
-                               double backRightInches, LinearOpMode opMode){
+    public void encoderDrive(double speed, double leftDTInches, double rightDTInches,
+                             LinearOpMode opMode){
         int newleftDTTarget;
         int newrightDTTarget;
         double ErrorAmount;
@@ -379,6 +364,7 @@ public class MainBase {
             opmode.telemetry.update();
         }
     }
+
     public void sleepV2(double wait, LinearOpMode opmode){
         double finalTime = opmode.time + wait;
         while(finalTime > opmode.time){
@@ -420,8 +406,31 @@ public class MainBase {
         return onTarget;
     }
 
-    /*public void lift(double height, double speed, LinearOpMode opmode){
+    public void lift(int level, LinearOpMode opmode){
+        int levelOne       = 0;
+        int levelTwo       = 1000;
+        int levelThree     = 2000;
+        int currentEncoder = lift.getCurrentPosition();
+        int targetEncoder;
 
-    }*/
+        if(level == 1){
+            targetEncoder = levelOne;
+        }
+        else if(level == 2){
+            targetEncoder = levelTwo;
+        }
+        else{
+            targetEncoder = levelThree;
+        }
+
+        double power = 1;
+        if(Math.abs(targetEncoder - currentEncoder) < 100){
+            power = 0.3;
+        }
+        if(targetEncoder < currentEncoder){
+            power = -power;
+        }
+        lift.setPower(power);
+    }
 
 }

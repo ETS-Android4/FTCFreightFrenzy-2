@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @TeleOp(name="MainTeleOp")
@@ -13,9 +15,11 @@ public class MainTeleOp extends LinearOpMode{
     public boolean   GP1_RB_Held = false;
     public boolean   GP2_LB_Held = false;
     public boolean   SlowMode    = false;
+    public boolean   AUTO_LIFT   = false;
     public double    CLAW_OPEN   = 0.5;
     public double    CLAW_CLOSED = 0.1;
-    public double    DUCK_SPEED  = -0.8;
+    public double    DUCK_SPEED  = -0.7;
+
 
 
     @Override
@@ -100,13 +104,36 @@ public class MainTeleOp extends LinearOpMode{
             base.rightDuck.setPower(0);
         }
 
-        //---------------Lift-System---------------\\
+        //---------------LIFT-SYSTEM---------------\\
+        if(gamepad2.a){
+            base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
         double liftArm = -gamepad2.right_stick_y;
         if(Math.abs(liftArm) < 0.1){
-            base.lift.setPower(0);
+            int level = 3;
+            if(gamepad2.dpad_up){
+                AUTO_LIFT = true;
+                level = 3;
+            }
+            else if(gamepad2.dpad_left || gamepad2.dpad_right){
+                AUTO_LIFT = true;
+                level = 2;
+            }
+            else if(gamepad2.dpad_down){
+                AUTO_LIFT = true;
+                level = 1;
+            }
+            if(AUTO_LIFT){
+                base.lift(level,this);
+            }
+            else{
+                base.lift.setPower(0);
+            }
         }
         else{
             base.lift.setPower(liftArm);
+            AUTO_LIFT = false;
         }
 
         //---------------LEFT-CLAW---------------\\
@@ -133,6 +160,5 @@ public class MainTeleOp extends LinearOpMode{
         else{
             base.rightClaw.setPower(0);
             }
-
         }
     }

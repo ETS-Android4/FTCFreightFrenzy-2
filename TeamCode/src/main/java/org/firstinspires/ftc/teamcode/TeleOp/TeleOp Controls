@@ -41,7 +41,7 @@ right joystick button --- N/A
 
 ---------------- Button-Controls ----------------
 
-a  ----------------------
+a  ---------------------- RESET LIFT ENCODERS
 b  ---------------------- RIGHT DUCK DELIVERY
 x  ---------------------- LEFT DUCK DELIVERY
 y  ----------------------
@@ -52,7 +52,7 @@ right trigger ----------- N/A
 
 ---------------- D-Pad Controls ----------------
 
-D-pad left --------------
-D-pad bottom ------------
-D-pad right -------------
-D-pad top ---------------
+D-pad left -------------- LIFT LEVEL TWO
+D-pad bottom ------------ LIFT LEVEL ONE
+D-pad right ------------- LIFT LEVEL TWO
+D-pad top --------------- LIFT LEVEL THREE
