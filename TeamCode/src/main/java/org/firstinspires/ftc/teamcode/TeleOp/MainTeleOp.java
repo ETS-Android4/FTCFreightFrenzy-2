@@ -155,7 +155,7 @@ public class MainTeleOp extends LinearOpMode{
 
         //---------------RIGHT CLAW---------------\\
         if(gamepad2.right_bumper) {
-            base.rightClaw.setPower(0.7);
+            base.rightClaw.setPower(0.5);
             }
         else{
             base.rightClaw.setPower(0);

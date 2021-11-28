@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Autonomous(name="Main BLUE")
+@Autonomous(name="Main RED")
 public class MainRed extends LinearOpMode{
 
     MainBase base = new MainBase();
