@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Auto.ContourDetector;
+//import org.firstinspires.ftc.teamcode.Auto.ContourDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @Autonomous(name="DT Test")

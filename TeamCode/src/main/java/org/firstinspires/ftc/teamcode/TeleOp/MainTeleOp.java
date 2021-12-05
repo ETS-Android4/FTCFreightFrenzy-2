@@ -48,7 +48,7 @@ public class MainTeleOp extends LinearOpMode {
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
         double forward = -gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x;
+        double turn = -gamepad1.right_stick_x;
 
         double leftPower = forward + turn;
         double rightPower = forward - turn;
@@ -152,17 +152,25 @@ public class MainTeleOp extends LinearOpMode {
             GP2_RB_Held = true;
             if (base.rightClaw.getPosition() == RCLAW_CLOSED) {
                 base.rightClaw.setPosition(RCLAW_OPEN);
+
+                telemetry.addData("RIGHT CLAW OPEN","");
+                telemetry.update();
             } else {
                 base.rightClaw.setPosition(RCLAW_CLOSED);
+
+                telemetry.addData("RIGHT CLAW CLOSED","");
+                telemetry.update();
             }
         }
+        telemetry.update();
         if (!gamepad2.right_bumper) {
             GP2_RB_Held = false;
         }
 
+
         //---------------BUCKET---------------\\
         if (gamepad2.y && !GP2_Y_Held) {
-            if (Math.abs(base.bucket.getPosition() - BUCKET_CLOSED) < 0.01) {
+            if (base.bucket.getPosition() == BUCKET_CLOSED) {
                 base.bucket.setPosition(BUCKET_OPEN);
             } else {
                 base.bucket.setPosition(BUCKET_CLOSED);

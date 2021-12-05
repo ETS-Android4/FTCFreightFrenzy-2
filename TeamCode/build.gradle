@@ -22,6 +22,6 @@ dependencies {
     implementation 'org.ftclib.ftclib:core:1.2.1' // core
 }
 
-/*dependencies {
+dependencies {
     implementation 'org.openftc:easyopencv:1.5.1'
-}*/
+}

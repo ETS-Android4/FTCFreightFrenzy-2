@@ -1,16 +1,16 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-/*import com.arcrobotics.ftclib.vision.UGContourRingPipeline;
+import com.arcrobotics.ftclib.vision.UGContourRingPipeline;
 import com.arcrobotics.ftclib.vision.UGContourRingDetector;
 import com.arcrobotics.ftclib.vision.UGContourRingDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.openftc.easyopencv.OpenCvCameraRotation;*/
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
-public class ContourDetector{
+/*public class ContourDetector{
 
-    /*public UGContourRingDetector ringDetector;
+    public UGContourRingDetector ringDetector;
 
     public ContourDetector(HardwareMap hardwareMap, Telemetry telemetry){
 
@@ -25,5 +25,5 @@ public class ContourDetector{
         ringDetector = new UGContourRingDetector(hardwareMap, "sideCAM", telemetry, true);
 
         ringDetector.init();
-    }*/
-}
+    }
+}*/
