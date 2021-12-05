@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -22,8 +23,8 @@ public class MainBase {
     public DcMotor leftDuck    = null;
     public DcMotor rightDuck   = null;
     public DcMotor lift        = null;
-    public CRServo rightClaw   = null;
-    public CRServo bucket      = null;
+    public Servo   rightClaw   = null;
+    public Servo   bucket      = null;
     public Servo   leftClaw    = null;
 
 
@@ -56,8 +57,8 @@ public class MainBase {
         leftDuck  = hwMap.get(DcMotor.class, "leftDuck");
         rightDuck = hwMap.get(DcMotor.class, "rightDuck");
         lift      = hwMap.get(DcMotor.class, "lift");
-        rightClaw = hwMap.get(CRServo.class,"rightClaw");
-        bucket    = hwMap.get(CRServo.class,"bucket");
+        rightClaw = hwMap.get(Servo.class,"rightClaw");
+        bucket    = hwMap.get(Servo.class,"bucket");
         leftClaw  = hwMap.get(Servo.class, "leftClaw");
 
         backRange = hwMap.get(ModernRoboticsI2cRangeSensor.class,"backRange");
@@ -71,7 +72,7 @@ public class MainBase {
         gyro.calibrate();
 
         leftDT.setDirection(DcMotor.Direction.REVERSE);
-        rightDT.setDirection(DcMotor.Direction.FORWARD);
+        rightDT.setDirection(DcMotor.Direction.REVERSE);
 
         //leftDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         //rightDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -81,8 +82,8 @@ public class MainBase {
         leftDuck.setPower(0);
         rightDuck.setPower(0);
         lift.setPower(0);
-        rightClaw.setPower(0);
-        bucket.setPower(0);
+        rightClaw.setPosition(0.3);
+        bucket.setPosition(0.3);
         leftClaw.setPosition(0);
     }
 
@@ -408,8 +409,8 @@ public class MainBase {
 
     public void lift(int level, LinearOpMode opmode){
         int levelOne       = 0;
-        int levelTwo       = 1000;
-        int levelThree     = 2000;
+        int levelTwo       = 3000;
+        int levelThree     = 4000;
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
 

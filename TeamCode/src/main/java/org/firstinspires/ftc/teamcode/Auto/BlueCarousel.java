@@ -1,20 +1,22 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Autonomous(name="Main BLUE")
-public class MainBlue extends LinearOpMode{
+@Disabled
+@Autonomous(name= "BLUE Carousel")
+public class BlueCarousel extends LinearOpMode{
 
     MainBase base = new MainBase();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
+        //ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
 
         base.init(hardwareMap);
 
@@ -29,25 +31,24 @@ public class MainBlue extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        /*int position = detector.getDecision();
-        detector.setTelemShow(false);
+        int position = 0;
 
         //---------------- CASE LEFT ----------------
-        if (position == 0){
+        if (position == 0) {
             //Robot movements for "Case Left" position of team marker.
 
         }
 
         //---------------- CASE MIDDLE ----------------
-        else if(position == 1){
+        else if (position == 1) {
             //Robot movements for "Case Middle" position of team marker.
 
         }
 
         //---------------- CASE RIGHT ----------------
-        else{
+        else if (position == 3) {
             //Robot movements for "Case Right" position of team marker.
 
-        }*/
+        }
     }
 }

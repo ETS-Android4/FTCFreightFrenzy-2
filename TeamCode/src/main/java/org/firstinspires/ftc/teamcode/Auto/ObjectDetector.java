@@ -3,18 +3,18 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.opencv.core.Mat;
+/*import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvPipeline;*/
 
 public class ObjectDetector {
 
-    OpMode opMode;
+    /*OpMode opMode;
     OpenCvCamera camera;
 
     CustomPipeline pipeline;
@@ -129,5 +129,5 @@ public class ObjectDetector {
 
     public void setTelemShow(boolean show){
         this.show_value = show;
-    }
+    }*/
 }

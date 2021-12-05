@@ -32,7 +32,7 @@ D-pad top ---------------- N/A
 
 ------------------------------------ GAMEPAD-2 ------------------------------------
 
-left joystick y --------- BUCKET
+left joystick y --------- N/A
 left joystick x --------- N/A
 left joystick button ---- N/A
 right joystick y -------- LIFT
@@ -44,7 +44,7 @@ right joystick button --- N/A
 a  ---------------------- RESET LIFT ENCODERS
 b  ---------------------- RIGHT DUCK DELIVERY
 x  ---------------------- LEFT DUCK DELIVERY
-y  ----------------------
+y  ---------------------- BUCKET SWIVEL
 left bumper (higher up) - LEFT BUCKET CLAW
 right bumper (higher up)- RIGHT BUCKET CLAW
 left trigger ------------ N/A
