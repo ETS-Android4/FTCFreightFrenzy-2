@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Auto.Detection;
 
 import com.arcrobotics.ftclib.vision.UGContourRingPipeline;
 import com.arcrobotics.ftclib.vision.UGContourRingDetector;
