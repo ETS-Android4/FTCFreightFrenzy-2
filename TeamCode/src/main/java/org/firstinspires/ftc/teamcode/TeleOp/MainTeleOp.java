@@ -25,6 +25,7 @@ public class MainTeleOp extends LinearOpMode {
     public double  BUCKET_OPEN   = 0.5;
     public double  BUCKET_CLOSED = 0.3;
     public double  DUCK_SPEED = -0.42;
+    int level = 0;
 
 
     @Override
@@ -47,8 +48,8 @@ public class MainTeleOp extends LinearOpMode {
     public void custom_loop() {
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
-        double forward = -gamepad1.left_stick_y;
-        double turn = -gamepad1.right_stick_x;
+        double forward = gamepad1.left_stick_y;
+        double turn = gamepad1.right_stick_x;
 
         double leftPower = forward + turn;
         double rightPower = forward - turn;
@@ -113,7 +114,6 @@ public class MainTeleOp extends LinearOpMode {
 
         double liftArm = -gamepad2.right_stick_y;
         if (Math.abs(liftArm) < 0.1) {
-            int level = 3;
             if (gamepad2.dpad_up) {
                 AUTO_LIFT = true;
                 level = 3;
@@ -154,12 +154,10 @@ public class MainTeleOp extends LinearOpMode {
                 base.rightClaw.setPosition(RCLAW_OPEN);
 
                 telemetry.addData("RIGHT CLAW OPEN","");
-                telemetry.update();
             } else {
                 base.rightClaw.setPosition(RCLAW_CLOSED);
 
                 telemetry.addData("RIGHT CLAW CLOSED","");
-                telemetry.update();
             }
         }
         telemetry.update();

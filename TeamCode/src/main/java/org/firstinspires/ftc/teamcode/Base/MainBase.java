@@ -71,7 +71,7 @@ public class MainBase {
         gyro.initialize();
         gyro.calibrate();
 
-        leftDT.setDirection(DcMotor.Direction.REVERSE);
+        leftDT.setDirection(DcMotor.Direction.FORWARD);
         rightDT.setDirection(DcMotor.Direction.REVERSE);
 
         //leftDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -82,7 +82,7 @@ public class MainBase {
         leftDuck.setPower(0);
         rightDuck.setPower(0);
         lift.setPower(0);
-        rightClaw.setPosition(0);
+        rightClaw.setPosition(0.9);
         bucket.setPosition(0.3);
         leftClaw.setPosition(0);
     }
