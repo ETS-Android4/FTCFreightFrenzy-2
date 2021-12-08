@@ -19,18 +19,31 @@ public class ObjectDetector {
 
     CustomPipeline pipeline;
 
-    private final Point BLUE_TOP_TL    = new Point(130,40);
-    private final Point BLUE_TOP_BR    = new Point(185, 85);
+    private final Point BLUE_LEFT_TL = new Point(90,90);
+    private final Point BLUE_LEFT_BR = new Point(140, 120);
+    private final Point BLUE_MIDDLE_TL = new Point(185, 90);
+    private final Point BLUE_MIDDLE_BR = new Point(235,  120);
+    private final Point BLUE_RIGHT_TL = new Point(265, 90);
+    private final Point BLUE_RIGHT_BR = new Point(315, 120);
+
+    private final Point RED_LEFT_TL = new Point(0,135);
+    private final Point RED_LEFT_BR = new Point(50, 165);
+    private final Point RED_MIDDLE_TL = new Point(62, 140);
+    private final Point RED_MIDDLE_BR = new Point(125,  170);
+    private final Point RED_RIGHT_TL = new Point(155, 140);
+    private final Point RED_RIGHT_BR = new Point(215, 170);
+
+    private Point leftTL;
+    private Point leftBR;
+    private Point middleTL;
+    private Point middleBR;
+    private Point rightTL;
+    private Point rightBR;
 
 
-    private final Point RED_TOP_TL     = new Point(0,135);
-    private final Point RED_TOP_BR     = new Point(50, 165);
-
-
-    private Point topTL;
-    private Point topBR;
-
-    private RGBColor box;
+    private RGBColor left;
+    private RGBColor middle;
+    private RGBColor right;
     private boolean show_value = true;
 
     public ObjectDetector(OpMode op, boolean isRed){
@@ -47,30 +60,39 @@ public class ObjectDetector {
         camera.setPipeline(pipeline);
         camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-        topTL = (isRed) ? RED_TOP_TL : BLUE_TOP_TL;
-        topBR = (isRed) ? RED_TOP_BR : BLUE_TOP_BR;
+        leftTL = (isRed) ? RED_LEFT_TL : BLUE_LEFT_TL;
+        leftBR = (isRed) ? RED_LEFT_BR : BLUE_LEFT_BR;
+        middleTL = (isRed) ? RED_MIDDLE_TL : BLUE_MIDDLE_TL;
+        middleBR = (isRed) ? RED_MIDDLE_BR : BLUE_MIDDLE_BR;
+        rightTL = (isRed) ? RED_RIGHT_TL : BLUE_RIGHT_TL;
+        rightBR = (isRed) ? RED_RIGHT_BR : BLUE_RIGHT_BR;
     }
 
     public void stopStreaming(){
         camera.stopStreaming();
     }
+    public enum POSITIONS {
+        LEFT, MIDDLE, RIGHT
+    }
+    public POSITIONS getDecision(){
 
-    public int getDecision(){
-
-        int boxValue = box.getBlue();
+        int leftValue   = left.getBlue();
+        int middleValue = middle.getBlue();
+        int rightValue  = right.getBlue();
 
         if (show_value){
-            opMode.telemetry.addData("Box Value: ", boxValue);
+            opMode.telemetry.addData("Left Value: ", leftValue);
+            opMode.telemetry.addData("Middle Value: ", middleValue);
+            opMode.telemetry.addData("Right Value: ", rightValue);
             opMode.telemetry.update();
         }
-
-        if (boxValue < 200) {
-            return 0;
+        if(leftValue > middleValue && leftValue > rightValue){
+            return POSITIONS.LEFT;
         }
-        else if (boxValue < 270) {
-            return 1;
+        else if(middleValue > leftValue && middleValue > rightValue){
+            return POSITIONS.MIDDLE;
         }
-        else return 2;
+        return POSITIONS.RIGHT;
     }
 
     class CustomPipeline extends OpenCvPipeline {
@@ -78,20 +100,19 @@ public class ObjectDetector {
         @Override
         public Mat processFrame(Mat input){
 
-            box = getAverageColor(input, topTL, topBR);
+            left = getAverageColor(input, leftTL, leftBR);
+            middle = getAverageColor(input, middleTL, middleBR);
+            right = getAverageColor(input, rightTL, rightBR);
 
             int thickness = 3;
+            Scalar leftColor   = new Scalar(255,0,0);
+            Scalar middleColor = new Scalar(255,0,0);
+            Scalar rightColor = new Scalar(255,0,0);
 
-            Scalar topColor = new Scalar(255,0,0);
-            int position = getDecision();
-            if (position == 4){
-                topColor = new Scalar(0,255,0);
-            }
-            else if (position == 1){
-                topColor = new Scalar(0,255,0);
-            }
+            Imgproc.rectangle(input, leftTL, leftBR, leftColor, thickness);
+            Imgproc.rectangle(input, middleTL, middleBR, middleColor, thickness);
+            Imgproc.rectangle(input, rightTL, rightBR, rightColor, thickness);
 
-            Imgproc.rectangle(input, topTL, topBR, topColor, thickness);
 
             //sendTelemetry();
 
@@ -121,7 +142,9 @@ public class ObjectDetector {
         }
 
         private void sendTelemetry(){
-            opMode.telemetry.addLine("Top :" + " R " + box.getRed() + " G " + box.getGreen() + " B " + box.getBlue());
+            opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getBlue());
+            opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getBlue());
+            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getBlue());
             opMode.telemetry.update();
         }
 
