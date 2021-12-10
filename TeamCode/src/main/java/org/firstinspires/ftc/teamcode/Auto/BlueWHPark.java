@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Disabled
-@Autonomous(name= "BLUE Carousel")
-public class BlueCarousel extends LinearOpMode{
+
+@Autonomous(name= "BLUE WH Park")
+public class BlueWHPark extends LinearOpMode{
 
     MainBase base = new MainBase();
 
@@ -30,28 +30,11 @@ public class BlueCarousel extends LinearOpMode{
 
         waitForStart();
 
-        base.gyro.resetZAxisIntegrator();
+        //Blue autonomous: Parks in Warehouse
+        //19,90l,53
+        base.encoderDrive(.5,19,19,this);
+        base.gyroTurn(.5,270, this);
+        base.encoderDrive(.5,53,53,this);
 
-        ObjectDetector.POSITIONS position = detector.getDecision();
-        detector.getDecision();
-
-        //---------------- CASE LEFT ----------------
-        if (position == ObjectDetector.POSITIONS.LEFT) {
-            //Robot movements for "Case Left" position of team marker.
-
-
-        }
-
-        //---------------- CASE MIDDLE ----------------
-        else if (position == ObjectDetector.POSITIONS.MIDDLE) {
-            //Robot movements for "Case Middle" position of team marker.
-
-        }
-
-        //---------------- CASE RIGHT ----------------
-        else if (position == ObjectDetector.POSITIONS.RIGHT) {
-            //Robot movements for "Case Right" position of team marker.
-
-        }
     }
 }

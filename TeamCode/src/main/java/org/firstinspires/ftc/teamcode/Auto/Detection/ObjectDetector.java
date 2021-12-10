@@ -106,8 +106,8 @@ public class ObjectDetector {
 
             int thickness = 3;
             Scalar leftColor   = new Scalar(255,0,0);
-            Scalar middleColor = new Scalar(255,0,0);
-            Scalar rightColor = new Scalar(255,0,0);
+            Scalar middleColor = new Scalar(255,255,255);
+            Scalar rightColor = new Scalar(0,0,255);
 
             Imgproc.rectangle(input, leftTL, leftBR, leftColor, thickness);
             Imgproc.rectangle(input, middleTL, middleBR, middleColor, thickness);
