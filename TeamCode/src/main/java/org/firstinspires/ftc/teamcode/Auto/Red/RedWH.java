@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,15 +8,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @Disabled
-@Autonomous(name="BLUE WH")
-public class BlueWH extends LinearOpMode{
+@Autonomous(name="RED WH")
+public class RedWH extends LinearOpMode{
 
     MainBase base = new MainBase();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
+        //ObjectDetector detector = new ObjectDetector(this, false);
+
 
         base.init(hardwareMap);
 
@@ -34,19 +35,19 @@ public class BlueWH extends LinearOpMode{
         int position = 0;
 
         //---------------- CASE LEFT ----------------
-        if (position == 0) {
+        if (position == 0){
             //Robot movements for "Case Left" position of team marker.
 
         }
 
         //---------------- CASE MIDDLE ----------------
-        else if (position == 1) {
+        else if(position == 1){
             //Robot movements for "Case Middle" position of team marker.
 
         }
 
         //---------------- CASE RIGHT ----------------
-        else if (position == 3) {
+        else if(position == 3){
             //Robot movements for "Case Right" position of team marker.
 
         }

@@ -1,23 +1,23 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @Disabled
-@Autonomous(name= "BLUE Carousel")
-public class BlueCarousel extends LinearOpMode{
+@Autonomous(name="RED Carousel")
+public class REDCarousel extends LinearOpMode{
 
     MainBase base = new MainBase();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
+        //ObjectDetector detector = new ObjectDetector(this, false);
+
 
         base.init(hardwareMap);
 
@@ -32,24 +32,22 @@ public class BlueCarousel extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        ObjectDetector.POSITIONS position = detector.getDecision();
-        detector.getDecision();
+        int position = 0;
 
         //---------------- CASE LEFT ----------------
-        if (position == ObjectDetector.POSITIONS.LEFT) {
+        if (position == 0){
             //Robot movements for "Case Left" position of team marker.
-
 
         }
 
         //---------------- CASE MIDDLE ----------------
-        else if (position == ObjectDetector.POSITIONS.MIDDLE) {
+        else if(position == 1){
             //Robot movements for "Case Middle" position of team marker.
 
         }
 
         //---------------- CASE RIGHT ----------------
-        else if (position == ObjectDetector.POSITIONS.RIGHT) {
+        else if(position == 3){
             //Robot movements for "Case Right" position of team marker.
 
         }

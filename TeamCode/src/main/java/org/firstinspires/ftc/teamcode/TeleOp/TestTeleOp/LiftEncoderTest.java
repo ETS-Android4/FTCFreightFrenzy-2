@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.TeleOp.TestTeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
+@Disabled
 @TeleOp(name = "LiftEncoderTest")
 public class LiftEncoderTest extends LinearOpMode{
 
