@@ -83,8 +83,8 @@ public class MainBase {
         rightDuck.setPower(0);
         lift.setPower(0);
         rightClaw.setPosition(0.9);
-        bucket.setPosition(0.52);
         leftClaw.setPosition(0.3);
+        bucket.setPosition(0.52);
     }
 
     /*public boolean getCurrentRPM(double initTime, double currentTime, int initPos, int currentPos, LinearOpMode opMode){

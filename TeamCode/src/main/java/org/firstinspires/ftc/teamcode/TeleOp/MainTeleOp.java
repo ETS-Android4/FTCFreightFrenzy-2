@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @TeleOp(name="MainTeleOp")
@@ -77,9 +78,13 @@ public class MainTeleOp extends LinearOpMode {
         if (gamepad1.right_bumper && !GP1_RB_Held) {
             GP1_RB_Held = true;
             SlowMode = !SlowMode;
+            telemetry.addData("SLOWMODE ON", "");
+            telemetry.update();
         }
         if (!gamepad1.right_bumper) {
             GP1_RB_Held = false;
+            telemetry.addData("SLOWMODE OFF", "");
+            telemetry.update();
         }
 
         if (SlowMode) {
@@ -175,6 +180,15 @@ public class MainTeleOp extends LinearOpMode {
             }
         }
         GP2_Y_Held = gamepad2.y;
+
+
+        //------------------DEDICATED-TELEMETRY------------------\\
+
+        //---------------SENSORS---------------\\
+        telemetry.addData("Gyro Angle: ", base.gyro.getIntegratedZValue());
+        telemetry.addData("Back Range: ", base.backRange.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Side Range: ", base.sideRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
 
     }
 }
