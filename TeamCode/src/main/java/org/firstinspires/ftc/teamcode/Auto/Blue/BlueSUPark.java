@@ -32,10 +32,16 @@ public class BlueSUPark extends LinearOpMode{
 
         //Blue autonomous: Delivers Duck and Parks in Storage Unit
         //26,90l,26
-        base.encoderDrive(.5, 0.1, 0.1, this);
-        base.gyroTurn(.5, 90, this);
-        base.encoderDrive(.5, 0.1, 0.1, this);
-        sleep(30000);
+        base.encoderDrive(.5,-23,-23,this);
+        base.leftDuck.setPower(-.42);
+        sleep(2500);
+        base.encoderDrive(.5,6,6,this);
+        base.gyroTurn(.5,90, this);
+        base.encoderDrive(.5,6,6,this);
+        base.gyroTurn(.5,90, this);
+        base.encoderDrive(.5,3,3,this);
+        base.gyroTurn(.5,-90, this);
+        base.encoderDrive(.5,8,8,this);
 
     }
 }
