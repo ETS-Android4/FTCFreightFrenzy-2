@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 
-@Autonomous(name= "BLUE SU PARK")
-public class BlueSUPark extends LinearOpMode{
+@Autonomous(name= "RED SU Park")
+public class RedSUPark extends LinearOpMode{
 
     MainBase base = new MainBase();
 
@@ -30,12 +30,11 @@ public class BlueSUPark extends LinearOpMode{
 
         waitForStart();
 
-        //Blue autonomous: Delivers Duck and Parks in Storage Unit
+        //Red autonomous: Delivers Duck and Parks in Storage Unit
         //26,90l,26
-        base.encoderDrive(.5, 0.1, 0.1, this);
-        base.gyroTurn(.5, 90, this);
-        base.encoderDrive(.5, 0.1, 0.1, this);
-        sleep(30000);
+        base.encoderDrive(.5,26,26,this);
+        base.gyroTurn(.5,90, this);
+        base.encoderDrive(.5,26,26,this);
 
     }
 }
