@@ -34,7 +34,7 @@ public class BlueWH extends LinearOpMode{
         int position = 0;
 
         //---------------- CASE LEFT ----------------
-        if (position == 0) {
+        /*if (position == 0) {
             //Robot movements for "Case Left" position of team marker.
 
         }
@@ -46,9 +46,49 @@ public class BlueWH extends LinearOpMode{
         }
 
         //---------------- CASE RIGHT ----------------
-        else if (position == 3) {
+        else if (position == 2) {
             //Robot movements for "Case Right" position of team marker.
 
+        }*/
+
+        //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
+        //Position: facing forward
+
+        base.encoderDrive(.5,6,6,this); //clear wall
+        base.gyroTurn(.5,10,this); //face hub
+        base.encoderDrive(.5,7,7,this); //drive to hub
+        switch (position) { //hub level test result goes there <==
+            case 0: //lvl. 1
+                base.lift(1,this);
+                base.bucket.setPosition(0.5);
+                sleep(1000);
+                base.leftClaw.setPosition(0.75);
+                sleep(5000);
+                break;
+            case 1: //lvl. 2
+                base.lift(2,this);
+                base.bucket.setPosition(0.5);
+                sleep(1000);
+                base.leftClaw.setPosition(0.75);
+                sleep(5000);
+                break;
+            case 2: //lvl. 3
+                base.lift(3,this);
+                base.bucket.setPosition(0.5);
+                sleep(1000);
+                base.leftClaw.setPosition(0.75);
+                sleep(5000);
+                break;
+            default: //just in case
+                base.lift(3,this);
+                base.bucket.setPosition(0.5);
+                sleep(1000);
+                base.leftClaw.setPosition(0.75);
+                sleep(5000);
+                break;
         }
+        base.gyroTurn(.5,100,this); // turn towards warehouse
+        base.encoderDrive(.5,60,60,this); //drive into warehouse
+        base.lift(1,this); base.bucket.setPosition(0.3); base.leftClaw.setPosition(0.1); //set and close bucket
     }
 }
