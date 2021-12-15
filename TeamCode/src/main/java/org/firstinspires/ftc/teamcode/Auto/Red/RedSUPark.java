@@ -7,12 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
+import org.firstinspires.ftc.teamcode.Base.Variables;
 
 
 @Autonomous(name= "RED SU Park")
 public class RedSUPark extends LinearOpMode{
 
     MainBase base = new MainBase();
+    Variables var = new Variables();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,16 +34,16 @@ public class RedSUPark extends LinearOpMode{
 
         //Red autonomous: Delivers Duck and Parks in Storage Unit
         //23b,Duck,6f,90l,6f,90l,3f,90r,8f
-        base.encoderDrive(.5,-23,-23,this);
-        base.rightDuck.setPower(.42);
-        sleep(2500);
-        base.encoderDrive(.5,6,6,this);
-        base.gyroTurn(.5,-90, this);
-        base.encoderDrive(.5,6,6,this);
-        base.gyroTurn(.5,-90, this);
-        base.encoderDrive(.5,3,3,this);
-        base.gyroTurn(.5,90, this);
-        base.encoderDrive(.5,8,8,this);
+        base.encoderDrive(.5,-23,-23,this); // drive to Carousel
+        base.rightDuck.setPower(.42); // spin it
+        sleep(2500); // for 2.5 sec.
+        base.encoderDrive(.5,var.CLEAR_WALL, var.CLEAR_WALL, this); //clear carousel y
+        base.gyroTurn(.5,-90, this); // rotate to face away from starting wall
+        base.encoderDrive(.5,6,6,this); // clear carousel x
+        base.gyroTurn(.5,-90, this); // rotate to face SU wall
+        base.encoderDrive(.5,3,3,this); // drive towards SU wall
+        base.gyroTurn(.5,90, this); // rotate to face SU
+        base.encoderDrive(.5,8,8,this); // drive into SU
 
 
 
