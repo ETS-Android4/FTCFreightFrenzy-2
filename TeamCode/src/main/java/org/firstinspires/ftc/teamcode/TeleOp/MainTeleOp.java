@@ -18,11 +18,11 @@ public class MainTeleOp extends LinearOpMode {
     public boolean GP2_Y_Held    = false;
     public boolean SlowMode      = false;
     public boolean AUTO_LIFT     = false;
-    public double  LCLAW_OPEN    = 0.75;
-    public double  LCLAW_CLOSED  = 0.1; //Delux hitec 485HB
-    public double  RCLAW_OPEN    = 0;
-    public double  RCLAW_CLOSED  = 0.6;
-    public double  BUCKET_OPEN   = 0.5;
+    public double  LCLAW_OPEN    = .6;
+    public double  LCLAW_CLOSED  = 0; //Delux hitec 485HB
+    public double  RCLAW_OPEN    = 0.25;
+    public double  RCLAW_CLOSED  = 0.75;
+    public double  BUCKET_OPEN   = 0.75;
     public double  BUCKET_CLOSED = 0.3;
     public double  DUCK_SPEED = -0.42;
     int level = 0;

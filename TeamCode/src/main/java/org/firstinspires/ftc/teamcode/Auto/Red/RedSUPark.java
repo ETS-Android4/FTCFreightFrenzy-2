@@ -38,16 +38,12 @@ public class RedSUPark extends LinearOpMode{
         base.rightDuck.setPower(.42); // spin it
         sleep(2500); // for 2.5 sec.
         base.encoderDrive(.5,var.CLEAR_WALL, var.CLEAR_WALL, this); //clear carousel y
-        base.gyroTurn(.5,-90, this); // rotate to face away from starting wall
+        base.gyroTurn(.5,-100, this); // rotate to face away from starting wall
         base.encoderDrive(.5,6,6,this); // clear carousel x
         base.gyroTurn(.5,-90, this); // rotate to face SU wall
         base.encoderDrive(.5,3,3,this); // drive towards SU wall
         base.gyroTurn(.5,90, this); // rotate to face SU
         base.encoderDrive(.5,8,8,this); // drive into SU
-
-
-
-
 
     }
 }

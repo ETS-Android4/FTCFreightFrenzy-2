@@ -34,8 +34,7 @@ public class BlueSUPark extends LinearOpMode{
 
         //Blue autonomous: Delivers Duck and Parks in Storage Unit
         //Position: Back facing Carousel
-        //26,90l,26
-        base.gyroTurn(.5, -30, this);
+        //base.gyroTurn(.5, -30, this);
         base.encoderDrive(.5,-23,-23,this); // drive to Carousel
         base.leftDuck.setPower(-.42); // spin it
         sleep(2500); // for 2.5 sec.
