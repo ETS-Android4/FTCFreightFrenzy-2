@@ -83,7 +83,7 @@ public class MainBase {
         rightDuck.setPower(0);
         lift.setPower(0);
         rightClaw.setPosition(0.9);
-        bucket.setPosition(0.52);
+        bucket.setPosition(0.75);
         leftClaw.setPosition(0.3);
     }
 
@@ -409,8 +409,8 @@ public class MainBase {
 
     public void lift(int level, LinearOpMode opmode){
         int levelOne       = 0;
-        int levelTwo       = 3000;
-        int levelThree     = 4000;
+        int levelTwo       = 30000;
+        int levelThree     = 38000;
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
 

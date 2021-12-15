@@ -174,7 +174,8 @@ public class MainTeleOp extends LinearOpMode {
                 base.bucket.setPosition(BUCKET_CLOSED);
             }
         }
-        GP2_Y_Held = gamepad2.y;
-
+        if (!gamepad2.y) {
+            GP2_Y_Held = false;
+        }
     }
 }

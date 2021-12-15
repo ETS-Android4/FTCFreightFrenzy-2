@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Disabled
+
 @TeleOp(name = "LiftEncoderTest")
 public class LiftEncoderTest extends LinearOpMode{
 
