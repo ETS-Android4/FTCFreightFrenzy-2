@@ -74,6 +74,11 @@ public class MainBase {
         leftDT.setDirection(DcMotor.Direction.FORWARD);
         rightDT.setDirection(DcMotor.Direction.REVERSE);
 
+        rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //leftDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         //rightDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
@@ -227,8 +232,8 @@ public class MainBase {
         if (opMode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newleftDTTarget = leftDT.getCurrentPosition() + (int) (leftDTInches * COUNTS_PER_INCH);
-            newrightDTTarget = rightDT.getCurrentPosition() + (int) (rightDTInches * COUNTS_PER_INCH);
+            newleftDTTarget = leftDT.getCurrentPosition() - (int) (leftDTInches * COUNTS_PER_INCH);
+            newrightDTTarget = rightDT.getCurrentPosition() - (int) (rightDTInches * COUNTS_PER_INCH);
             leftDT.setTargetPosition(newleftDTTarget);
             rightDT.setTargetPosition(newrightDTTarget);
 
@@ -241,15 +246,15 @@ public class MainBase {
             rightDT.setPower(Math.abs(speed));
 
             while (opMode.opModeIsActive() &&
-                    ((leftDT.isBusy() || rightDT.isBusy())) && !goodEnough) {
+                    ((leftDT.isBusy() && rightDT.isBusy())) && !goodEnough) {
 
                 // Display it for the driver.
                 opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newrightDTTarget);
                 opMode.telemetry.addData("Path2", "Running at %7d :%7d",
 
                         leftDT.getCurrentPosition(),
-                        rightDT.getCurrentPosition(),
-                opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition()));
+                        rightDT.getCurrentPosition());
+                opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition());
                 opMode.telemetry.addData("rightDT", rightDT.getCurrentPosition());
 
                 opMode.telemetry.update();
@@ -267,6 +272,7 @@ public class MainBase {
             // Turn off RUN_TO_POSITION
             leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         }
     }
 

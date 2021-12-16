@@ -177,5 +177,10 @@ public class MainTeleOp extends LinearOpMode {
         if (!gamepad2.y) {
             GP2_Y_Held = false;
         }
+
+
+        telemetry.addData("LeftDT Encoders: ", base.leftDT.getCurrentPosition());
+        telemetry.addData("RightDT Encoders: ", base.rightDT.getCurrentPosition());
+        telemetry.update();
     }
 }
