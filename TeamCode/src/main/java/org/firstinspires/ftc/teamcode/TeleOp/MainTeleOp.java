@@ -107,6 +107,7 @@ public class MainTeleOp extends LinearOpMode {
             base.rightDuck.setPower(0);
         }
 
+        //---------------LIFT---------------\\
         double liftArm = -gamepad2.right_stick_y;
         if (Math.abs(liftArm) < 0.1) {
             if (gamepad2.dpad_up) {
@@ -118,6 +119,9 @@ public class MainTeleOp extends LinearOpMode {
             } else if (gamepad2.dpad_down) {
                 AUTO_LIFT = true;
                 level = 1;
+            } else if (gamepad2.right_bumper) {
+                AUTO_LIFT = true;
+                level = 4;
             }
             if (AUTO_LIFT) {
                 base.lift(level, this);
@@ -128,6 +132,8 @@ public class MainTeleOp extends LinearOpMode {
             base.lift.setPower(liftArm);
             AUTO_LIFT = false;
         }
+
+        telemetry.addData("LIFT ENCODERS: ", base.lift.getCurrentPosition());
 
         //---------------LEFT-CLAW---------------\\
         if (gamepad2.left_bumper && !GP2_LB_Held) {
@@ -143,7 +149,7 @@ public class MainTeleOp extends LinearOpMode {
         }
 
         //---------------RIGHT CLAW---------------\\
-        if (gamepad2.right_bumper && !GP2_RB_Held) {
+        /*if (gamepad2.right_bumper && !GP2_RB_Held) {
             GP2_RB_Held = true;
             if (base.rightClaw.getPosition() == RCLAW_CLOSED) {
                 base.rightClaw.setPosition(RCLAW_OPEN);
@@ -154,8 +160,8 @@ public class MainTeleOp extends LinearOpMode {
 
                 telemetry.addData("RIGHT CLAW CLOSED","");
             }
-        }
-        telemetry.update();
+        }*/
+
         if (!gamepad2.right_bumper) {
             GP2_RB_Held = false;
         }

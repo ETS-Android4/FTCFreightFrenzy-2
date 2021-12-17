@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode.Base;
 
-import android.os.SystemClock;
-
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -37,15 +33,21 @@ public class MainBase {
     static final double     COUNTS_PER_MOTOR_REV    = 386.3;
     static final double     DRIVE_GEAR_REDUCTION    = 1.0;
     static final double     WHEEL_DIAMETER_INCHES   = 2.5;
-    public static final double     COUNTS_PER_INCH  = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)
+    static final double     EMPIRICAL_MULTIPLIER    = (30.0 / 17);
+    public static final double     COUNTS_PER_INCH  = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION * EMPIRICAL_MULTIPLIER)
             / (WHEEL_DIAMETER_INCHES * 3.14159265);
-    public double                  amountError        = 1.0;
+    public double                  amountError        = 0.6;
     public static final double     DRIVE_SPEED        = 1.0;
     public static final double     TURN_SPEED         = 0.5;
     public static final double     P_TURN_COEFF       = 0.1;
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
+    final int  LEVEL_ONE        = 0;
+    final int  LEVEL_TWO        = 8700;
+    final int  LEVEL_THREE      = 15350;
+    final int  LEVEL_CAP        = 15600;
+    final int  ACCEPTABLE_ERROR = 75;
 
     HardwareMap hwMap = null;
 
@@ -71,8 +73,8 @@ public class MainBase {
         gyro.initialize();
         gyro.calibrate();
 
-        leftDT.setDirection(DcMotor.Direction.FORWARD);
-        rightDT.setDirection(DcMotor.Direction.REVERSE);
+        leftDT.setDirection(DcMotor.Direction.REVERSE);
+        rightDT.setDirection(DcMotor.Direction.FORWARD);
 
         rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -188,8 +190,8 @@ public class MainBase {
                     speedR /= max;
                 }
 
-                ErrorAmount = (Math.abs(((newTLTarget) - (leftDT.getCurrentPosition()))))
-                        + (Math.abs(((newTRTarget) - (rightDT.getCurrentPosition())))) / COUNTS_PER_INCH;
+                ErrorAmount = (Math.abs(newTLTarget - leftDT.getCurrentPosition())
+                        + Math.abs(newTRTarget - rightDT.getCurrentPosition())) / COUNTS_PER_INCH;
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
@@ -246,7 +248,7 @@ public class MainBase {
 
 
             while (opMode.opModeIsActive() &&
-                    ((leftDT.isBusy() || rightDT.isBusy())) && !goodEnough) {
+                    ((leftDT.isBusy() || rightDT.isBusy()) && !goodEnough)) {
 
                 // Display it for the driver.
                 opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newrightDTTarget);
@@ -257,13 +259,14 @@ public class MainBase {
                 opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition());
                 opMode.telemetry.addData("rightDT", rightDT.getCurrentPosition());
 
-                opMode.telemetry.update();
-
-                ErrorAmount = (Math.abs(((newleftDTTarget) - (leftDT.getCurrentPosition()))))
-                        + (Math.abs(((newrightDTTarget) - (rightDT.getCurrentPosition()))) / COUNTS_PER_INCH);
+                ErrorAmount = (Math.abs(newleftDTTarget - leftDT.getCurrentPosition())
+                             + Math.abs(newrightDTTarget - rightDT.getCurrentPosition())) / COUNTS_PER_INCH;
                 if (ErrorAmount < amountError) {
                     goodEnough = true;
                 }
+
+                opMode.telemetry.addData("Error Amount", ErrorAmount);
+                opMode.telemetry.update();
             }
 
             leftDT.setPower(0);
@@ -414,30 +417,72 @@ public class MainBase {
     }
 
     public void lift(int level, LinearOpMode opmode){
-        int levelOne       = 0;
-        int levelTwo       = 30000;
-        int levelThree     = 38000;
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
 
         if(level == 1){
-            targetEncoder = levelOne;
+            targetEncoder = LEVEL_ONE;
         }
         else if(level == 2){
-            targetEncoder = levelTwo;
+            targetEncoder = LEVEL_TWO;
+        }
+        else if(level == 3){
+            targetEncoder = LEVEL_THREE;
         }
         else{
-            targetEncoder = levelThree;
+            targetEncoder = LEVEL_CAP;
         }
 
         double power = 1;
         if(Math.abs(targetEncoder - currentEncoder) < 100){
             power = 0.3;
         }
+        if(Math.abs(targetEncoder - currentEncoder) < ACCEPTABLE_ERROR){
+            power = 0;
+        }
         if(targetEncoder < currentEncoder){
             power = -power;
         }
         lift.setPower(power);
+    }
+
+    public void liftAuto(int level, LinearOpMode opMode){
+        if (opMode.opModeIsActive()) {
+
+            int targetEncoder = 0;
+            //Setting target level of lift
+            if (level == 1) {
+                targetEncoder = LEVEL_ONE;
+            } else if (level == 2) {
+                targetEncoder = LEVEL_TWO;
+            } else if (level == 3) {
+                targetEncoder = LEVEL_THREE;
+            }
+
+            lift.setTargetPosition(targetEncoder);
+            // Turn ON RUN_TO_POSITION
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // Turn ON lift
+            lift.setPower(1);
+
+            boolean goodEnough = false;
+            while (opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+
+                double ErrorAmount = Math.abs(targetEncoder - leftDT.getCurrentPosition()) / COUNTS_PER_INCH;
+                if (ErrorAmount < ACCEPTABLE_ERROR) {
+                    goodEnough = true;
+                }
+
+                opMode.telemetry.addData("Error Amount", ErrorAmount);
+                opMode.telemetry.update();
+            }
+
+            // Turn off lift power
+            lift.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
 
 }
