@@ -35,18 +35,23 @@ public class BlueSUPark extends LinearOpMode{
         //Blue autonomous: Delivers Duck and Parks in Storage Unit
         //Position: Back facing Carousel (Back 10 degrees from wall.)
         //-13 in, 50r, 32 in, 140r, 8 in
+        telemetry.addData("CATCH ONE","");
+        telemetry.update();
         //base.gyroTurn(.5, -30, this);
-        base.encoderDrive(0.5,-13,-13,this); // drive to Carousel
-//        base.gyroDrive(0.5,10,10,0,0,0,this);
+        telemetry.addData("TWO CATCH","");
+        telemetry.update();
+
+        sleep(2000);
+        base.encoderDrive(0.5,-30,-30,this); // drive to Carousel
         telemetry.addData("GOOFY BOY","");
-        base.leftDuck.setPower(-.42); // spin it
+        /*base.leftDuck.setPower(-.42); // spin it
         sleep(2500); // for 2.5 sec.
         base.gyroTurn(.5,50,this); //rotate front towards hub
         base.encoderDrive(.5,-32,-32,this); // drive in front of SU
         base.gyroTurn(.5,140,this); //rotate towards SU
         base.encoderDrive(.5,-8,-8,this);// drive into SU
         telemetry.addData("Parked in Blue SU :)","");
-        telemetry.update();
+        telemetry.update();*/
 
     }
 }

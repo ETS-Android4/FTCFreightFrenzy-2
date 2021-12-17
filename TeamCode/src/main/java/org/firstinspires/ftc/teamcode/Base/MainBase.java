@@ -78,9 +78,8 @@ public class MainBase {
         leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //leftDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        //rightDT.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftDT.setPower(0);
         rightDT.setPower(0);
@@ -200,10 +199,10 @@ public class MainBase {
 
                 // Display drive status for the driver.
                 opmode.telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
-                opmode.telemetry.addData("Target",  "%7d:%7d:%7d:%7d", newTLTarget, newTRTarget);
-                opmode.telemetry.addData("Actual",  "%7d:%7d:%7d:%7d", leftDT.getCurrentPosition(),
+                opmode.telemetry.addData("Target",  "%7d:%7d", newTLTarget, newTRTarget);
+                opmode.telemetry.addData("Actual",  "%7d:%7d", leftDT.getCurrentPosition(),
                         rightDT.getCurrentPosition());
-                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f:%5.2f:%5.2f", speedL, speedR);
+                opmode.telemetry.addData("Speed",   "%5.2f:%5.2f", speedL, speedR);
 
                 opmode.telemetry.addData("FL: ", leftDT.isBusy());
                 opmode.telemetry.addData("FR: ", rightDT.isBusy());
@@ -231,9 +230,9 @@ public class MainBase {
         // Ensure that the opmode is still active
         if (opMode.opModeIsActive()) {
 
-            // Determine new target position, and pass to motor controller
-            newleftDTTarget = leftDT.getCurrentPosition() - (int) (leftDTInches * COUNTS_PER_INCH);
-            newrightDTTarget = rightDT.getCurrentPosition() - (int) (rightDTInches * COUNTS_PER_INCH);
+            // Determine new target position, and pass to motor controller (Changed L from - to + & R from + to -)
+            newleftDTTarget = leftDT.getCurrentPosition() + (int) (leftDTInches * COUNTS_PER_INCH);
+            newrightDTTarget = rightDT.getCurrentPosition() + (int) (rightDTInches * COUNTS_PER_INCH);
             leftDT.setTargetPosition(newleftDTTarget);
             rightDT.setTargetPosition(newrightDTTarget);
 
@@ -245,8 +244,9 @@ public class MainBase {
             leftDT.setPower(Math.abs(speed));
             rightDT.setPower(Math.abs(speed));
 
+
             while (opMode.opModeIsActive() &&
-                    ((leftDT.isBusy() && rightDT.isBusy())) && !goodEnough) {
+                    ((leftDT.isBusy() || rightDT.isBusy())) && !goodEnough) {
 
                 // Display it for the driver.
                 opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newrightDTTarget);

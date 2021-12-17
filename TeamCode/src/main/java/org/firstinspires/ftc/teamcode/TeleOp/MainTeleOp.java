@@ -48,11 +48,11 @@ public class MainTeleOp extends LinearOpMode {
     public void custom_loop() {
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
-        double forward = gamepad1.left_stick_y;
+        double forward = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
 
-        double leftPower = forward + turn;
-        double rightPower = forward - turn;
+        double leftPower = forward - turn;
+        double rightPower = forward + turn;
         double[] powers = {leftPower, rightPower};
 
         boolean needToScale = false;
@@ -105,11 +105,6 @@ public class MainTeleOp extends LinearOpMode {
             base.rightDuck.setPower(-DUCK_SPEED);
         } else {
             base.rightDuck.setPower(0);
-        }
-
-        //---------------LIFT-SYSTEM---------------\\
-        if (gamepad2.a) {
-            base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         double liftArm = -gamepad2.right_stick_y;
@@ -177,7 +172,6 @@ public class MainTeleOp extends LinearOpMode {
         if (!gamepad2.y) {
             GP2_Y_Held = false;
         }
-
 
         telemetry.addData("LeftDT Encoders: ", base.leftDT.getCurrentPosition());
         telemetry.addData("RightDT Encoders: ", base.rightDT.getCurrentPosition());
