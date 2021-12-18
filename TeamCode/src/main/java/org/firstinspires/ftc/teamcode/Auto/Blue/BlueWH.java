@@ -57,40 +57,46 @@ public class BlueWH extends LinearOpMode{
         //Position: facing forward
 
         base.encoderDrive(.5, var.CLEAR_WALL, var.CLEAR_WALL, this); //clear wall
-        base.gyroTurn(.5,10,this); //face hub
+        base.gyroTurn(.5,-10,this); //face hub
         base.encoderDrive(.5,7,7,this); //drive to hub
         switch (position) { //hub level test result goes there <==
             case 0: //lvl. 1
-                base.lift(1,this);
+                base.liftAuto(1,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
                 break;
             case 1: //lvl. 2
-                base.lift(2,this);
+                base.liftAuto(2,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
+                base.encoderDrive(.5,1.5,1.5,this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
+                base.encoderDrive(.5,-1.5,-1.5,this);
                 break;
             case 2: //lvl. 3
-                base.lift(3,this);
+                base.liftAuto(3,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
+                base.encoderDrive(.5,2,2,this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
+                base.encoderDrive(.5,-2,-2,this);
                 break;
             default: //just in case
-                base.lift(3,this);
+                base.liftAuto(3,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
+                base.encoderDrive(.5,2,2,this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
                 break;
         }
+        base.encoderDrive(.5,8,8,this);
         base.gyroTurn(.5,100,this); // turn towards warehouse
-        base.encoderDrive(.5,60,60,this); //drive into warehouse
-        base.lift(1,this); base.bucket.setPosition(var.BUCKET_CLOSED); base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.encoderDrive(.5,60,61,this); //drive into warehouse
+        base.liftAuto(1,this); base.bucket.setPosition(var.BUCKET_CLOSED); base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
     }
 }
