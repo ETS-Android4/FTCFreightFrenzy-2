@@ -30,11 +30,10 @@ public class RedWHPark extends LinearOpMode{
 
         waitForStart();
 
-        //Blue autonomous: Parks in Warehouse
-        //19,90l,53
-        base.encoderDrive(.5,19,19,this);
-        base.gyroTurn(.5,90, this);
-        base.encoderDrive(.5,53,53,this);
-
+        //RED: Parks in Warehouse
+        //Robot Position:
+        base.encoderDrive(0.6,50,50,this); //Drives forward into WH
+        base.gyroTurn(0.5,19,this);
+        base.encoderDrive(0.5,5,5,this);
     }
 }

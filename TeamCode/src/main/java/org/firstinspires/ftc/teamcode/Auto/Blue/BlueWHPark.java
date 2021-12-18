@@ -17,8 +17,6 @@ public class BlueWHPark extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
-
         base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -31,10 +29,9 @@ public class BlueWHPark extends LinearOpMode{
         waitForStart();
 
         //Blue autonomous: Parks in Warehouse
-        //19,90l,53
-        base.encoderDrive(.5,19,19,this);
-        base.gyroTurn(.5,270, this);
-        base.encoderDrive(.5,53,53,this);
-
+        //Robot Position: Robot facing WH and 40 degrees from wall
+        base.encoderDrive(0.6,50,50,this); //Drives forward into WH
+        base.gyroTurn(0.5,-20,this);
+        base.encoderDrive(0.5,5,5,this);
     }
 }

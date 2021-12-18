@@ -394,7 +394,7 @@ public class MainBase {
         double rightSpeed;
 
         // determine turn power based on +/- error
-        error = getError(angle);
+        error = getError(-angle);
 
         if (Math.abs(error) <= HEADING_THRESHOLD) {
             steer = 0.0;
@@ -461,7 +461,7 @@ public class MainBase {
             int targetEncoder = 0;
             //Setting target level of lift
             if (level == 1) {
-                targetEncoder = LEVEL_ONE;
+                targetEncoder = 400;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO;
             } else if (level == 3) {

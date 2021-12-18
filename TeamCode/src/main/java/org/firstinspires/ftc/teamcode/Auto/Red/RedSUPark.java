@@ -38,9 +38,9 @@ public class RedSUPark extends LinearOpMode{
         base.rightDuck.setPower(.42); // spin it
         sleep(2500); // for 2.5 sec.
         base.rightDuck.setPower(0);
-        base.gyroTurn(.5,110,this); //rotate front towards SU
+        base.gyroTurn(.5,-110,this); //rotate front towards SU
         base.encoderDrive(.5,21.5,21.5,this);// drive into SU
-        base.gyroTurn(.5,99,this);
+        base.gyroTurn(.5,-99,this);
         telemetry.addData("Parked in Red SU :)","");
         telemetry.update();
 

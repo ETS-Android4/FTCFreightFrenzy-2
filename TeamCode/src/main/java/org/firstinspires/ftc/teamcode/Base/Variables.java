@@ -4,9 +4,9 @@ package org.firstinspires.ftc.teamcode.Base;
 //Refer to values below for insight regarding the variable's function
 public class Variables {
     public double  CLEAR_WALL    = 6;
-    public double  LCLAW_OPEN    = 0.75;
-    public double  LCLAW_CLOSED  = 0.1;
-    public double  BUCKET_OPEN   = 0.5;
+    public double  LCLAW_OPEN    = 0.6;
+    public double  LCLAW_CLOSED  = 0;
+    public double  BUCKET_OPEN   = 0.8;
     public double  BUCKET_CLOSED = 0.3;
 
 
