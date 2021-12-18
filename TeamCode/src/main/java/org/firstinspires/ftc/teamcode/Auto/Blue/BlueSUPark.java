@@ -21,7 +21,7 @@ public class BlueSUPark extends LinearOpMode{
 
         ObjectDetector detector = new ObjectDetector(this, false);
 
-        base.init(hardwareMap);
+        base.init(hardwareMap,this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -37,10 +37,10 @@ public class BlueSUPark extends LinearOpMode{
         //-13 in, 50r, 32 in, 140r, 8 in
         //base.gyroTurn(.5, -30, this);
 
-        base.encoderDrive(0.5,-18,-18,this); // drive to Carousel
+        base.encoderDrive(0.5,-18.3,-18.3,this); // drive to Carousel
         base.leftDuck.setPower(-.42); // spin it
         sleep(2500); // for 2.5 sec.
-        base.gyroTurn(.5,90,this); //rotate front towards SU
+        base.gyroTurn(.5,100,this); //rotate front towards SU
         base.encoderDrive(.5,14,14,this);// drive into SU
         telemetry.addData("Parked in Blue SU :)","");
         telemetry.update();

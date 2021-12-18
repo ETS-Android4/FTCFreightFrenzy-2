@@ -16,6 +16,7 @@ public class MainTeleOp extends LinearOpMode {
     public boolean GP2_LB_Held   = false;
     public boolean GP2_RB_Held   = false;
     public boolean GP2_Y_Held    = false;
+    public boolean DriveChange   = false;
     public boolean SlowMode      = false;
     public boolean AUTO_LIFT     = false;
     public double  LCLAW_OPEN    = .6;
@@ -39,7 +40,7 @@ public class MainTeleOp extends LinearOpMode {
 
     public void custom_init() {
         base = new MainBase();
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         telemetry.addData("Initialization Complete!", "");
         telemetry.update();
@@ -48,6 +49,13 @@ public class MainTeleOp extends LinearOpMode {
     public void custom_loop() {
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
+
+        if(gamepad1.a){
+        DriveChange = !DriveChange;
+        }
+
+        //--------------------NORMAL--------------------\\
+        //if(DriveChange == false){
         double forward = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
 
@@ -72,6 +80,30 @@ public class MainTeleOp extends LinearOpMode {
             leftPower /= greatest;
             rightPower /= greatest;
         }
+       // }
+        //--------------------TANK--------------------\\
+        /*if(DriveChange == true){
+            double rForward = -gamepad1.left_stick_y ;
+            double lForward = -gamepad1.right_stick_y;
+            double[] powersI = {lForward, rForward};
+
+            boolean needToScaleI = false;
+            for (double powerI : powersI) {
+                if (Math.abs(powerI) > 1) {
+                    needToScaleI = true;
+                    break;
+                }
+            }
+            if (needToScale) {
+                double greatestI = 0;
+                for (double powerI : powersI) {
+                    if (Math.abs(powerI) > greatestI) {
+                        greatest = Math.abs(powerI);
+                    }
+                }
+            lForward /= greatestI;
+            rForward /= greatestI;
+        }*/
 
         //--------------------SLOW-MODE--------------------\\
         if (gamepad1.right_bumper && !GP1_RB_Held) {

@@ -21,7 +21,7 @@ public class RedSUPark extends LinearOpMode{
 
         ObjectDetector detector = new ObjectDetector(this, false);
 
-        base.init(hardwareMap);
+        base.init(hardwareMap,this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -34,11 +34,13 @@ public class RedSUPark extends LinearOpMode{
 
         //Red autonomous: Delivers Duck and Parks in Storage Unit
         //23b,Duck,6f,90l,6f,90l,3f,90r,8f
-        base.encoderDrive(0.5,-18,-18,this); // drive to Carousel
+        base.encoderDrive(0.5,-19,-19,this); // drive to Carousel
         base.rightDuck.setPower(.42); // spin it
         sleep(2500); // for 2.5 sec.
-        base.gyroTurn(.5,-90,this); //rotate front towards SU
-        base.encoderDrive(.5,14,14,this);// drive into SU
+        base.rightDuck.setPower(0);
+        base.gyroTurn(.5,110,this); //rotate front towards SU
+        base.encoderDrive(.5,21.5,21.5,this);// drive into SU
+        base.gyroTurn(.5,99,this);
         telemetry.addData("Parked in Red SU :)","");
         telemetry.update();
 

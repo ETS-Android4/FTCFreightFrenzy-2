@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 
-@Autonomous(name= "BLUE SU PARK")
+@Autonomous(name= "RED SU DELIVER")
 public class RedSUDeliver extends LinearOpMode{
 
     MainBase base = new MainBase();
@@ -20,15 +20,13 @@ public class RedSUDeliver extends LinearOpMode{
 
         ObjectDetector detector = new ObjectDetector(this, false);
 
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
 
 
         waitForStart();

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Base;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -51,7 +52,7 @@ public class MainBase {
 
     HardwareMap hwMap = null;
 
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, OpMode opMode) {
         hwMap = ahwMap;
 
         leftDT    = hwMap.get(DcMotor.class, "leftDT");
@@ -72,6 +73,9 @@ public class MainBase {
         gyro = hwMap.get(ModernRoboticsI2cGyro.class,"gyro");
         gyro.initialize();
         gyro.calibrate();
+        while(gyro.isCalibrating());
+        opMode.telemetry.addLine("Gyro Calibrated");
+        opMode.telemetry.update();
 
         leftDT.setDirection(DcMotor.Direction.REVERSE);
         rightDT.setDirection(DcMotor.Direction.FORWARD);
@@ -89,7 +93,7 @@ public class MainBase {
         rightDuck.setPower(0);
         lift.setPower(0);
         rightClaw.setPosition(0.9);
-        bucket.setPosition(0.75);
+        bucket.setPosition(0.8);
         leftClaw.setPosition(0);
     }
 
@@ -117,7 +121,7 @@ public class MainBase {
         double robotError;
 
         // Calculates error from angle.
-        robotError = angle - gyro.getIntegratedZValue();
+        robotError = angle - gyro.getHeading();
         while (robotError > 180)  robotError -= 360;
         while (robotError <= -180) robotError += 360;
         return robotError;
@@ -383,9 +387,9 @@ public class MainBase {
     }
 
     boolean onHeading(double speed, double angle, double PCoeff, LinearOpMode opmode) {
-        double   error ;
-        double   steer ;
-        boolean  onTarget = false ;
+        double   error;
+        double   steer;
+        boolean  onTarget = false;
         double leftSpeed;
         double rightSpeed;
 
@@ -400,8 +404,11 @@ public class MainBase {
         }
         else {
             steer = getSteer(error, PCoeff);
-            rightSpeed  = speed * steer;
-            leftSpeed   = -rightSpeed;
+            /*rightSpeed  = speed * steer;
+            leftSpeed   = -rightSpeed;*/
+
+            leftSpeed  = speed * steer;
+            rightSpeed   = -leftSpeed;
         }
 
         // Send desired speeds to motors.
@@ -412,6 +419,8 @@ public class MainBase {
         opmode.telemetry.addData("Target", "%5.2f", angle);
         opmode.telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
         opmode.telemetry.addData("Speed ", "%5.2f:%5.2f", leftSpeed, rightSpeed);
+        opmode.telemetry.addData("current Angle", gyro.getHeading());
+        opmode.telemetry.addData("current Angle Z", gyro.getIntegratedZValue());
 
         return onTarget;
     }

@@ -23,7 +23,7 @@ public class ZeroPowerTest extends LinearOpMode {
 
     public void custom_init() {
         base = new MainBase();
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         telemetry.addData("Initialization Complete!", "");
         telemetry.update();

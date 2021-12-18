@@ -21,7 +21,7 @@ public class RedWH extends LinearOpMode{
         //ObjectDetector detector = new ObjectDetector(this, false);
 
 
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
