@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Disabled
+
 @TeleOp(name = "LiftEncoderTest")
 public class LiftEncoderTest extends LinearOpMode{
 
@@ -25,17 +25,13 @@ public class LiftEncoderTest extends LinearOpMode{
 
     public void custom_init(){
         base = new MainBase();
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         telemetry.addData("Initialization Complete!","");
         telemetry.update();
     }
 
     public void custom_loop(){
-        if(gamepad2.a){
-            base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }
-
         if(gamepad2.a){
             base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }

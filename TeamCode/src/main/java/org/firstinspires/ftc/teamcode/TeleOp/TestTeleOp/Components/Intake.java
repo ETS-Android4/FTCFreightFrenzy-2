@@ -34,7 +34,7 @@ public class Intake extends LinearOpMode{
 
     public void custom_init(){
         base = new MainBase();
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         telemetry.addData("Initialization Complete!","");
         telemetry.update();
@@ -57,7 +57,7 @@ public class Intake extends LinearOpMode{
 
 
         //---------------RIGHT-CLAW---------------\\
-        if (gamepad2.right_bumper && !GP2_RB_Held) {
+        /*if (gamepad2.right_bumper && !GP2_RB_Held) {
             GP2_RB_Held = true;
             if (base.rightClaw.getPosition() == RCLAW_CLOSED) {
                 base.rightClaw.setPosition(RCLAW_OPEN);
@@ -67,7 +67,7 @@ public class Intake extends LinearOpMode{
         }
         if (!gamepad2.right_bumper) {
             GP2_RB_Held = false;
-        }
+        }*/
 
 
         //---------------BUCKET---------------\\

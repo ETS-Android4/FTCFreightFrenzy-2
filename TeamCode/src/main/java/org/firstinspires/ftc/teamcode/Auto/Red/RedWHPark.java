@@ -5,21 +5,23 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
+import org.firstinspires.ftc.teamcode.Base.Variables;
 
-@Disabled
-@Autonomous(name="RED Carousel")
-public class REDCarousel extends LinearOpMode{
+
+@Autonomous(name="RED-WH PARKING")
+public class RedWHPark extends LinearOpMode{
 
     MainBase base = new MainBase();
+    Variables var = new Variables();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //ObjectDetector detector = new ObjectDetector(this, false);
+        ObjectDetector detector = new ObjectDetector(this, false);
 
-
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -32,24 +34,8 @@ public class REDCarousel extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        int position = 0;
-
-        //---------------- CASE LEFT ----------------
-        if (position == 0){
-            //Robot movements for "Case Left" position of team marker.
-
-        }
-
-        //---------------- CASE MIDDLE ----------------
-        else if(position == 1){
-            //Robot movements for "Case Middle" position of team marker.
-
-        }
-
-        //---------------- CASE RIGHT ----------------
-        else if(position == 3){
-            //Robot movements for "Case Right" position of team marker.
-
-        }
+        base.encoderDrive(.6,45,45,this);
+        base.gyroTurn(.5,20,this);
+        base.encoderDrive(.5,5,5,this);
     }
 }

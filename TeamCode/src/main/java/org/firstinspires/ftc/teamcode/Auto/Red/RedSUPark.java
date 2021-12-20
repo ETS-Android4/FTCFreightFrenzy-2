@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 
-@Autonomous(name="BLUE WH Park")
-public class BlueWHPark extends LinearOpMode{
+@Autonomous(name= "RED-SU PARKING")
+public class RedSUPark extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -19,7 +19,7 @@ public class BlueWHPark extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        base.init(hardwareMap, this);
+        base.init(hardwareMap,this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -30,10 +30,17 @@ public class BlueWHPark extends LinearOpMode{
 
         waitForStart();
 
-        base.gyro.resetZAxisIntegrator();
+        //Red autonomous: Delivers Duck and Parks in Storage Unit
+        //23b,Duck,6f,90l,6f,90l,3f,90r,8f
+        base.encoderDrive(0.5,-20,-20,this); // drive to Carousel
+        base.rightDuck.setPower(.42); // spin it
+        sleep(2500); // for 2.5 sec.
+        base.rightDuck.setPower(0);
+        base.gyroTurn(.5,-110,this); //rotate front towards SU
+        base.encoderDrive(.5,21.5,21.5,this);// drive into SU
+        base.gyroTurn(.5,-99,this);
+        telemetry.addData("Parked in RED SU :)","");
+        telemetry.update();
 
-        base.encoderDrive(.6,45,45,this);
-        base.gyroTurn(.5,-20,this);
-        base.encoderDrive(.5,5,5,this);
     }
 }

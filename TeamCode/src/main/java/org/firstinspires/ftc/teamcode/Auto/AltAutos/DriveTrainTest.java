@@ -18,7 +18,7 @@ public class DriveTrainTest extends LinearOpMode{
 
         //ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
 
-        base.init(hardwareMap);
+        base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -28,7 +28,7 @@ public class DriveTrainTest extends LinearOpMode{
 
         waitForStart();
 
-        base.gyroDrive(1,10,10,0,0,0,this);
+        base.gyroDrive(1,90,90,0,0,0,this);
 
     }
 }

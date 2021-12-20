@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,9 +8,9 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-@Disabled
-@Autonomous(name="RED-WH DELIVERY")
-public class RedWH extends LinearOpMode{
+
+@Autonomous(name= "RED-SU DELIVERY")
+public class RedSUDeliver extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -35,74 +34,66 @@ public class RedWH extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         ObjectDetector.POSITIONS position = detector.getDecision();
-        detector.setTelemShow(false);
 
-        //---------------- CASE LEFT ----------------
-        /*if (position == 0){
-            //Robot movements for "Case Left" position of team marker.
+        //Blue autonomous: Delivers Duck and Parks in Storage Unit
+        //Position: Back facing Carousel (Back 10 degrees from wall.)
+        //-13 in, 50r, 32 in, 140r, 8 in
+        //base.gyroTurn(.5, -30, this);
 
-        }
-
-        //---------------- CASE MIDDLE ----------------
-        else if(position == 1){
-            //Robot movements for "Case Middle" position of team marker.
-
-        }
-
-        //---------------- CASE RIGHT ----------------
-        else if(position == 3){
-            //Robot movements for "Case Right" position of team marker.
-
-        }*/
-
-        //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
-        //Position: facing forward
-
-        base.encoderDrive(.5, var.CLEAR_WALL, var.CLEAR_WALL,this); //clear wall
-        base.gyroTurn(.5,-10,this); //face hub
-        base.encoderDrive(.5,7,7,this); //drive to hub
+        base.encoderDrive(0.5,-19.3,-19.3,this); // drive to Carousel
+        base.rightDuck.setPower(.42); // spin it
+        sleep(2500); // for 2.5 sec.
+        base.rightDuck.setPower(0);
+        base.gyroTurn(.5,-110,this); //rotate front towards SU
+        base.encoderDrive(.5,21.5,21.5,this);// drive into SU
+        base.gyroTurn(.5,-99,this);
+        base.encoderDrive(.5,11,11,this);// drive half-past SU
+        base.gyroTurn(.5,90,this);
+        base.encoderDrive(.5,19,19,this);
         switch (position) { //hub level test result goes there <==
             case LEFT: //lvl. 1 and open bucket
-                base.liftAuto(1,this);
+                base.liftAuto(1, this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
                 break;
             case MIDDLE: //lvl. 2 and open bucket
-                base.liftAuto(2,this);
+                base.liftAuto(2, this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
-                base.encoderDrive(.5,1.5,1.5,this);
+                base.encoderDrive(.5, 1.5, 1.5, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
-                base.encoderDrive(.5,-1.5,-1.5,this);
+                base.encoderDrive(.5, -1.5, -1.5, this);
                 break;
             case RIGHT: //lvl. 3 and  open bucket
-                base.liftAuto(3,this);
+                base.liftAuto(3, this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
-                base.encoderDrive(.5,2,2,this);
+                base.encoderDrive(.5, 2, 2, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
-                base.encoderDrive(.5,-2,-2,this);
+                base.encoderDrive(.5, -2, -2, this);
                 break;
             default: //just in case
-                base.liftAuto(3,this);
+                base.liftAuto(3, this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
-                base.encoderDrive(.5,2,2,this);
+                base.encoderDrive(.5, 2, 2, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
                 break;
         }
-        base.encoderDrive(.5,-8,-8,this); //back up
+        base.encoderDrive(.5,-9,-9,this);
         base.bucket.setPosition(var.BUCKET_CLOSED);
         base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
         base.liftAuto(1,this); //Bring lift down
-        sleep(2000);
-        base.gyroTurn(.5,100,this); // turn towards warehouse
-        base.encoderDrive(.5,61,60,this); //drive into warehouse
-        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.encoderDrive(.5,-10,-10,this);
+        base.gyroTurn(.5,-90,this);
+        base.encoderDrive(.5,-11,-11,this);
+        telemetry.addData("Parked in RED SU :)","");
+        telemetry.update();
+
     }
 }

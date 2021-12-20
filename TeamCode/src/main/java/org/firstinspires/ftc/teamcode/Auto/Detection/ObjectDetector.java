@@ -71,6 +71,7 @@ public class ObjectDetector {
     public void stopStreaming(){
         camera.stopStreaming();
     }
+
     public enum POSITIONS {
         LEFT, MIDDLE, RIGHT
     }
