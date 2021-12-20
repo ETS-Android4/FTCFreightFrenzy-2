@@ -165,7 +165,7 @@ public class MainTeleOp extends LinearOpMode {
             AUTO_LIFT = false;
         }
 
-        telemetry.addData("LIFT ENCODERS: ", base.lift.getCurrentPosition());
+        telemetry.addData("Lift Encoders: ", base.lift.getCurrentPosition());
 
         //---------------LEFT-CLAW---------------\\
         if (gamepad2.left_bumper && !GP2_LB_Held) {
@@ -192,11 +192,11 @@ public class MainTeleOp extends LinearOpMode {
 
                 telemetry.addData("RIGHT CLAW CLOSED","");
             }
-        }*/
+        }
 
         if (!gamepad2.right_bumper) {
             GP2_RB_Held = false;
-        }
+        }*/
 
 
         //---------------BUCKET---------------\\

@@ -95,6 +95,9 @@ public class MainBase {
         rightClaw.setPosition(0.9);
         bucket.setPosition(0.8);
         leftClaw.setPosition(0);
+
+        opMode.telemetry.addLine("Initialization Complete");
+        opMode.telemetry.update();
     }
 
     /*public boolean getCurrentRPM(double initTime, double currentTime, int initPos, int currentPos, LinearOpMode opMode){

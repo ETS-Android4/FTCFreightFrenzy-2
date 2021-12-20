@@ -7,12 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
+import org.firstinspires.ftc.teamcode.Base.Variables;
 
 
-@Autonomous(name= "BLUE WH Park")
+@Autonomous(name="BLUE WH Park")
 public class BlueWHPark extends LinearOpMode{
 
     MainBase base = new MainBase();
+    Variables var = new Variables();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -28,10 +30,10 @@ public class BlueWHPark extends LinearOpMode{
 
         waitForStart();
 
-        //Blue autonomous: Parks in Warehouse
-        //Robot Position: Robot facing WH and 40 degrees from wall
-        base.encoderDrive(0.6,50,50,this); //Drives forward into WH
-        base.gyroTurn(0.5,-20,this);
-        base.encoderDrive(0.5,5,5,this);
+        base.gyro.resetZAxisIntegrator();
+
+        base.encoderDrive(.6,45,45,this);
+        base.gyroTurn(.5,-20,this);
+        base.encoderDrive(.5,5,5,this);
     }
 }

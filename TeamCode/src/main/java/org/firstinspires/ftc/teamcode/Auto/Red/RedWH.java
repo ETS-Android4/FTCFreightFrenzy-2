@@ -5,11 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 @Disabled
-@Autonomous(name="RED WH")
+@Autonomous(name="RED-WH DELIVERY")
 public class RedWH extends LinearOpMode{
 
     MainBase base = new MainBase();
@@ -18,8 +19,7 @@ public class RedWH extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //ObjectDetector detector = new ObjectDetector(this, false);
-
+        ObjectDetector detector = new ObjectDetector(this, true);
 
         base.init(hardwareMap, this);
 
@@ -34,7 +34,8 @@ public class RedWH extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        int position = 0;
+        ObjectDetector.POSITIONS position = detector.getDecision();
+        detector.setTelemShow(false);
 
         //---------------- CASE LEFT ----------------
         /*if (position == 0){
@@ -58,17 +59,17 @@ public class RedWH extends LinearOpMode{
         //Position: facing forward
 
         base.encoderDrive(.5, var.CLEAR_WALL, var.CLEAR_WALL,this); //clear wall
-        base.gyroTurn(.5,10,this); //face hub
+        base.gyroTurn(.5,-10,this); //face hub
         base.encoderDrive(.5,7,7,this); //drive to hub
         switch (position) { //hub level test result goes there <==
-            case 0: //lvl. 1 and open bucket
+            case LEFT: //lvl. 1 and open bucket
                 base.liftAuto(1,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 sleep(5000);
                 break;
-            case 1: //lvl. 2 and open bucket
+            case MIDDLE: //lvl. 2 and open bucket
                 base.liftAuto(2,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
@@ -77,7 +78,7 @@ public class RedWH extends LinearOpMode{
                 sleep(5000);
                 base.encoderDrive(.5,-1.5,-1.5,this);
                 break;
-            case 2: //lvl. 3 and  open bucket
+            case RIGHT: //lvl. 3 and  open bucket
                 base.liftAuto(3,this);
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 sleep(1000);
@@ -95,9 +96,13 @@ public class RedWH extends LinearOpMode{
                 sleep(5000);
                 break;
         }
-        base.encoderDrive(.5,8,8,this); //back up
+        base.encoderDrive(.5,-8,-8,this); //back up
+        base.bucket.setPosition(var.BUCKET_CLOSED);
+        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.liftAuto(1,this); //Bring lift down
+        sleep(2000);
         base.gyroTurn(.5,100,this); // turn towards warehouse
-        base.encoderDrive(.5,60,61,this); //drive into warehouse
-        base.liftAuto(1,this); base.bucket.setPosition(var.BUCKET_CLOSED); base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.encoderDrive(.5,61,60,this); //drive into warehouse
+        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
     }
 }

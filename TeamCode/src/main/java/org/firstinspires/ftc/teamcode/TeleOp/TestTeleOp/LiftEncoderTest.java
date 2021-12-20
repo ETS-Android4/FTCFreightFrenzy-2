@@ -36,10 +36,6 @@ public class LiftEncoderTest extends LinearOpMode{
             base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
-        if(gamepad2.a){
-            base.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }
-
         double liftArm = -gamepad2.right_stick_y;
         if(Math.abs(liftArm) < 0.1){
             int level = 3;
