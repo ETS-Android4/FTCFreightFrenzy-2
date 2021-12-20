@@ -20,12 +20,12 @@ public class MainTeleOp extends LinearOpMode {
     public boolean SlowMode      = false;
     public boolean AUTO_LIFT     = false;
     public double  LCLAW_OPEN    = 0.6;
-    public double  LCLAW_CLOSED  = 0; //Delux hitec 485HB
+    public double  LCLAW_CLOSED  = 0;
     public double  RCLAW_OPEN    = 0.25;
     public double  RCLAW_CLOSED  = 0.75;
     public double  BUCKET_OPEN   = 0.8;
     public double  BUCKET_CLOSED = 0.3;
-    public double  DUCK_SPEED    = -0.42;
+    public double  DUCK_SPEED    = 0.42;
     int level = 0;
 
 
@@ -127,16 +127,35 @@ public class MainTeleOp extends LinearOpMode {
 
         //---------------LEFT-DUCK---------------\\
         if (gamepad2.x) {
-            base.leftDuck.setPower(-DUCK_SPEED);
+            base.leftDuck.setPower(DUCK_SPEED);
         } else {
             base.leftDuck.setPower(0);
         }
 
         //---------------RIGHT-DUCK---------------\\
         if (gamepad2.b) {
-            base.rightDuck.setPower(-DUCK_SPEED);
+            base.rightDuck.setPower(DUCK_SPEED);
         } else {
             base.rightDuck.setPower(0);
+        }
+
+        //---------------DUAL-DUCK---------------\\
+        double duckSpin = gamepad2.left_stick_x;
+        if (duckSpin > 0) {
+            base.rightDuck.setPower(duckSpin);
+            base.leftDuck.setPower(duckSpin);
+        }
+        else {
+            base.rightDuck.setPower(0);
+            base.leftDuck.setPower(0);
+        }
+        if (duckSpin < 0) {
+            base.rightDuck.setPower(-duckSpin);
+            base.leftDuck.setPower(-duckSpin);
+        }
+        else {
+            base.rightDuck.setPower(0);
+            base.leftDuck.setPower(0);
         }
 
         //---------------LIFT---------------\\
