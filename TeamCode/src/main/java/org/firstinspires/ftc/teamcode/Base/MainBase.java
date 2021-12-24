@@ -92,7 +92,7 @@ public class MainBase {
         leftDuck.setPower(0);
         rightDuck.setPower(0);
         lift.setPower(0);
-        rightClaw.setPosition(0.9);
+        //rightClaw.setPosition(0.9);
         bucket.setPosition(0.8);
         leftClaw.setPosition(0);
 

@@ -17,14 +17,15 @@ public class MainTeleOp extends LinearOpMode {
     public boolean GP2_RB_Held   = false;
     public boolean GP2_Y_Held    = false;
     public boolean DriveChange   = false;
+    public boolean GP1_A_Held    = false;
     public boolean SlowMode      = false;
     public boolean AUTO_LIFT     = false;
-    public double  LCLAW_OPEN    = 0.6;
-    public double  LCLAW_CLOSED  = 0;
+    public double  LCLAW_CLOSED  = 0.6; //LCLAW_OPEN
+    public double  LCLAW_OPEN    = 0; //LCLAW_CLOSED
     public double  RCLAW_OPEN    = 0.25;
     public double  RCLAW_CLOSED  = 0.75;
-    public double  BUCKET_OPEN   = 0.8;
-    public double  BUCKET_CLOSED = 0.3;
+    public double  BUCKET_OPEN   = 0.8; //BUCKET IS CLOSED
+    public double  BUCKET_CLOSED = 0.3; //BUCKET IS OPEN
     public double  DUCK_SPEED    = 0.42;
     int level = 0;
 
@@ -50,19 +51,36 @@ public class MainTeleOp extends LinearOpMode {
 
         //--------------------DRIVE-TRAIN CONTROLS--------------------\\
 
-        if(gamepad1.a){
-        DriveChange = !DriveChange;
+        if(gamepad1.a && !GP1_A_Held){
+            DriveChange = !DriveChange;
+            GP1_A_Held = true;
+        }
+        if(!gamepad1.a){
+            GP1_A_Held = false;
         }
 
+        double leftPower  = 0;
+        double rightPower = 0;
         //--------------------NORMAL--------------------\\
-        //if(DriveChange == false){
-        double forward = -gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x;
+        if(!DriveChange){
+            double forward = -gamepad1.left_stick_y;
+            double turn = gamepad1.right_stick_x;
 
-        double leftPower = forward - turn;
-        double rightPower = forward + turn;
+            leftPower  = forward - turn;
+            rightPower = forward + turn;
+
+        }
+
+        //--------------------TANK--------------------\\
+        else{
+            double lForward = -gamepad1.left_stick_y;
+            double rForward = -gamepad1.right_stick_y;
+
+            leftPower  = lForward;
+            rightPower = rForward;
+        }
+
         double[] powers = {leftPower, rightPower};
-
         boolean needToScale = false;
         for (double power : powers) {
             if (Math.abs(power) > 1) {
@@ -80,30 +98,6 @@ public class MainTeleOp extends LinearOpMode {
             leftPower /= greatest;
             rightPower /= greatest;
         }
-       // }
-        //--------------------TANK--------------------\\
-        /*if(DriveChange == true){
-            double rForward = -gamepad1.left_stick_y ;
-            double lForward = -gamepad1.right_stick_y;
-            double[] powersI = {lForward, rForward};
-
-            boolean needToScaleI = false;
-            for (double powerI : powersI) {
-                if (Math.abs(powerI) > 1) {
-                    needToScaleI = true;
-                    break;
-                }
-            }
-            if (needToScale) {
-                double greatestI = 0;
-                for (double powerI : powersI) {
-                    if (Math.abs(powerI) > greatestI) {
-                        greatest = Math.abs(powerI);
-                    }
-                }
-            lForward /= greatestI;
-            rForward /= greatestI;
-        }*/
 
         //--------------------SLOW-MODE--------------------\\
         if (gamepad1.right_bumper && !GP1_RB_Held) {
@@ -113,7 +107,6 @@ public class MainTeleOp extends LinearOpMode {
         if (!gamepad1.right_bumper) {
             GP1_RB_Held = false;
         }
-
         if (SlowMode) {
             base.leftDT.setPower(0.3 * leftPower);
             base.rightDT.setPower(0.3 * rightPower);
@@ -140,18 +133,14 @@ public class MainTeleOp extends LinearOpMode {
         }
 
         //---------------DUAL-DUCK---------------\\
-        double duckSpin = gamepad2.left_stick_x;
-        if (duckSpin > 0) {
+        double duckSpin = gamepad2.left_stick_x / 2;
+        if (duckSpin > 0.1) {
             base.rightDuck.setPower(duckSpin);
-            base.leftDuck.setPower(duckSpin);
-        }
-        else {
-            base.rightDuck.setPower(0);
-            base.leftDuck.setPower(0);
-        }
-        if (duckSpin < 0) {
-            base.rightDuck.setPower(-duckSpin);
             base.leftDuck.setPower(-duckSpin);
+        }
+        else if (duckSpin < -0.1){
+            base.rightDuck.setPower(-duckSpin);
+            base.leftDuck.setPower(duckSpin);
         }
         else {
             base.rightDuck.setPower(0);
@@ -198,6 +187,16 @@ public class MainTeleOp extends LinearOpMode {
         if (!gamepad2.left_bumper) {
             GP2_LB_Held = false;
         }
+
+        //LEFT-CLAW Var Transfer Test
+        /*if (gamepad2.left_bumper && !GP2_LB_Held) {
+            GP2_LB_Held = true;
+            if (base.leftClaw.getPosition() == LCLAW_OPEN) {
+                base.leftClaw.setPosition(LCLAW_CLOSED);
+            } else {
+                base.leftClaw.setPosition(LCLAW_OPEN);
+            }
+        }*/
 
         //---------------RIGHT CLAW---------------\\
         /*if (gamepad2.right_bumper && !GP2_RB_Held) {
