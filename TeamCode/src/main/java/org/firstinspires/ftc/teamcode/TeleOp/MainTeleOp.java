@@ -24,7 +24,7 @@ public class MainTeleOp extends LinearOpMode {
     public double  LCLAW_CLOSED  = 0; //Delux hitec 485HB
     public double  RCLAW_OPEN    = 0;
     public double  RCLAW_CLOSED  = 0.6;
-    public double  BUCKET_OPEN   = 0.9;
+    public double  BUCKET_OPEN   = 0.95;
     public double  BUCKET_CLOSED = 0.5;
     public double  DUCK_SPEED    = 0.42;
     int level = 0;
@@ -108,8 +108,8 @@ public class MainTeleOp extends LinearOpMode {
             GP1_RB_Held = false;
         }
         if (SlowMode) {
-            base.leftDT.setPower(0.3 * leftPower);
-            base.rightDT.setPower(0.3 * rightPower);
+            base.leftDT.setPower(0.15 * leftPower);
+            base.rightDT.setPower(0.15 * rightPower);
         } else {
             base.leftDT.setPower(leftPower);
             base.rightDT.setPower(rightPower);
