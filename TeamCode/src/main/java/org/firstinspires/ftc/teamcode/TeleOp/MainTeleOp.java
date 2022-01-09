@@ -20,12 +20,12 @@ public class MainTeleOp extends LinearOpMode {
     public boolean GP1_A_Held    = false;
     public boolean SlowMode      = false;
     public boolean AUTO_LIFT     = false;
-    public double  LCLAW_CLOSED  = 0.6; //LCLAW_OPEN
-    public double  LCLAW_OPEN    = 0; //LCLAW_CLOSED
-    public double  RCLAW_OPEN    = 0.25;
-    public double  RCLAW_CLOSED  = 0.75;
-    public double  BUCKET_OPEN   = 0.8; //BUCKET IS CLOSED
-    public double  BUCKET_CLOSED = 0.3; //BUCKET IS OPEN
+    public double  LCLAW_OPEN    = 1.0;
+    public double  LCLAW_CLOSED  = 0; //Delux hitec 485HB
+    public double  RCLAW_OPEN    = 0;
+    public double  RCLAW_CLOSED  = 0.6;
+    public double  BUCKET_OPEN   = 0.9;
+    public double  BUCKET_CLOSED = 0.5;
     public double  DUCK_SPEED    = 0.42;
     int level = 0;
 
@@ -219,6 +219,7 @@ public class MainTeleOp extends LinearOpMode {
 
         //---------------BUCKET---------------\\
         if (gamepad2.y && !GP2_Y_Held) {
+            GP2_Y_Held = true;
             if (base.bucket.getPosition() == BUCKET_CLOSED) {
                 base.bucket.setPosition(BUCKET_OPEN);
             } else {

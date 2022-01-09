@@ -93,8 +93,8 @@ public class MainBase {
         rightDuck.setPower(0);
         lift.setPower(0);
         //rightClaw.setPosition(0.9);
-        bucket.setPosition(0.8);
-        leftClaw.setPosition(0);
+        bucket.setPosition(0.95);
+        leftClaw.setPosition(0.6);
 
         opMode.telemetry.addLine("Initialization Complete");
         opMode.telemetry.update();
