@@ -40,23 +40,23 @@ public class RedSUDeliver extends LinearOpMode{
         //-13 in, 50r, 32 in, 140r, 8 in
         //base.gyroTurn(.5, -30, this);
 
-        base.encoderDrive(0.5,-19.3,-19.3,this); // drive to Carousel
+        base.encoderDrive(0.7,-19,-19,this); // drive to Carousel
         base.rightDuck.setPower(.42); // spin it
         sleep(2500); // for 2.5 sec.
         base.rightDuck.setPower(0);
-        base.gyroTurn(.5,-110,this); //rotate front towards SU
-        base.encoderDrive(.5,21.5,21.5,this);// drive into SU
-        base.gyroTurn(.5,-99,this);
+        base.gyroTurn(.5,-40,this); //rotate front towards SU
+        base.encoderDrive(0.7,33.4,33.4,this);// drive into SU
+        /*base.gyroTurn(.5,99,this);
         base.encoderDrive(.5,11,11,this);// drive half-past SU
         base.gyroTurn(.5,90,this);
-        base.encoderDrive(.5,19,19,this);
+        base.encoderDrive(.5,19,19,this);*/
         switch (position) { //hub level test result goes there <==
             case LEFT: //lvl. 1 and open bucket
                 base.liftAuto(1, this);
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(1000);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                sleep(3000);
                 break;
             case MIDDLE: //lvl. 2 and open bucket
                 base.liftAuto(2, this);
@@ -64,7 +64,7 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(1000);
                 base.encoderDrive(.5, 1.5, 1.5, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
+                sleep(3000);
                 base.encoderDrive(.5, -1.5, -1.5, this);
                 break;
             case RIGHT: //lvl. 3 and  open bucket
@@ -73,7 +73,7 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(1000);
                 base.encoderDrive(.5, 2, 2, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
+                sleep(3000);
                 base.encoderDrive(.5, -2, -2, this);
                 break;
             default: //just in case
@@ -82,17 +82,20 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(1000);
                 base.encoderDrive(.5, 2, 2, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
+                sleep(3000);
                 break;
         }
-        base.encoderDrive(.5,-9,-9,this);
-        base.bucket.setPosition(var.BUCKET_CLOSED);
-        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.bucket.setPosition(var.BUCKET_OPEN);
+        base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(1,this); //Bring lift down
-        base.encoderDrive(.5,-10,-10,this);
-        base.gyroTurn(.5,-90,this);
-        base.encoderDrive(.5,-11,-11,this);
-        telemetry.addData("Parked in RED SU :)","");
+        base.encoderDrive(.5,-5,-5,this);
+        base.gyroTurn(0.5,1,this);
+        base.encoderDrive(0.8,20,20,this);
+        base.gyroTurn(0.7,-30,this);
+        base.encoderDrive(1.0,30,30,this);
+        base.gyroTurn(0.5,1,this);
+        base.encoderDrive(0.7,40,40,this);
+        telemetry.addData("Parked in RED WH:)","");
         telemetry.update();
 
     }

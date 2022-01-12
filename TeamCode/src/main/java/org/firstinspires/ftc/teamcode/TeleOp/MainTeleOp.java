@@ -148,7 +148,7 @@ public class MainTeleOp extends LinearOpMode {
         }
 
         //---------------LIFT---------------\\
-        double liftArm = -gamepad2.right_stick_y;
+        double liftArm = gamepad2.right_stick_y;
         if (Math.abs(liftArm) < 0.1) {
             if (gamepad2.dpad_up) {
                 AUTO_LIFT = true;
