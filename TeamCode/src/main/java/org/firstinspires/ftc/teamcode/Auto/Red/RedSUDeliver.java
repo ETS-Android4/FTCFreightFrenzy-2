@@ -33,12 +33,10 @@ public class RedSUDeliver extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
 
-        //Blue autonomous: Delivers Duck and Parks in Storage Unit
+        //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
         //Position: Back facing Carousel (Back 10 degrees from wall.)
-        //-13 in, 50r, 32 in, 140r, 8 in
-        //base.gyroTurn(.5, -30, this);
 
         base.encoderDrive(0.7,-19.4,-19.4,this); // drive to Carousel
         base.rightDuck.setPower(0.41); // spin it
@@ -59,7 +57,7 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(1000);
                 break;
             case MIDDLE: //lvl. 2 and open bucket
-                base.encoderDrive(0.5,11.1,11.1,this);
+                base.encoderDrive(0.5,11.2,11.2,this);
                 base.liftAuto(2, this);
                 this.telemetry.update();
                 while(base.lift.isBusy());
@@ -96,6 +94,5 @@ public class RedSUDeliver extends LinearOpMode{
         base.encoderDrive(0.8,15,15,this); //Drives to topleft of WH
         telemetry.addData("Parked in RED WH:)","");
         //telemetry.update();
-
     }
 }
