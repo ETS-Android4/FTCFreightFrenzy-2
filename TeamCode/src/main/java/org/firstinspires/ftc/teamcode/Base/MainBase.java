@@ -45,9 +45,9 @@ public class MainBase {
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
     final int  LEVEL_ONE        = 0;
-    final int  LEVEL_TWO        = 8700;
-    final int  LEVEL_THREE      = 15350;
-    final int  LEVEL_CAP        = 15600;
+    final int  LEVEL_TWO        = 9800;
+    final int  LEVEL_THREE      = 14500;
+    final int  LEVEL_CAP        = 15000;
     final int  ACCEPTABLE_ERROR = 75;
 
     HardwareMap hwMap = null;
@@ -94,7 +94,7 @@ public class MainBase {
         lift.setPower(0);
         //rightClaw.setPosition(0.9);
         bucket.setPosition(0.95);
-        leftClaw.setPosition(0.6);
+        leftClaw.setPosition(1.0);
 
         opMode.telemetry.addLine("Initialization Complete");
         opMode.telemetry.update();
@@ -461,10 +461,16 @@ public class MainBase {
     public void liftAuto(int level, LinearOpMode opMode){
         if (opMode.opModeIsActive()) {
 
+            opMode.telemetry.addData("CATCH ONE","");
+
             int targetEncoder = 0;
             //Setting target level of lift
-            if (level == 1) {
-                targetEncoder = 400;
+            if (level == 0) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = 200;
+            } else if (level == 1) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = 7200;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO;
             } else if (level == 3) {
@@ -476,17 +482,19 @@ public class MainBase {
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // Turn ON lift
             lift.setPower(1);
+            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
             while (opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
 
-                double ErrorAmount = Math.abs(targetEncoder - leftDT.getCurrentPosition()) / COUNTS_PER_INCH;
+                double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
                 if (ErrorAmount < ACCEPTABLE_ERROR) {
                     goodEnough = true;
                 }
 
                 opMode.telemetry.addData("Error Amount", ErrorAmount);
-                opMode.telemetry.update();
+                opMode.telemetry.addData("Good Enough: ", goodEnough);
+               // opMode.telemetry.update();
             }
 
             // Turn off lift power
@@ -494,6 +502,7 @@ public class MainBase {
 
             // Turn off RUN_TO_POSITION
             lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            opMode.telemetry.addData("CATCH FOUR","");
         }
     }
 
