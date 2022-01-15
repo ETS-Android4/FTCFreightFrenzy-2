@@ -44,7 +44,8 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int  LEVEL_ONE        = 0;
+    final int  LEVEL_ZERO       = 200;
+    final int  LEVEL_ONE        = 7200;
     final int  LEVEL_TWO        = 9800;
     final int  LEVEL_THREE      = 14500;
     final int  LEVEL_CAP        = 15000;
@@ -467,10 +468,10 @@ public class MainBase {
             //Setting target level of lift
             if (level == 0) {
                 opMode.telemetry.addData("CATCH TWO","");
-                targetEncoder = 200;
+                targetEncoder = LEVEL_ZERO;
             } else if (level == 1) {
                 opMode.telemetry.addData("CATCH TWO","");
-                targetEncoder = 7200;
+                targetEncoder = LEVEL_ONE;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO;
             } else if (level == 3) {

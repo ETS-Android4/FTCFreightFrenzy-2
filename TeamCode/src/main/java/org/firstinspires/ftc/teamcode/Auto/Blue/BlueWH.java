@@ -44,11 +44,12 @@ public class BlueWH extends LinearOpMode{
         //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
         //Position: Facing forward
 
-        base.encoderDrive(.5, var.CLEAR_WALL+2, var.CLEAR_WALL+2, this); //clear wall
-        base.gyroTurn(.5,50,this); //face hub
-        base.encoderDrive(.5,15,15,this); //drive to hub
-        base.gyroTurn(.5,25,this);
-        switch (position) { //hub level test result goes there <==
+        base.encoderDrive(0.5, var.CLEAR_WALL, var.CLEAR_WALL, this); //clear wall
+        base.gyroTurn(0.5,50,this); //face hub
+        base.encoderDrive(0.7,15,15,this); //drive to hub
+        base.gyroTurn(0.5,25,this);
+
+        switch (position) {
             case LEFT: //lvl. 1
                 base.liftAuto(1,this);
                 while(base.lift.isBusy());
@@ -82,12 +83,12 @@ public class BlueWH extends LinearOpMode{
                 sleep(1000);
                 break;
         }
-        base.gyroTurn(.5,5,this);
-        base.encoderDrive(.5,-13,-13,this);
+        base.gyroTurn(0.5,5,this);
+        base.encoderDrive(0.5,-13,-13,this);
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(0,this); //Bring lift down
-        sleep(2000);
+        sleep(1500);
         base.gyroTurn(.5,-90,this); // turn towards warehouse
         base.encoderDrive(.5,40,40,this); //drive into warehouse
         }

@@ -31,15 +31,15 @@ public class RedSUPark extends LinearOpMode{
         waitForStart();
 
         //Red autonomous: Delivers Duck and Parks in Storage Unit
-        //23b,Duck,6f,90l,6f,90l,3f,90r,8f
-        base.encoderDrive(0.5,-20,-20,this); // drive to Carousel
-        base.rightDuck.setPower(.42); // spin it
-        sleep(2500); // for 2.5 sec.
+
+        base.encoderDrive(0.7,-19.4,-19.4,this); //Drives backwards to carousel
+        base.rightDuck.setPower(var.DUCK_SPEED); //Spins carousel
+        sleep(2300);
         base.rightDuck.setPower(0);
         base.gyroTurn(.5,-110,this); //rotate front towards SU
-        base.encoderDrive(.5,21.5,21.5,this);// drive into SU
+        base.encoderDrive(.5,21.5,21.5,this); //Drive into SU
         base.gyroTurn(.5,-99,this);
-        telemetry.addData("Parked in RED SU :)","");
+        telemetry.addData("Parked in RED-SU:)","");
         telemetry.update();
 
     }

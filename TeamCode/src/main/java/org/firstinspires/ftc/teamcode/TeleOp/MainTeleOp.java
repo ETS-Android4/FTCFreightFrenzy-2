@@ -26,7 +26,6 @@ public class MainTeleOp extends LinearOpMode {
     public double  RCLAW_CLOSED  = 0.6;
     public double  BUCKET_OPEN   = 0.95;
     public double  BUCKET_CLOSED = 0.5;
-    public double  DUCK_SPEED    = 0.42;
     int level = 0;
 
 
@@ -183,25 +182,6 @@ public class MainTeleOp extends LinearOpMode {
                 base.leftClaw.setPosition(LCLAW_OPEN);
             }
         }*/
-
-        //---------------RIGHT CLAW---------------\\
-        /*if (gamepad2.right_bumper && !GP2_RB_Held) {
-            GP2_RB_Held = true;
-            if (base.rightClaw.getPosition() == RCLAW_CLOSED) {
-                base.rightClaw.setPosition(RCLAW_OPEN);
-
-                telemetry.addData("RIGHT CLAW OPEN","");
-            } else {
-                base.rightClaw.setPosition(RCLAW_CLOSED);
-
-                telemetry.addData("RIGHT CLAW CLOSED","");
-            }
-        }
-
-        if (!gamepad2.right_bumper) {
-            GP2_RB_Held = false;
-        }*/
-
 
         //---------------BUCKET---------------\\
         if (gamepad2.y && !GP2_Y_Held) {

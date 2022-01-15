@@ -80,7 +80,7 @@ public class RedWH extends LinearOpMode{
         base.bucket.setPosition(var.BUCKET_CLOSED);
         base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
         base.liftAuto(0,this); //Bring lift down
-        sleep(2000);
+        sleep(1500);
         base.gyroTurn(.5,100,this); // turn towards warehouse
         base.encoderDrive(.5,61,60,this); //drive into warehouse
         base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket

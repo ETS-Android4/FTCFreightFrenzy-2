@@ -39,9 +39,10 @@ public class RedSUDeliver extends LinearOpMode{
         //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
         //Position: Back facing Carousel (Back 10 degrees from wall.)
 
-        base.encoderDrive(0.7,-19.4,-19.4,this); // drive to Carousel
-        base.rightDuck.setPower(0.41); // spin it
-        sleep(2300); // for 2.5 sec.
+        base.encoderDrive(0.7,-19.4,-19.4,this); //Drives backwards to carousel
+        base.rightDuck.setPower(var.DUCK_SPEED); //Spins carousel
+        sleep(2300);
+
         base.rightDuck.setPower(0);
         base.gyroTurn(.5,-10,this); //rotate front towards SU
         base.encoderDrive(0.7,45,45,this);// drive into SU

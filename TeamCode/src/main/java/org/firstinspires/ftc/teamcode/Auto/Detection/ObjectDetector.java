@@ -19,19 +19,19 @@ public class ObjectDetector {
 
     CustomPipeline pipeline;
 
-    private final Point BLUE_LEFT_TL = new Point(90,90);
-    private final Point BLUE_LEFT_BR = new Point(140, 120);
-    private final Point BLUE_MIDDLE_TL = new Point(185, 90);
-    private final Point BLUE_MIDDLE_BR = new Point(235,  120);
-    private final Point BLUE_RIGHT_TL = new Point(265, 90);
-    private final Point BLUE_RIGHT_BR = new Point(315, 120);
+    private final Point FRONT_LEFT_TL    = new Point(90,90);
+    private final Point FRONT_LEFT_BR    = new Point(140, 120);
+    private final Point FRONT_MIDDLE_TL  = new Point(185, 90);
+    private final Point FRONT_MIDDLE_BR  = new Point(235,  120);
+    private final Point FRONT_RIGHT_TL   = new Point(265, 90);
+    private final Point FRONT_RIGHT_BR   = new Point(315, 120);
 
-    private final Point RED_LEFT_TL = new Point(0,135);
-    private final Point RED_LEFT_BR = new Point(50, 165);
-    private final Point RED_MIDDLE_TL = new Point(62, 140);
-    private final Point RED_MIDDLE_BR = new Point(125,  170);
-    private final Point RED_RIGHT_TL = new Point(155, 140);
-    private final Point RED_RIGHT_BR = new Point(215, 170);
+    private final Point SWITCH_LEFT_TL   = new Point(0,135);
+    private final Point SWITCH_LEFT_BR   = new Point(50, 165);
+    private final Point SWITCH_MIDDLE_TL = new Point(62, 140);
+    private final Point SWITCH_MIDDLE_BR = new Point(125,  170);
+    private final Point SWITCH_RIGHT_TL  = new Point(155, 140);
+    private final Point SWITCH_RIGHT_BR  = new Point(215, 170);
 
     private Point leftTL;
     private Point leftBR;
@@ -40,13 +40,12 @@ public class ObjectDetector {
     private Point rightTL;
     private Point rightBR;
 
-
     private RGBColor left;
     private RGBColor middle;
     private RGBColor right;
     private boolean show_value = true;
 
-    public ObjectDetector(OpMode op, boolean isRed){
+    public ObjectDetector(OpMode op, boolean isFrontCAM){
 
         opMode = op;
 
@@ -60,12 +59,12 @@ public class ObjectDetector {
         camera.setPipeline(pipeline);
         camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-        leftTL = (isRed) ? RED_LEFT_TL : BLUE_LEFT_TL;
-        leftBR = (isRed) ? RED_LEFT_BR : BLUE_LEFT_BR;
-        middleTL = (isRed) ? RED_MIDDLE_TL : BLUE_MIDDLE_TL;
-        middleBR = (isRed) ? RED_MIDDLE_BR : BLUE_MIDDLE_BR;
-        rightTL = (isRed) ? RED_RIGHT_TL : BLUE_RIGHT_TL;
-        rightBR = (isRed) ? RED_RIGHT_BR : BLUE_RIGHT_BR;
+        leftTL   = (isFrontCAM) ? SWITCH_LEFT_TL : FRONT_LEFT_TL;
+        leftBR   = (isFrontCAM) ? SWITCH_LEFT_BR : FRONT_LEFT_BR;
+        middleTL = (isFrontCAM) ? SWITCH_MIDDLE_TL : FRONT_MIDDLE_TL;
+        middleBR = (isFrontCAM) ? SWITCH_MIDDLE_BR : FRONT_MIDDLE_BR;
+        rightTL  = (isFrontCAM) ? SWITCH_RIGHT_TL : FRONT_RIGHT_TL;
+        rightBR  = (isFrontCAM) ? SWITCH_RIGHT_BR : FRONT_RIGHT_BR;
     }
 
     public void stopStreaming(){
@@ -113,7 +112,6 @@ public class ObjectDetector {
             Imgproc.rectangle(input, leftTL, leftBR, leftColor, thickness);
             Imgproc.rectangle(input, middleTL, middleBR, middleColor, thickness);
             Imgproc.rectangle(input, rightTL, rightBR, rightColor, thickness);
-
 
             //sendTelemetry();
 
