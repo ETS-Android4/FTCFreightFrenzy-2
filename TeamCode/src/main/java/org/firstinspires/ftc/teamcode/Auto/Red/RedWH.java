@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-@Disabled
 @Autonomous(name="RED-WH DELIVERY")
 public class RedWH extends LinearOpMode{
 
@@ -34,29 +33,10 @@ public class RedWH extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        ObjectDetector.POSITIONS position = detector.getDecision();
+        //ObjectDetector.POSITIONS position = detector.getDecision();
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+
         detector.setTelemShow(false);
-
-        //---------------- CASE LEFT ----------------
-        /*if (position == 0){
-            //Robot movements for "Case Left" position of team marker.
-
-        }
-
-        //---------------- CASE MIDDLE ----------------
-        else if(position == 1){
-            //Robot movements for "Case Middle" position of team marker.
-
-        }
-
-        //---------------- CASE RIGHT ----------------
-        else if(position == 3){
-            //Robot movements for "Case Right" position of team marker.
-
-        }*/
-
-        //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
-        //Position: facing forward
 
         base.encoderDrive(.5, var.CLEAR_WALL, var.CLEAR_WALL,this); //clear wall
         base.gyroTurn(.5,-10,this); //face hub
@@ -99,7 +79,7 @@ public class RedWH extends LinearOpMode{
         base.encoderDrive(.5,-8,-8,this); //back up
         base.bucket.setPosition(var.BUCKET_CLOSED);
         base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
-        base.liftAuto(1,this); //Bring lift down
+        base.liftAuto(0,this); //Bring lift down
         sleep(2000);
         base.gyroTurn(.5,100,this); // turn towards warehouse
         base.encoderDrive(.5,61,60,this); //drive into warehouse

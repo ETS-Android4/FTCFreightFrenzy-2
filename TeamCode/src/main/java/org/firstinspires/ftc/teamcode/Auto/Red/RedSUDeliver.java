@@ -33,6 +33,7 @@ public class RedSUDeliver extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
+        //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
 
         //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
