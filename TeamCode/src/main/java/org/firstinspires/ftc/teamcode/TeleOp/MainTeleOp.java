@@ -108,8 +108,8 @@ public class MainTeleOp extends LinearOpMode {
             GP1_RB_Held = false;
         }
         if (SlowMode) {
-            base.leftDT.setPower(0.15 * leftPower);
-            base.rightDT.setPower(0.15 * rightPower);
+            base.leftDT.setPower(0.4 * leftPower);
+            base.rightDT.setPower(0.4 * rightPower);
         } else {
             base.leftDT.setPower(leftPower);
             base.rightDT.setPower(rightPower);
