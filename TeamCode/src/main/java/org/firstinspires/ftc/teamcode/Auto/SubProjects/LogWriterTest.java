@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Auto.SubProjects;
 
 import android.os.Environment;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+@Disabled
 @TeleOp(name = "Log Writing Test")
 public class LogWriterTest extends LinearOpMode {
 

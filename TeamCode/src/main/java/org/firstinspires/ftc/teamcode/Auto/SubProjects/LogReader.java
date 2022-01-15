@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Auto.SubProjects;
 
 import android.os.Environment;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+@Disabled
 @TeleOp(name = "Log Reader")
 public class LogReader extends LinearOpMode {
 

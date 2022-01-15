@@ -118,20 +118,6 @@ public class MainTeleOp extends LinearOpMode {
 
         //--------------------ROBOT CONTROLS--------------------\\
 
-        //---------------LEFT-DUCK---------------\\
-        if (gamepad2.x) {
-            base.leftDuck.setPower(DUCK_SPEED);
-        } else {
-            base.leftDuck.setPower(0);
-        }
-
-        //---------------RIGHT-DUCK---------------\\
-        if (gamepad2.b) {
-            base.rightDuck.setPower(DUCK_SPEED);
-        } else {
-            base.rightDuck.setPower(0);
-        }
-
         //---------------DUAL-DUCK---------------\\
         double duckSpin = gamepad2.left_stick_x / 2;
         if (duckSpin > 0.1) {
@@ -139,8 +125,8 @@ public class MainTeleOp extends LinearOpMode {
             base.leftDuck.setPower(-duckSpin);
         }
         else if (duckSpin < -0.1){
-            base.rightDuck.setPower(-duckSpin);
-            base.leftDuck.setPower(duckSpin);
+            base.rightDuck.setPower(duckSpin);
+            base.leftDuck.setPower(-duckSpin);
         }
         else {
             base.rightDuck.setPower(0);
