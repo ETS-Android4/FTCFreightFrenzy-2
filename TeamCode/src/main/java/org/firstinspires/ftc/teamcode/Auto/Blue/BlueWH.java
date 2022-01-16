@@ -42,26 +42,26 @@ public class BlueWH extends LinearOpMode{
         //Position: Facing forward
 
         base.encoderDrive(0.5, 12, 12, this); //clear wall
-        base.gyroTurn(0.5,-50,this); //face hub
+        base.gyroTurn(0.5,-57,this); //face hub
         base.bucket.setPosition(var.BUCKET_CLOSED);
 
         switch (position) {
             case LEFT: //lvl. 1
-                base.encoderDrive(0.5,3,3,this);
+                base.encoderDrive(0.5,8,8,this);
                 base.liftAuto(1,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
             case MIDDLE: //lvl. 2
-                base.encoderDrive(0.5,5,5,this);
+                base.encoderDrive(0.5,9,9,this);
                 base.liftAuto(2,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
             case RIGHT: //lvl. 3
-                base.encoderDrive(0.5,6,6,this);
+                base.encoderDrive(0.5,10,10,this);
                 base.liftAuto(3,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
@@ -81,10 +81,10 @@ public class BlueWH extends LinearOpMode{
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(0,this); //Bring lift down
-        sleep(1500);
+        sleep(1300);
         base.gyroTurn(.5,-115,this); // turn towards warehouse
-        base.encoderDrive(1.0,60,60,this); //drive into warehouse
-        base.gyroTurn(0.5,-130,this);
-        base.encoderDrive(0.5,10,10,this);
+        base.encoderDrive(0.8,40,40,this); //drive into warehouse
+        base.gyroTurn(0.5,-135,this);
+        base.encoderDrive(1.0,25,25,this);
     }
 }

@@ -27,7 +27,6 @@ public class RedWHPark extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
         waitForStart();
 
         base.gyro.resetZAxisIntegrator();
