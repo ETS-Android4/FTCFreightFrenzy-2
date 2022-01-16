@@ -47,7 +47,7 @@ public class MainBase {
     final int  LEVEL_ZERO       = 200;
     final int  LEVEL_ONE        = 7200;
     final int  LEVEL_TWO        = 9800;
-    final int  LEVEL_THREE      = 14500;
+    final int  LEVEL_THREE      = 15000;
     final int  LEVEL_CAP        = 15000;
     final int  ACCEPTABLE_ERROR = 75;
 
@@ -459,6 +459,49 @@ public class MainBase {
         lift.setPower(power);
     }
 
+    public void liftAuto(int level, LinearOpMode opMode, boolean wait){
+        if (opMode.opModeIsActive()) {
+
+            opMode.telemetry.addData("CATCH ONE","");
+
+            int targetEncoder = 0;
+            //Setting target level of lift
+            if (level == 0) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = LEVEL_ZERO;
+            } else if (level == 1) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = LEVEL_ONE;
+            } else if (level == 2) {
+                targetEncoder = LEVEL_TWO;
+            } else if (level == 3) {
+                targetEncoder = LEVEL_THREE;
+            }
+
+            lift.setTargetPosition(targetEncoder);
+            // Turn ON RUN_TO_POSITION
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // Turn ON lift
+            lift.setPower(1);
+            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
+
+            boolean goodEnough = false;
+            while (wait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+
+                double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
+                if (ErrorAmount < ACCEPTABLE_ERROR) {
+                    goodEnough = true;
+                }
+
+                opMode.telemetry.addData("Error Amount", ErrorAmount);
+                opMode.telemetry.addData("Good Enough: ", goodEnough);
+               // opMode.telemetry.update();
+            }
+
+            // Turn off lift power
+            opMode.telemetry.addData("CATCH FOUR","");
+        }
+    }
     public void liftAuto(int level, LinearOpMode opMode){
         if (opMode.opModeIsActive()) {
 
@@ -486,7 +529,7 @@ public class MainBase {
             opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
-            while (opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+            while ( opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
 
                 double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
                 if (ErrorAmount < ACCEPTABLE_ERROR) {
@@ -495,7 +538,7 @@ public class MainBase {
 
                 opMode.telemetry.addData("Error Amount", ErrorAmount);
                 opMode.telemetry.addData("Good Enough: ", goodEnough);
-               // opMode.telemetry.update();
+                // opMode.telemetry.update();
             }
 
             // Turn off lift power
@@ -506,5 +549,4 @@ public class MainBase {
             opMode.telemetry.addData("CATCH FOUR","");
         }
     }
-
 }

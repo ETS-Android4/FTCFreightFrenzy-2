@@ -79,8 +79,8 @@ public class RedWH extends LinearOpMode{
         base.liftAuto(0,this); //Bring lift down
         sleep(1300);
         base.gyroTurn(.5,115,this); // turn towards warehouse
-        base.encoderDrive(0.8,40,40,this); //drive into warehouse
-        base.gyroTurn(0.5,135,this);
+        base.encoderDrive(0.8,30,30,this); //drive into warehouse
+        base.gyroTurn(0.5,150,this);
         base.encoderDrive(1.0,25,25,this);
     }
 }

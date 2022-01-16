@@ -34,13 +34,13 @@ public class BlueSUDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
         //Blue autonomous: Delivers Duck and Parks in Storage Unit
         //Position: Back facing Carousel (Back 10 degrees from wall)
 
         base.encoderDrive(0.7,-19.4,-19.4,this); // drive to Carousel
         base.leftDuck.setPower(0.41); // spin it
-        sleep(2300); // for 2.5 sec.
+        sleep(3500); // for 2.5 sec.
         base.leftDuck.setPower(0);
         base.gyroTurn(.5,10,this); //rotate front towards SU
         base.encoderDrive(0.7,45,45,this);// drive into SU
@@ -70,6 +70,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.liftAuto(3, this);
                 this.telemetry.update();
                 while(base.lift.isBusy());
+                base.encoderDrive(0.3,1.2,1.2,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
@@ -87,12 +88,16 @@ public class BlueSUDeliver extends LinearOpMode{
         base.encoderDrive(.5,-10,-10,this);
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
-        base.liftAuto(0,this); //Bring lift down
+        base.liftAuto(0,this, false); //Bring lift down
         base.gyroTurn(0.5,30,this); //Turns diagonally towards WH
-        base.encoderDrive(1.0,51,51,this); //Enters WH
+        base.encoderDrive(0.6,51,51,this); //Enters WH
         base.gyroTurn(0.5,10,this); //Turns perpendicular to back wall
         base.encoderDrive(0.8,15,15,this); //Drives to topleft of WH
         telemetry.addData("Parked in Blue WH:)","");
+        base.lift.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        base.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //telemetry.update();
 
     }

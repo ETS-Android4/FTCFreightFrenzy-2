@@ -47,21 +47,21 @@ public class BlueWH extends LinearOpMode{
 
         switch (position) {
             case LEFT: //lvl. 1
-                base.encoderDrive(0.5,8,8,this);
+                base.encoderDrive(0.5,7,7,this);
                 base.liftAuto(1,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
             case MIDDLE: //lvl. 2
-                base.encoderDrive(0.5,9,9,this);
+                base.encoderDrive(0.5,8,8,this);
                 base.liftAuto(2,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
             case RIGHT: //lvl. 3
-                base.encoderDrive(0.5,10,10,this);
+                base.encoderDrive(0.5,9,9,this);
                 base.liftAuto(3,this);
                 while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
@@ -83,8 +83,8 @@ public class BlueWH extends LinearOpMode{
         base.liftAuto(0,this); //Bring lift down
         sleep(1300);
         base.gyroTurn(.5,-115,this); // turn towards warehouse
-        base.encoderDrive(0.8,40,40,this); //drive into warehouse
-        base.gyroTurn(0.5,-135,this);
+        base.encoderDrive(0.8,30,30,this); //drive into warehouse
+        base.gyroTurn(0.5,-150,this);
         base.encoderDrive(1.0,25,25,this);
     }
 }
