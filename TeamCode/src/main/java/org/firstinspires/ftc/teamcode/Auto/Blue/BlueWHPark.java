@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 
-@Autonomous(name="BLUE WH Park")
+@Autonomous(name="BLUE-WH Park")
 public class BlueWHPark extends LinearOpMode{
 
     MainBase base = new MainBase();
@@ -32,8 +32,6 @@ public class BlueWHPark extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        base.encoderDrive(.6,45,45,this);
-        base.gyroTurn(.5,-20,this);
-        base.encoderDrive(.5,5,5,this);
+        base.encoderDrive(1.0,45,45,this);
     }
 }

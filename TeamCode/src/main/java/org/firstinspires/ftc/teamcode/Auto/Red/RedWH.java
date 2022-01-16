@@ -34,7 +34,7 @@ public class RedWH extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
 
         detector.setTelemShow(false);
 
