@@ -38,51 +38,49 @@ public class RedWH extends LinearOpMode{
 
         detector.setTelemShow(false);
 
-        base.encoderDrive(.5, var.CLEAR_WALL, var.CLEAR_WALL,this); //clear wall
-        base.gyroTurn(.5,-10,this); //face hub
-        base.encoderDrive(.5,7,7,this); //drive to hub
-        switch (position) { //hub level test result goes there <==
-            case LEFT: //lvl. 1 and open bucket
+        base.encoderDrive(0.5, 12, 12, this); //clear wall
+        base.gyroTurn(0.5,50,this); //face hub
+        base.bucket.setPosition(var.BUCKET_CLOSED);
+        switch (position) {
+            case LEFT: //lvl. 1
+                base.encoderDrive(0.5,3,3,this);
                 base.liftAuto(1,this);
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                while(base.lift.isBusy());
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
                 break;
-            case MIDDLE: //lvl. 2 and open bucket
+            case MIDDLE: //lvl. 2
+                base.encoderDrive(0.5,5,5,this);
                 base.liftAuto(2,this);
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                while(base.lift.isBusy());
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
-                base.encoderDrive(.5,1.5,1.5,this);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
-                base.encoderDrive(.5,-1.5,-1.5,this);
                 break;
-            case RIGHT: //lvl. 3 and  open bucket
+            case RIGHT: //lvl. 3
+                base.encoderDrive(0.5,6,6,this);
                 base.liftAuto(3,this);
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                while(base.lift.isBusy());
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
-                base.encoderDrive(.5,2,2,this);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
-                base.encoderDrive(.5,-2,-2,this);
                 break;
-            default: //just in case
+            default: //Fallback auto if detection fails
                 base.liftAuto(3,this);
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(1000);
-                base.encoderDrive(.5,2,2,this);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
-                sleep(5000);
+                base.encoderDrive(.3,2,2,this);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                sleep(1000);
                 break;
         }
-        base.encoderDrive(.5,-8,-8,this); //back up
-        base.bucket.setPosition(var.BUCKET_CLOSED);
-        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+
+        base.encoderDrive(0.5,-13,-13,this);
+        base.bucket.setPosition(var.BUCKET_OPEN);
+        base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(0,this); //Bring lift down
         sleep(1500);
-        base.gyroTurn(.5,100,this); // turn towards warehouse
-        base.encoderDrive(.5,61,60,this); //drive into warehouse
-        base.leftClaw.setPosition(var.LCLAW_CLOSED); // set and close bucket
+        base.gyroTurn(.5,115,this); // turn towards warehouse
+        base.encoderDrive(1.0,60,60,this); //drive into warehouse
+        base.gyroTurn(0.5,130,this);
+        base.encoderDrive(0.5,10,10,this);
     }
 }

@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-
 @Autonomous(name= "RED-SU DELIVERY")
 public class RedSUDeliver extends LinearOpMode{
 
@@ -34,7 +33,7 @@ public class RedSUDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
 
         //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
         //Position: Back facing Carousel (Back 10 degrees from wall.)
@@ -42,7 +41,6 @@ public class RedSUDeliver extends LinearOpMode{
         base.encoderDrive(0.7,-19.4,-19.4,this); //Drives backwards to carousel
         base.rightDuck.setPower(var.DUCK_SPEED); //Spins carousel
         sleep(2300);
-
         base.rightDuck.setPower(0);
         base.gyroTurn(.5,-10,this); //rotate front towards SU
         base.encoderDrive(0.7,45,45,this);// drive into SU

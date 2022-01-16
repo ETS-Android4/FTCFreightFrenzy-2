@@ -28,7 +28,7 @@ public class BlueWH extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Yes Lilly, you can signal thumbs-up now:","");
+        telemetry.addData("Yes Lilly, you can signal thumbs-up now","");
         telemetry.update();
 
         waitForStart();
@@ -38,41 +38,34 @@ public class BlueWH extends LinearOpMode{
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
 
-        telemetry.addData("Position is: ", position);
-        telemetry.update();
-
         //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
         //Position: Facing forward
 
-        base.encoderDrive(0.5, var.CLEAR_WALL, var.CLEAR_WALL, this); //clear wall
-        base.gyroTurn(0.5,50,this); //face hub
-        base.encoderDrive(0.7,15,15,this); //drive to hub
-        base.gyroTurn(0.5,25,this);
+        base.encoderDrive(0.5, 12, 12, this); //clear wall
+        base.gyroTurn(0.5,-50,this); //face hub
+        base.bucket.setPosition(var.BUCKET_CLOSED);
 
         switch (position) {
             case LEFT: //lvl. 1
+                base.encoderDrive(0.5,3,3,this);
                 base.liftAuto(1,this);
                 while(base.lift.isBusy());
-                base.bucket.setPosition(var.BUCKET_CLOSED);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
             case MIDDLE: //lvl. 2
+                base.encoderDrive(0.5,5,5,this);
                 base.liftAuto(2,this);
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                base.encoderDrive(.3,1.5,1.5,this);
+                while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
-                base.encoderDrive(.5,-1.5,-1.5,this);
                 break;
             case RIGHT: //lvl. 3
+                base.encoderDrive(0.5,6,6,this);
                 base.liftAuto(3,this);
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(1000);
-                base.encoderDrive(.3,2,2,this);
+                while(base.lift.isBusy());
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
-                base.encoderDrive(.3,-2,-2,this);
                 break;
             default: //Fallback auto if detection fails
                 base.liftAuto(3,this);
@@ -83,13 +76,15 @@ public class BlueWH extends LinearOpMode{
                 sleep(1000);
                 break;
         }
-        base.gyroTurn(0.5,5,this);
+
         base.encoderDrive(0.5,-13,-13,this);
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(0,this); //Bring lift down
         sleep(1500);
-        base.gyroTurn(.5,-90,this); // turn towards warehouse
-        base.encoderDrive(.5,40,40,this); //drive into warehouse
-        }
+        base.gyroTurn(.5,-115,this); // turn towards warehouse
+        base.encoderDrive(1.0,60,60,this); //drive into warehouse
+        base.gyroTurn(0.5,-130,this);
+        base.encoderDrive(0.5,10,10,this);
+    }
 }
