@@ -38,8 +38,6 @@ public class MainBase {
     public static final double     COUNTS_PER_INCH  = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION * EMPIRICAL_MULTIPLIER)
             / (WHEEL_DIAMETER_INCHES * 3.14159265);
     public double                  amountError        = 0.6;
-    public static final double     DRIVE_SPEED        = 1.0;
-    public static final double     TURN_SPEED         = 0.5;
     public static final double     P_TURN_COEFF       = 0.1;
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
@@ -93,7 +91,6 @@ public class MainBase {
         leftDuck.setPower(0);
         rightDuck.setPower(0);
         lift.setPower(0);
-        //rightClaw.setPosition(0.9);
         bucket.setPosition(0.95);
         leftClaw.setPosition(1.0);
 
@@ -322,8 +319,8 @@ public class MainBase {
                 leftDT.setPower(-speed);
                 rightDT.setPower(-speed);
 
-                opmode.telemetry.addData("Sensor Front Distance: ", backRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Front Distance: ", backDistance);
+                opmode.telemetry.addData("Sensor Back Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Back Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Backwards");
                 opmode.telemetry.update();
             }
@@ -336,8 +333,8 @@ public class MainBase {
                 leftDT.setPower(speed);
                 rightDT.setPower(speed);
 
-                opmode.telemetry.addData("Sensor Front Distance: ", backRange.getDistance(DistanceUnit.INCH));
-                opmode.telemetry.addData("Target Front Distance: ", backDistance);
+                opmode.telemetry.addData("Sensor Back Distance: ", backRange.getDistance(DistanceUnit.INCH));
+                opmode.telemetry.addData("Target Back Distance: ", backDistance);
                 opmode.telemetry.addLine("Moving Forwards");
                 opmode.telemetry.update();
             }
@@ -374,6 +371,7 @@ public class MainBase {
         }
     }
 
+    //Utilization of Gyro to turn
     public void gyroTurn(double speed, double angle, LinearOpMode opmode) {
 
         // keep looping while we are still active, and not on heading.
@@ -383,6 +381,7 @@ public class MainBase {
         }
     }
 
+    //Custom sleep method
     public void sleepV2(double wait, LinearOpMode opmode){
         double finalTime = opmode.time + wait;
         while(finalTime > opmode.time){
@@ -429,6 +428,7 @@ public class MainBase {
         return onTarget;
     }
 
+    //Automated lift method for TeleOp
     public void lift(int level, LinearOpMode opmode){
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
@@ -459,7 +459,8 @@ public class MainBase {
         lift.setPower(power);
     }
 
-    public void liftAuto(int level, LinearOpMode opMode, boolean wait){
+    //Lift method for Autonomous w/ WAIT
+    public void liftAuto(int level, boolean liftWait, LinearOpMode opMode){
         if (opMode.opModeIsActive()) {
 
             opMode.telemetry.addData("CATCH ONE","");
@@ -486,7 +487,7 @@ public class MainBase {
             opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
-            while (wait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+            while (liftWait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
 
                 double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
                 if (ErrorAmount < ACCEPTABLE_ERROR) {
@@ -502,6 +503,8 @@ public class MainBase {
             opMode.telemetry.addData("CATCH FOUR","");
         }
     }
+
+    //Lift method for Autonomous w/ NO WAIT
     public void liftAuto(int level, LinearOpMode opMode){
         if (opMode.opModeIsActive()) {
 

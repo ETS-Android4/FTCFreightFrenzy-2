@@ -89,7 +89,7 @@ public class RedSUDeliver extends LinearOpMode{
         base.encoderDrive(.5,-10,-10,this);
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
-        base.liftAuto(0,this, false); //Bring lift down
+        base.liftAuto(0,false, this); //Bring lift down
         base.gyroTurn(0.5,-30,this); //Turns diagonally towards WH
         base.encoderDrive(0.6,51,51,this); //Enters WH
         base.gyroTurn(0.5,-10,this); //Turns perpendicular to back wall
