@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-
+@Disabled
 @Autonomous(name= "RED-SU PARKING")
 public class RedSUPark extends LinearOpMode{
 
@@ -36,10 +36,10 @@ public class RedSUPark extends LinearOpMode{
         base.rightDuck.setPower(var.DUCK_SPEED); //Spins carousel
         sleep(2300);
         base.rightDuck.setPower(0);
-        base.gyroTurn(.5,-110,this); //rotate front towards SU
-        base.encoderDrive(.5,21.5,21.5,this); //Drive into SU
-        base.gyroTurn(.5,-99,this);
-        telemetry.addData("Parked in RED-SU:)","");
+        base.gyroTurn(var.DT_HALF_SPEED,-110,this); //rotate front towards SU
+        base.encoderDrive(var.DT_HALF_SPEED,21.5,21.5,this); //Drive into SU
+        base.gyroTurn(var.DT_HALF_SPEED,-99,this);
+        telemetry.addLine("Parked in RED-SU");
         telemetry.update();
 
     }

@@ -67,14 +67,6 @@ public class BlueWH extends LinearOpMode{
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
-            default: //Fallback auto if detection fails
-                base.liftAuto(3,this);
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(1000);
-                base.encoderDrive(.3,2,2,this);
-                base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
-                break;
         }
 
         //Drives backwards (away) from hub

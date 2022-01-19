@@ -122,7 +122,7 @@ public class MainBase {
         double robotError;
 
         // Calculates error from angle.
-        robotError = angle - gyro.getHeading();
+        robotError = angle - gyro.getIntegratedZValue(); //Switch to gyro.getHeading() if issue arises.
         while (robotError > 180)  robotError -= 360;
         while (robotError <= -180) robotError += 360;
         return robotError;
@@ -143,8 +143,6 @@ public class MainBase {
         int     moveCountsTR = (int)(distanceR * MainBase.COUNTS_PER_INCH);
 
         double  max;
-        double  leftMax;
-        double  rightMax;
         double  error;
         double  speedL;
         double  speedR;

@@ -37,8 +37,9 @@ public class RedWH extends LinearOpMode{
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
         detector.setTelemShow(false);
 
-        base.encoderDrive(0.8, 12, 12, this); //Clears the wall
-        base.gyroTurn(0.5,57,this); //Turns to face hub
+        //base.gyroDrive(1.0,12,12,-1,0,0,this);
+        base.encoderDrive(1.0, 12, 12, this); //Clears the wall
+        base.gyroTurn(0.6,57,this); //Turns to face hub
         base.bucket.setPosition(var.BUCKET_CLOSED);
 
         switch (position) {
@@ -63,18 +64,10 @@ public class RedWH extends LinearOpMode{
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
-            default: //Fallback auto if detection fails
-                base.liftAuto(3,this);
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(1000);
-                base.encoderDrive(.3,2,2,this);
-                base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
-                break;
         }
 
         //Drives backwards (away) from hub
-        base.encoderDrive(0.5,-13,-13,this);
+        base.encoderDrive(1.0,-13,-13,this);
 
         //CLOSES bucket and claw
         base.bucket.setPosition(var.BUCKET_OPEN);
