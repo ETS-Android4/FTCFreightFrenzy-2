@@ -46,7 +46,7 @@ public class MainBase {
     final int  LEVEL_ONE        = 7200;
     final int  LEVEL_TWO        = 9800;
     final int  LEVEL_THREE      = 15000;
-    final int  LEVEL_CAP        = 15000;
+    final int  LEVEL_CAP        = 15100;
     final int  ACCEPTABLE_ERROR = 75;
 
     HardwareMap hwMap = null;
