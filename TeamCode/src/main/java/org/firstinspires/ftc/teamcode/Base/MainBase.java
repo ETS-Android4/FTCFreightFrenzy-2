@@ -42,10 +42,10 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int  LEVEL_ZERO       = 200;
-    final int  LEVEL_ONE        = 7200;
-    final int  LEVEL_TWO        = 9800;
-    final int  LEVEL_THREE      = 15000;
+    final int  LEVEL_ZERO       = 150;
+    final int  LEVEL_ONE        = 3700;
+    final int  LEVEL_TWO        = 4900;
+    final int  LEVEL_THREE      = 5900;
     final int  LEVEL_CAP        = 15100;
     final int  ACCEPTABLE_ERROR = 75;
 
@@ -91,8 +91,8 @@ public class MainBase {
         leftDuck.setPower(0);
         rightDuck.setPower(0);
         lift.setPower(0);
-        bucket.setPosition(0.95);
-        leftClaw.setPosition(1.0);
+        bucket.setPosition(1.0);
+        leftClaw.setPosition(0.4);
 
         opMode.telemetry.addLine("Initialization Complete");
         opMode.telemetry.update();

@@ -37,7 +37,8 @@ public class BlueWH extends LinearOpMode{
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
-
+        base.bucket.setPosition(0.90);
+        base.leftClaw.setPosition(1.0);
         //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
         //Position: Facing forward
 

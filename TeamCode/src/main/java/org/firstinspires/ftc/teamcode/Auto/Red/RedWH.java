@@ -36,7 +36,8 @@ public class RedWH extends LinearOpMode{
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
         detector.setTelemShow(false);
-
+        base.bucket.setPosition(0.90);
+        base.leftClaw.setPosition(1.0);
         //base.gyroDrive(1.0,12,12,-1,0,0,this);
         base.encoderDrive(1.0, 12, 12, this); //Clears the wall
         base.gyroTurn(0.6,57,this); //Turns to face hub

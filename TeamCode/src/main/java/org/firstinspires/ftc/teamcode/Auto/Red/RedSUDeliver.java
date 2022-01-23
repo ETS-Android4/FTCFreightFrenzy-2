@@ -34,7 +34,8 @@ public class RedSUDeliver extends LinearOpMode{
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
-
+        base.bucket.setPosition(0.90);
+        base.leftClaw.setPosition(1.0);
         //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
         //Position: Back facing Carousel (Back 10 degrees from wall.)
 
