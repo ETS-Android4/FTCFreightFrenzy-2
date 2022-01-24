@@ -46,7 +46,7 @@ public class MainBase {
     final int  LEVEL_ONE        = 3700;
     final int  LEVEL_TWO        = 4900;
     final int  LEVEL_THREE      = 5900;
-    final int  LEVEL_CAP        = 15100;
+    final int  LEVEL_CAP        = 6100;
     final int  ACCEPTABLE_ERROR = 75;
 
     HardwareMap hwMap = null;
@@ -310,7 +310,7 @@ public class MainBase {
         if(backDistance != -1) {
             while (backRange.getDistance(DistanceUnit.INCH) < backDistance){
                 if (Math.abs(backRange.getDistance(DistanceUnit.INCH) - backDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(backRange,backDistance, opmode)){
+                    if (!rangeCheck(backRange, backDistance, opmode)){
                         break;
                     }
                 }
@@ -324,7 +324,7 @@ public class MainBase {
             }
             while (backRange.getDistance(DistanceUnit.INCH) > backDistance){
                 if (Math.abs(backRange.getDistance(DistanceUnit.INCH) - backDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(backRange,backDistance,opmode)){
+                    if (!rangeCheck(backRange, backDistance, opmode)){
                         break;
                     }
                 }
@@ -340,7 +340,7 @@ public class MainBase {
         if (sideDistance != -1) {
             while (sideRange.getDistance(DistanceUnit.INCH) < sideDistance){
                 if (Math.abs(sideRange.getDistance(DistanceUnit.INCH) - sideDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(sideRange,sideDistance,opmode)){
+                    if (!rangeCheck(sideRange, sideDistance, opmode)){
                         break;
                     }
                 }
@@ -354,7 +354,7 @@ public class MainBase {
             }
             while (sideRange.getDistance(DistanceUnit.INCH) > sideDistance){
                 if (Math.abs(sideRange.getDistance(DistanceUnit.INCH) - sideDistance) > MAX_ACCEPTABLE_ERROR){
-                    if (!rangeCheck(sideRange,sideDistance,opmode)){
+                    if (!rangeCheck(sideRange, sideDistance, opmode)){
                         break;
                     }
                 }
@@ -380,7 +380,7 @@ public class MainBase {
     }
 
     //Custom sleep method
-    public void sleepV2(double wait, LinearOpMode opmode){
+    public void sleepV2(double wait, LinearOpMode opmode) {
         double finalTime = opmode.time + wait;
         while(finalTime > opmode.time){
             opmode.telemetry.update();
@@ -426,18 +426,21 @@ public class MainBase {
         return onTarget;
     }
 
-    //Automated lift method for TeleOp
+    //Automated lift method for TeleOp (Levels 1 & 2 NOT in use)
     public void lift(int level, LinearOpMode opmode){
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
 
-        if(level == 1){
+        if (level == 0){
+            targetEncoder = LEVEL_ZERO;
+        }
+        else if (level == 1){
             targetEncoder = LEVEL_ONE;
         }
-        else if(level == 2){
+        else if (level == 2){
             targetEncoder = LEVEL_TWO;
         }
-        else if(level == 3){
+        else if (level == 3){
             targetEncoder = LEVEL_THREE;
         }
         else{
@@ -458,7 +461,7 @@ public class MainBase {
     }
 
     //Lift method for Autonomous w/ WAIT
-    public void liftAuto(int level, boolean liftWait, LinearOpMode opMode){
+    public void liftAuto(int level, boolean liftWait, LinearOpMode opMode) {
         if (opMode.opModeIsActive()) {
 
             opMode.telemetry.addData("CATCH ONE","");

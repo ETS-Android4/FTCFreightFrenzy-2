@@ -8,7 +8,7 @@ public class Variables {
     public double  LCLAW_CLOSED     = 0;
     public double  BUCKET_OPEN      = 0.95;
     public double  BUCKET_CLOSED    = 0.5;
-    public double  DUCK_SPEED       = 0.41;
+    public double  DUCK_SPEED       = 0.53;
     public double  DT_HALF_SPEED    = 0.5;
     public double  DT_FULL_SPEED    = 1.0;
 

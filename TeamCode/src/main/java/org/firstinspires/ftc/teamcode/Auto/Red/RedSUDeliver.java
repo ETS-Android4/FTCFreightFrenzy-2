@@ -17,7 +17,7 @@ public class RedSUDeliver extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, true);
+        ObjectDetector detector = new ObjectDetector(this, false);
 
         base.init(hardwareMap, this);
 
@@ -34,8 +34,7 @@ public class RedSUDeliver extends LinearOpMode{
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
-        base.bucket.setPosition(0.90);
-        base.leftClaw.setPosition(1.0);
+
         //Blue autonomous: Delivers duck, delivers pre-loaded, and parks in WH
         //Position: Back facing Carousel (Back 10 degrees from wall.)
 
@@ -51,39 +50,27 @@ public class RedSUDeliver extends LinearOpMode{
             case LEFT: //lvl. 1 and open bucket
                 base.encoderDrive(0.5,10,10,this);
                 base.liftAuto(1, this);
-                this.telemetry.update();
-                while(base.lift.isBusy());
                 base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
             case MIDDLE: //lvl. 2 and open bucket
                 base.encoderDrive(0.5,11.2,11.2,this);
                 base.liftAuto(2, this);
-                this.telemetry.update();
-                while(base.lift.isBusy());
                 base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
             case RIGHT: //lvl. 3 and  open bucket
                 base.encoderDrive(0.5,13.5,13.5,this);
                 base.liftAuto(3, this);
-                this.telemetry.update();
-                while(base.lift.isBusy());
-                base.encoderDrive(0.3,1.5,1.5,this);
+                base.encoderDrive(0.5,1.7,1.7,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
-                break;
-            default: //just in case
-                base.encoderDrive(0.5,13,13,this);
-                base.liftAuto(3, this);
-                while(base.lift.isBusy());
-                base.encoderDrive(0.3,1.2,1.2,this);
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
         }
 

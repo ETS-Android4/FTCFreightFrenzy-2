@@ -34,8 +34,8 @@ public class BlueSUDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
-        //Blue autonomous: Delivers Duck and Parks in Storage Unit
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        //Blue autonomous: Delivers Duck and Parks in WH/
         //Position: Back facing Carousel (Back 10 degrees from wall)
 
         base.bucket.setPosition(0.90);
@@ -44,55 +44,49 @@ public class BlueSUDeliver extends LinearOpMode{
         base.leftDuck.setPower(0.53); // spin it
         sleep(2000); // SLEEP IF ALLIANCE REQUESTS
         base.leftDuck.setPower(0);
-        base.gyroTurn(.5,10,this); //rotate front towards SU
-        base.encoderDrive(0.7,45,45,this);// drive into SU
-        base.gyroTurn(0.5,100,this);
+        base.gyroTurn(0.5,10,this); //Rotate to face WH
+        base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
+        //base.gyroDrive(0.8,45,45,0,0,0,this); //To test gyroDrive
+        base.gyroTurn(0.5,100,this); //Turns to face hub
 
-        switch (position) { //hub level test result goes there <==
-            case LEFT: //lvl. 1 and open bucket
+        switch (position) {
+            case LEFT: //SCORES IN FIRST (BOTTOM) TIER
+                base.liftAuto(1, false,this);
                 base.encoderDrive(0.5,11,11,this);
-                base.liftAuto(1, this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
-            case MIDDLE: //lvl. 2 and open bucket
+            case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
+                base.liftAuto(2, false,this);
                 base.encoderDrive(0.5,11.2,11.2,this);
-                base.liftAuto(2, this);
                 //base.encoderDrive(0.3,1.7,1.7,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
-            case RIGHT: //lvl. 3 and  open bucket
-                base.encoderDrive(0.5,13.5,13.5,this);
-                base.liftAuto(3, this);
-                base.encoderDrive(0.3,1.7,1.7,this);
+            case RIGHT: //SCORES IN THIRD (TOP) TIER
+                base.encoderDrive(0.5,13.5,13.5,this); //Approaches hub head-on
+                //base.rangeDrive(0.3,40,-1,this); //To test rangeDrive
+                base.liftAuto(3, false,this); //Extends lift to top-tier
+                base.encoderDrive(0.5,1.7,1.7,this); //Positioning for scoring
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
-                break;
-            default: //just in case
-                base.encoderDrive(0.5,13,13,this);
-                base.liftAuto(3, this);
-                while(base.lift.isBusy());
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(500);
                 break;
         }
 
-        base.encoderDrive(.5,-10,-10,this);
+        base.encoderDrive(0.5,-10,-10,this);
         base.bucket.setPosition(var.BUCKET_OPEN);
         base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
         base.liftAuto(0,false, this); //Bring lift down
         base.gyroTurn(0.5,30,this); //Turns diagonally towards WH
         base.encoderDrive(0.9,60,60,this); //Enters WH
         base.gyroTurn(0.5,10,this); //Turns perpendicular to back wall
-        base.encoderDrive(0.8,20,20,this); //Drives to topleft of WH
+        base.encoderDrive(0.8,20,20,this); //Drives to top-right of WH
         telemetry.addData("Parked in Blue WH:)","");
         base.lift.setPower(0);
 

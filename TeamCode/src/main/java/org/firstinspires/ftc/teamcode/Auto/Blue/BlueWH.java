@@ -18,7 +18,7 @@ public class BlueWH extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
+        ObjectDetector detector = new ObjectDetector(this, true);
 
         base.init(hardwareMap, this);
 

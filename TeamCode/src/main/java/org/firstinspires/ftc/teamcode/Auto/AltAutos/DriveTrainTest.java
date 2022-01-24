@@ -16,8 +16,6 @@ public class DriveTrainTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //ContourDetector detector = new ContourDetector(hardwareMap, telemetry);
-
         base.init(hardwareMap, this);
 
         base.rightDT.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -30,9 +28,9 @@ public class DriveTrainTest extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        //base.gyroDrive(1,70,70,0,0,0,this);
+        //base.gyroDrive(1,50,50,0,0,0,this);
 
-        base.encoderDrive(1,70,70,this);
+        base.encoderDrive(1,50,50,this);
 
     }
 }

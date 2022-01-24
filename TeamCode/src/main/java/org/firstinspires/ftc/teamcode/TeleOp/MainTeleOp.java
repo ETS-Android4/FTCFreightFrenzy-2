@@ -12,20 +12,18 @@ public class MainTeleOp extends LinearOpMode {
 
     MainBase base = null;
 
-    public boolean GP1_RB_Held   = false;
-    public boolean GP2_LB_Held   = false;
-    public boolean GP2_RB_Held   = false;
-    public boolean GP2_Y_Held    = false;
-    public boolean DriveChange   = false;
-    public boolean GP1_A_Held    = false;
-    public boolean SlowMode      = false;
-    public boolean AUTO_LIFT     = false;
-    public double  LCLAW_OPEN    = 1.0;
-    public double  LCLAW_CLOSED  = 0; //Delux hitec 485HB
-    public double  RCLAW_OPEN    = 0;
-    public double  RCLAW_CLOSED  = 0.6;
-    public double  BUCKET_OPEN   = 0.95;
-    public double  BUCKET_CLOSED = 0.5;
+    public boolean GP1_RB_Held    = false;
+    public boolean GP2_LB_Held    = false;
+    public boolean GP2_Y_Held     = false;
+    public boolean DriveChange    = false;
+    public boolean GP1_A_Held     = false;
+    public boolean SlowMode       = false;
+    public boolean AUTO_LIFT      = false;
+    public double  LCLAW_OPEN     = 1.0;
+    public double  LCLAW_CLOSED   = 0;
+    public double  BUCKET_OPEN    = 0.95;
+    public double  BUCKET_CLOSED  = 0.5;
+    public double  DUCK_REDUCTION = (1.0 / 0.53);
     int level = 0;
 
 
@@ -118,7 +116,7 @@ public class MainTeleOp extends LinearOpMode {
         //--------------------ROBOT CONTROLS--------------------\\
 
         //---------------DUAL-DUCK---------------\\
-        double duckSpin = gamepad2.left_stick_x / 2;
+        double duckSpin = gamepad2.left_stick_x / DUCK_REDUCTION; //Speed = 0.53
         if (duckSpin > 0.1) {
             base.rightDuck.setPower(duckSpin);
             base.leftDuck.setPower(-duckSpin);
@@ -135,19 +133,17 @@ public class MainTeleOp extends LinearOpMode {
         //---------------LIFT---------------\\
         double liftArm = gamepad2.right_stick_y;
         if (Math.abs(liftArm) < 0.1) {
-            if (gamepad2.dpad_up) {
+            if (gamepad2.dpad_down) {
+                AUTO_LIFT = true;
+                level = 0;
+            } else if (gamepad2.dpad_up) {
                 AUTO_LIFT = true;
                 level = 3;
-            } else if (gamepad2.dpad_left || gamepad2.dpad_right) {
-                AUTO_LIFT = true;
-                level = 2;
-            } else if (gamepad2.dpad_down) {
-                AUTO_LIFT = true;
-                level = 1;
             } else if (gamepad2.right_bumper) {
                 AUTO_LIFT = true;
                 level = 4;
             }
+
             if (AUTO_LIFT) {
                 base.lift(level, this);
             } else {
@@ -172,16 +168,6 @@ public class MainTeleOp extends LinearOpMode {
         if (!gamepad2.left_bumper) {
             GP2_LB_Held = false;
         }
-
-        //LEFT-CLAW Var Transfer Test
-        /*if (gamepad2.left_bumper && !GP2_LB_Held) {
-            GP2_LB_Held = true;
-            if (base.leftClaw.getPosition() == LCLAW_OPEN) {
-                base.leftClaw.setPosition(LCLAW_CLOSED);
-            } else {
-                base.leftClaw.setPosition(LCLAW_OPEN);
-            }
-        }*/
 
         //---------------BUCKET---------------\\
         if (gamepad2.y && !GP2_Y_Held) {
