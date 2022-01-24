@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Base.Variables;
 
 @Disabled
 @Autonomous(name="RED-WH DELIVERY")
-public class RedWH extends LinearOpMode{
+public class RedWHDeliver extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();

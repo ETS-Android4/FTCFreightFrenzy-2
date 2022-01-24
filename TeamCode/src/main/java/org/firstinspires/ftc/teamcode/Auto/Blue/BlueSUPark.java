@@ -9,6 +9,9 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
+//Blue autonomous: Delivers Duck and Parks in Storage Unit
+//Position: Back facing Carousel (Back 10 degrees from wall.)
+
 @Disabled
 @Autonomous(name= "BLUE-SU PARKING")
 public class BlueSUPark extends LinearOpMode{
@@ -31,18 +34,19 @@ public class BlueSUPark extends LinearOpMode{
 
         waitForStart();
 
-        //Blue autonomous: Delivers Duck and Parks in Storage Unit
-        //Position: Back facing Carousel (Back 10 degrees from wall.)
-        //-13 in, 50r, 32 in, 140r, 8 in
-        base.encoderDrive(0.5,-20,-20,this); // drive to Carousel
-        base.leftDuck.setPower(.42); // spin it
-        sleep(2500); // for 2.5 sec.
-        base.leftDuck.setPower(0);
+        //Resets bucket & claw to avoid lift collision
+        base.bucket.setPosition(0.90);
+        base.leftClaw.setPosition(1.0);
+
+        //Scores duck at carousel
+        base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
+        base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
+        sleep(2000); //Sleeps to allow for adequate spin time
+        base.leftDuck.setPower(0); //Stops duck-wheel
+
+        //SU PARKING
         base.gyroTurn(.5,110,this); //rotate front towards SU
         base.encoderDrive(.5,21.5,21.5,this);// drive into SU
         base.gyroTurn(.5,99,this);
-        telemetry.addData("Parked in BLUE SU :)","");
-        telemetry.update();
-
     }
 }

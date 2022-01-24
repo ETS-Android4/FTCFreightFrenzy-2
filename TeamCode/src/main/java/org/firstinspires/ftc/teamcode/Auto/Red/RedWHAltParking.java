@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Auto.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 @Disabled
-@Autonomous(name="BLUE-WH DELIVERY")
-public class BlueWH extends LinearOpMode{
+@Autonomous(name="RED-WH DELIVERY ALT-PARK")
+public class RedWHAltParking extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -29,8 +29,6 @@ public class BlueWH extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Yes Lilly, you can signal thumbs-up now","");
-        telemetry.update();
 
         waitForStart();
 
@@ -38,13 +36,16 @@ public class BlueWH extends LinearOpMode{
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        detector.setTelemShow(false);
+
+        //Resets bucket & claw to avoid lift collision
         base.bucket.setPosition(0.90);
         base.leftClaw.setPosition(1.0);
-        //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
-        //Position: Facing forward
 
-        base.encoderDrive(0.8, 12, 12, this); //clear wall
-        base.gyroTurn(0.5,-57,this); //face hub
+        //Repositioning to face hub
+        //base.gyroDrive(1.0,12,12,-1,0,0,this);
+        base.encoderDrive(1.0, 12, 12, this); //Clears the wall
+        base.gyroTurn(0.6,57,this); //Turns to face hub
         base.bucket.setPosition(var.BUCKET_CLOSED);
 
         switch (position) {
@@ -72,7 +73,7 @@ public class BlueWH extends LinearOpMode{
         }
 
         //Drives backwards (away) from hub
-        base.encoderDrive(0.5,-13,-13,this);
+        base.encoderDrive(1.0,-20,-20,this);
 
         //CLOSES bucket and claw
         base.bucket.setPosition(var.BUCKET_OPEN);
@@ -81,12 +82,8 @@ public class BlueWH extends LinearOpMode{
         //Brings down lift while parking
         base.liftAuto(0,false,this);
 
-        //Placement before WH PARKING
-        base.gyroTurn(.5,-115,this); //Turns towards SHARED HUB
-        base.encoderDrive(0.8,30,30,this); //Drives towards SHARED HUB
-
         //WH PARKING
-        base.gyroTurn(0.5,-150,this); //Turns to face WH
-        base.encoderDrive(1.0,25,25,this); //Drives in WH (TopLeft)
+        base.gyroTurn(0.5,10,this); //Turns towards elements in WH
+        base.encoderDrive(1.0,30,30,this); //Drives into WH
     }
 }
