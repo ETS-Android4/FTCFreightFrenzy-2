@@ -133,7 +133,7 @@ public class MainBase {
     }
 
     //Autonomous driving method that utilizes gyroscope to correct angle veer-offs during strafing
-    public void gyroDrive(double speed, double distanceL, double distanceR, double angle,
+    public void gyroDrive (double speed, double distanceL, double distanceR, double angle,
                           double endFLPower, double endFRPower,
                           LinearOpMode opmode){
 
@@ -235,7 +235,7 @@ public class MainBase {
         // Ensure that the opmode is still active
         if (opMode.opModeIsActive()) {
 
-            // Determine new target position, and pass to motor controller (Changed L from - to + & R from + to -)
+            // Determine new target position, and pass to motor controller
             newleftDTTarget = leftDT.getCurrentPosition() + (int) (leftDTInches * COUNTS_PER_INCH);
             newrightDTTarget = rightDT.getCurrentPosition() + (int) (rightDTInches * COUNTS_PER_INCH);
             leftDT.setTargetPosition(newleftDTTarget);
