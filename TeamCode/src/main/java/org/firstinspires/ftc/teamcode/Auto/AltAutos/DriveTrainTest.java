@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //import org.firstinspires.ftc.teamcode.Auto.ContourDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
+@Disabled
 @Autonomous(name="DT Test")
 public class DriveTrainTest extends LinearOpMode{
 

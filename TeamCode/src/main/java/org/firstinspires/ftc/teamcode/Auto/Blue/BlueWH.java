@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
+@Disabled
 @Autonomous(name="BLUE-WH DELIVERY")
 public class BlueWH extends LinearOpMode{
 
