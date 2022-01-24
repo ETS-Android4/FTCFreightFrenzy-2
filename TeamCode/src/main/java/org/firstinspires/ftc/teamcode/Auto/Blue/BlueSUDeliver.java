@@ -41,7 +41,7 @@ public class BlueSUDeliver extends LinearOpMode{
         base.bucket.setPosition(0.90);
         base.leftClaw.setPosition(1.0);
         base.encoderDrive(0.8,-19.4,-19.4,this); // drive to Carousel
-        base.leftDuck.setPower(0.53); // spin it
+        base.leftDuck.setPower(0.53); //Spin it
         sleep(2000); // SLEEP IF ALLIANCE REQUESTS
         base.leftDuck.setPower(0);
         base.gyroTurn(0.5,10,this); //Rotate to face WH
@@ -88,10 +88,8 @@ public class BlueSUDeliver extends LinearOpMode{
         base.gyroTurn(0.5,10,this); //Turns perpendicular to back wall
         base.encoderDrive(0.8,20,20,this); //Drives to top-right of WH
         telemetry.addData("Parked in Blue WH:)","");
-        base.lift.setPower(0);
+        base.lift.setPower(0); //Remove and test
 
-        // Turn off RUN_TO_POSITION
-        base.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //telemetry.update();
 
     }

@@ -85,8 +85,6 @@ public class RedSUDeliver extends LinearOpMode{
         telemetry.addData("Parked in RED WH:)","");
         base.lift.setPower(0);
 
-        // Turn off RUN_TO_POSITION
-        base.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //telemetry.update();
     }
 }

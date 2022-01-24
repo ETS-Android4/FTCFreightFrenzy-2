@@ -42,12 +42,13 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int  LEVEL_ZERO       = 150;
-    final int  LEVEL_ONE        = 3700;
-    final int  LEVEL_TWO        = 4900;
-    final int  LEVEL_THREE      = 5900;
-    final int  LEVEL_CAP        = 6100;
-    final int  ACCEPTABLE_ERROR = 75;
+    final int LEVEL_ZERO              = 150;
+    final int LEVEL_ONE               = 3700;
+    final int LEVEL_TWO               = 4900;
+    final int LEVEL_THREE             = 5900;
+    final int LEVEL_CAP               = 6100;
+    final int ACCEPTABLE_ERROR        = 0;
+    final int TELEOP_ACCEPTABLE_ERROR = 75;
 
     HardwareMap hwMap = null;
 
@@ -451,7 +452,7 @@ public class MainBase {
         if(Math.abs(targetEncoder - currentEncoder) < 100){
             power = 0.3;
         }
-        if(Math.abs(targetEncoder - currentEncoder) < ACCEPTABLE_ERROR){
+        if(Math.abs(targetEncoder - currentEncoder) < TELEOP_ACCEPTABLE_ERROR){
             power = 0;
         }
         if(targetEncoder < currentEncoder){
@@ -533,7 +534,7 @@ public class MainBase {
             opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
-            while ( opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+            while (opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
 
                 double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
                 if (ErrorAmount < ACCEPTABLE_ERROR) {
