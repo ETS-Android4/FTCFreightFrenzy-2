@@ -9,6 +9,9 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
+//Blue Autonomous: Delivers Duck and Parks in WH/
+//Starting Position: Back facing Carousel (10 degrees from wall)
+
 @Autonomous(name= "BLUE-SU DELIVER")
 public class BlueSUDeliver extends LinearOpMode{
 
@@ -35,19 +38,23 @@ public class BlueSUDeliver extends LinearOpMode{
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
         ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
-        //Blue autonomous: Delivers Duck and Parks in WH/
-        //Position: Back facing Carousel (Back 10 degrees from wall)
 
+
+        //Resets bucket & claw to avoid lift collision
         base.bucket.setPosition(0.90);
         base.leftClaw.setPosition(1.0);
-        base.encoderDrive(0.8,-19.4,-19.4,this); // drive to Carousel
-        base.leftDuck.setPower(0.53); //Spin it
-        sleep(2000); // SLEEP IF ALLIANCE REQUESTS
-        base.leftDuck.setPower(0);
+
+        //Scores duck at carousel
+        base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
+        base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
+        sleep(2000); //Sleeps to allow for adequate spin time
+        base.leftDuck.setPower(0); //Stops duck-wheel
+
+        //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,10,this); //Rotate to face WH
         base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
         //base.gyroDrive(0.8,45,45,0,0,0,this); //To test gyroDrive
-        base.gyroTurn(0.5,100,this); //Turns to face hub
+        base.gyroTurn(0.5,100,this); //Turns to face shipping hub
 
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
@@ -79,18 +86,23 @@ public class BlueSUDeliver extends LinearOpMode{
                 break;
         }
 
+        //Drives backward from shipping hub to prepare for WH parking
         base.encoderDrive(0.5,-10,-10,this);
+
+        //Closes bucket & claw
         base.bucket.setPosition(var.BUCKET_OPEN);
-        base.leftClaw.setPosition(var.LCLAW_OPEN); // set and close bucket
-        base.liftAuto(0,false, this); //Bring lift down
+        base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+        //Repositions lift to ground-level position
+        base.liftAuto(0,false, this);
+
+        //PARKING
         base.gyroTurn(0.5,30,this); //Turns diagonally towards WH
         base.encoderDrive(0.9,60,60,this); //Enters WH
         base.gyroTurn(0.5,10,this); //Turns perpendicular to back wall
-        base.encoderDrive(0.8,20,20,this); //Drives to top-right of WH
-        telemetry.addData("Parked in Blue WH:)","");
+        base.encoderDrive(0.8,20,20,this); //Drives to top-right of WH [PARKED]
+
+        //Sets lift power to zero
         base.lift.setPower(0); //Remove and test
-
-        //telemetry.update();
-
     }
 }
