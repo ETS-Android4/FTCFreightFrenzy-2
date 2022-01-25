@@ -40,23 +40,25 @@ public class BlueWHDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
 
         //Resets bucket & claw to avoid lift collision
         base.bucket.setPosition(0.90);
         base.leftClaw.setPosition(1.0);
 
         base.encoderDrive(0.8, 12, 12, this); //clear wall
-        base.gyroTurn(0.5,-57,this); //face hub
-        base.bucket.setPosition(var.BUCKET_CLOSED);
+        base.gyroTurn(0.5,57,this); //face hub
 
         switch (position) {
             case LEFT: //lvl. 1
                 base.encoderDrive(0.5,7,7,this);
                 base.liftAuto(1,this);
-                while(base.lift.isBusy());
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                base.encoderDrive(0.5,4,4,this);
+                sleep(200);
+
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(1000);
+                sleep(600);
                 break;
             case MIDDLE: //lvl. 2
                 base.encoderDrive(0.5,8,8,this);

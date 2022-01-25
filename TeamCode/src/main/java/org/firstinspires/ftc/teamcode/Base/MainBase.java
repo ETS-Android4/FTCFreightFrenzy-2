@@ -43,13 +43,13 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int LEVEL_ZERO              = 50;
-    final int LEVEL_ONE               = 3600;
+    final int LEVEL_ZERO              = 45;
+    final int LEVEL_ONE               = 3400;
     final int LEVEL_TWO               = 4850;
     final int LEVEL_THREE             = 5900;
     final int LEVEL_CAP               = 6100;
     final int ACCEPTABLE_ERROR        = 0;
-    final int TELEOP_ACCEPTABLE_ERROR = 75;
+    final int TELEOP_ACCEPTABLE_ERROR = 30;
 
     HardwareMap hwMap = null;
 
@@ -372,7 +372,7 @@ public class MainBase {
         }
     }
 
-    //Utilization of Gyro to turn
+    //Utilization of Gyro to turn robot
     public void gyroTurn(double speed, double angle, LinearOpMode opmode) {
 
         // keep looping while we are still active, and not on heading.
@@ -446,15 +446,15 @@ public class MainBase {
         else if (level == 3){
             targetEncoder = LEVEL_THREE;
         }
-        else{
+        else {
             targetEncoder = LEVEL_CAP;
         }
 
         double power = 1;
-        if(Math.abs(targetEncoder - currentEncoder) < 100){
-            power = 0.3;
+        if(Math.abs(targetEncoder - currentEncoder) < 75) {
+            power = 0.5;
         }
-        if(Math.abs(targetEncoder - currentEncoder) < TELEOP_ACCEPTABLE_ERROR){
+        if(Math.abs(targetEncoder - currentEncoder) < TELEOP_ACCEPTABLE_ERROR) {
             power = 0;
         }
         if(targetEncoder < currentEncoder){
