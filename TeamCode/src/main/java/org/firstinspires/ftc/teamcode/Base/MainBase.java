@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -42,9 +43,9 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int LEVEL_ZERO              = 150;
-    final int LEVEL_ONE               = 3700;
-    final int LEVEL_TWO               = 4900;
+    final int LEVEL_ZERO              = 50;
+    final int LEVEL_ONE               = 3600;
+    final int LEVEL_TWO               = 4850;
     final int LEVEL_THREE             = 5900;
     final int LEVEL_CAP               = 6100;
     final int ACCEPTABLE_ERROR        = 0;
@@ -150,6 +151,7 @@ public class MainBase {
         double  ErrorAmount;
         boolean goodEnough = false;
 
+        // Ensure that the Op-mode is still active
         // Ensure that the Op-mode is still active
         if (opmode.opModeIsActive()) {
 

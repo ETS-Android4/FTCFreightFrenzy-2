@@ -73,9 +73,10 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(500);
                 break;
             case RIGHT: //lvl. 3 and  open bucket
-                base.encoderDrive(0.5,13.5,13.5,this);
-                base.liftAuto(3, this);
-                base.encoderDrive(0.5,1.7,1.7,this);
+                base.encoderDrive(0.5,13.5,13.5,this); //Approaches hub head-on
+                //base.rangeDrive(0.3,40,-1,this); //To test rangeDrive
+                base.liftAuto(3, this); //Extends lift to top-tier
+                base.encoderDrive(0.5,1.7,1.7,this); //Positioning for scoring
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
@@ -84,7 +85,7 @@ public class RedSUDeliver extends LinearOpMode{
         }
 
         //Drives backward from shipping hub to prepare for WH parking
-        base.encoderDrive(0.5,-10,-10,this);
+        base.encoderDrive(0.5,-7,-7,this);
 
         //Closes bucket & claw
         base.bucket.setPosition(var.BUCKET_OPEN);
@@ -94,12 +95,9 @@ public class RedSUDeliver extends LinearOpMode{
         base.liftAuto(0,false, this);
 
         //PARKING
-        base.gyroTurn(0.5,-30,this); //Turns diagonally to face WH
-        base.encoderDrive(0.9,60,60,this); //Enters WH
-        base.gyroTurn(0.5,-10,this); //Turns perpendicular to back wall
-        base.encoderDrive(0.8,20,20,this); //Drives to top-left of WH [PARKED]
-
-        //Sets lift power to zero
-        base.lift.setPower(0); //Remove and test
+        base.gyroTurn(0.5,-35,this); //Turns diagonally towards WH
+        base.encoderDrive(0.9,68,68,this); //Enters WH
+        base.gyroTurn(0.5,-20,this); //Turns perpendicular to back wall
+        base.encoderDrive(0.8,15,15,this); //Drives to top-right of WH [PARKED]
     }
 }

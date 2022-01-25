@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //import org.firstinspires.ftc.teamcode.Auto.ContourDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@Disabled
 @Autonomous(name="DT Test")
 public class DriveTrainTest extends LinearOpMode{
 
@@ -29,9 +28,9 @@ public class DriveTrainTest extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        //base.gyroDrive(1,50,50,0,0,0,this);
+        base.gyroDrive(1.0,50,50,0,0,0,this);
 
-        base.encoderDrive(1,50,50,this);
+        //base.encoderDrive(1,50,50,this);
 
     }
 }

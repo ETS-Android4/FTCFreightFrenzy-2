@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
-@TeleOp(name="MainTeleOp")
+@TeleOp(name="Range Test")
 public class RangeTest extends LinearOpMode {
 
     MainBase base = null;
