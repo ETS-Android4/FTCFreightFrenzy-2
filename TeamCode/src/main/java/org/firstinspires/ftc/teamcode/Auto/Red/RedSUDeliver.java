@@ -58,11 +58,11 @@ public class RedSUDeliver extends LinearOpMode{
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
                 base.liftAuto(1, false,this);
-                base.encoderDrive(0.5,11.5,11.5,this);
+                base.encoderDrive(0.5,10.9,10.9,this);
                 sleep(800);
-                base.bucket.setPosition(0.52);
+                base.bucket.setPosition(0.53);
                 sleep(700);
-                base.encoderDrive(0.5,1.6,1.6,this);
+                base.encoderDrive(0.5,2.56,2.56,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
 

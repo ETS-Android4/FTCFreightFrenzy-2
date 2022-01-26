@@ -59,13 +59,12 @@ public class MainTeleOp extends LinearOpMode {
         double leftPower  = 0;
         double rightPower = 0;
         //--------------------NORMAL--------------------\\
-        if(!DriveChange){
+        if(!DriveChange) {
             double forward = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
+            double turn    = gamepad1.right_stick_x;
 
             leftPower  = forward - turn;
             rightPower = forward + turn;
-
         }
 
         //--------------------TANK--------------------\\

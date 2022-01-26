@@ -47,7 +47,7 @@ public class MainBase {
     final int LEVEL_ONE               = 2300;
     final int LEVEL_TWO               = 4850;
     final int LEVEL_THREE             = 6000;
-    final int LEVEL_CAP               = 6100;
+    final int LEVEL_CAP               = 6200;
     final int ACCEPTABLE_ERROR        = 0;
     final int TELEOP_ACCEPTABLE_ERROR = 30;
 

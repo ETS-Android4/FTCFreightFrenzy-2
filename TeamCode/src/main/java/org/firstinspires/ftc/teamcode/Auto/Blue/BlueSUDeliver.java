@@ -31,6 +31,8 @@ public class BlueSUDeliver extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        telemetry.addLine("God Speed");
+        telemetry.update();
 
         waitForStart();
 
@@ -135,5 +137,18 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.encoderDrive(0.8,15,15,this); //Drives to top-right of WH [PARKED]
                 break;
         }
+
+        //UNTESTED ELEMENT PICKUP
+        /*base.gyroTurn(0.5,-72.5,this);
+        base.leftClaw.setPosition(0.1);
+        base.bucket.setPosition(var.BUCKET_CLOSED);
+
+        base.encoderDrive(0.3,5,5,this);
+
+        base.leftClaw.setPosition(var.LCLAW_OPEN);
+        sleep(400);
+        base.bucket.setPosition(var.BUCKET_OPEN);
+
+        base.encoderDrive(0.7,10,10,this);*/
     }
 }
