@@ -44,9 +44,9 @@ public class MainBase {
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
     final int LEVEL_ZERO              = 45;
-    final int LEVEL_ONE               = 3400;
+    final int LEVEL_ONE               = 2300;
     final int LEVEL_TWO               = 4850;
-    final int LEVEL_THREE             = 5900;
+    final int LEVEL_THREE             = 6000;
     final int LEVEL_CAP               = 6100;
     final int ACCEPTABLE_ERROR        = 0;
     final int TELEOP_ACCEPTABLE_ERROR = 30;

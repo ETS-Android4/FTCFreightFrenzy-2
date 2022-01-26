@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.Base.Variables;
 //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
 //Position: Facing forward
 
-@Disabled
 @Autonomous(name="BLUE-WH DELIVERY")
 public class BlueWHDeliver extends LinearOpMode{
 
@@ -40,7 +39,7 @@ public class BlueWHDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
 
         //Resets bucket & claw to avoid lift collision
         base.bucket.setPosition(0.90);
@@ -70,7 +69,8 @@ public class BlueWHDeliver extends LinearOpMode{
             case RIGHT: //lvl. 3
                 base.encoderDrive(0.5,9,9,this);
                 base.liftAuto(3,this);
-                while(base.lift.isBusy());
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(400);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(1000);
                 break;
