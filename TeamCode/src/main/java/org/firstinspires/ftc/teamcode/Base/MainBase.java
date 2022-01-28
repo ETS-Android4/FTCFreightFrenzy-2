@@ -43,9 +43,9 @@ public class MainBase {
     public static final double     HEADING_THRESHOLD  = 1.0;
     public static final double   MAX_ACCEPTABLE_ERROR = 10;
     public double                                 rpm = 0;
-    final int LEVEL_ZERO              = 45;
+    final int LEVEL_ZERO              = 40;
     final int LEVEL_ONE               = 2300;
-    final int LEVEL_TWO               = 4850;
+    final int LEVEL_TWO               = 4800;
     final int LEVEL_THREE             = 6000;
     final int LEVEL_CAP               = 6200;
     final int ACCEPTABLE_ERROR        = 0;
