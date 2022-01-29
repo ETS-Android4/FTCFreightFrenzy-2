@@ -19,19 +19,19 @@ public class ObjectDetector {
 
     CustomPipeline pipeline;
 
-    private final Point FRONT_LEFT_TL    = new Point(90,90);
-    private final Point FRONT_LEFT_BR    = new Point(140, 120);
-    private final Point FRONT_MIDDLE_TL  = new Point(185, 90);
-    private final Point FRONT_MIDDLE_BR  = new Point(235,  120);
-    private final Point FRONT_RIGHT_TL   = new Point(265, 90);
-    private final Point FRONT_RIGHT_BR   = new Point(315, 120);
+    private final Point SWITCH_LEFT_TL    = new Point(10,160);
+    private final Point SWITCH_LEFT_BR    = new Point(40, 200);
+    private final Point SWITCH_MIDDLE_TL  = new Point(150, 160);
+    private final Point SWITCH_MIDDLE_BR  = new Point(180,  200);
+    private final Point SWITCH_RIGHT_TL   = new Point(290, 160);
+    private final Point SWITCH_RIGHT_BR   = new Point(320, 200);
 
-    private final Point SWITCH_LEFT_TL   = new Point(0,135);
-    private final Point SWITCH_LEFT_BR   = new Point(50, 165);
-    private final Point SWITCH_MIDDLE_TL = new Point(62, 140);
-    private final Point SWITCH_MIDDLE_BR = new Point(125,  170);
-    private final Point SWITCH_RIGHT_TL  = new Point(155, 140);
-    private final Point SWITCH_RIGHT_BR  = new Point(215, 170);
+    private final Point FRONT_LEFT_TL   = new Point(10,160);
+    private final Point FRONT_LEFT_BR   = new Point(51, 200);
+    private final Point FRONT_MIDDLE_TL = new Point(125, 160);
+    private final Point FRONT_MIDDLE_BR = new Point(175,  200);
+    private final Point FRONT_RIGHT_TL  = new Point(270, 160);
+    private final Point FRONT_RIGHT_BR  = new Point(320, 200);
 
     private Point leftTL;
     private Point leftBR;
@@ -59,12 +59,12 @@ public class ObjectDetector {
         camera.setPipeline(pipeline);
         camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-        leftTL   = (isFrontCAM) ? SWITCH_LEFT_TL : FRONT_LEFT_TL;
-        leftBR   = (isFrontCAM) ? SWITCH_LEFT_BR : FRONT_LEFT_BR;
-        middleTL = (isFrontCAM) ? SWITCH_MIDDLE_TL : FRONT_MIDDLE_TL;
-        middleBR = (isFrontCAM) ? SWITCH_MIDDLE_BR : FRONT_MIDDLE_BR;
-        rightTL  = (isFrontCAM) ? SWITCH_RIGHT_TL : FRONT_RIGHT_TL;
-        rightBR  = (isFrontCAM) ? SWITCH_RIGHT_BR : FRONT_RIGHT_BR;
+        leftTL   = (isFrontCAM) ? FRONT_LEFT_TL : SWITCH_LEFT_TL;
+        leftBR   = (isFrontCAM) ? FRONT_LEFT_BR : SWITCH_LEFT_BR;
+        middleTL = (isFrontCAM) ? FRONT_MIDDLE_TL : SWITCH_MIDDLE_TL;
+        middleBR = (isFrontCAM) ? FRONT_MIDDLE_BR : SWITCH_MIDDLE_BR;
+        rightTL  = (isFrontCAM) ? FRONT_RIGHT_TL : SWITCH_RIGHT_TL;
+        rightBR  = (isFrontCAM) ? FRONT_RIGHT_BR : SWITCH_RIGHT_BR;
     }
 
     public void stopStreaming(){
@@ -76,9 +76,9 @@ public class ObjectDetector {
     }
     public POSITIONS getDecision(){
 
-        int leftValue   = left.getBlue();
-        int middleValue = middle.getBlue();
-        int rightValue  = right.getBlue();
+        int leftValue   = left.getBlack();
+        int middleValue = middle.getBlack();
+        int rightValue  = right.getBlack();
 
         if (show_value){
             opMode.telemetry.addData("Left Value: ", leftValue);
@@ -141,9 +141,9 @@ public class ObjectDetector {
         }
 
         private void sendTelemetry(){
-            opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getBlue());
-            opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getBlue());
-            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getBlue());
+            opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getBlack());
+            opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getBlack());
+            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getBlack()); //this makes the telemetry prettier. (for anish)
             opMode.telemetry.update();
         }
 
