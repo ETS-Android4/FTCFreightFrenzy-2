@@ -33,6 +33,8 @@ public class BlueWHDeliver extends LinearOpMode{
 
         telemetry.addLine("God Speed");
         telemetry.update();
+        
+        detector.setTelemShow(true);
 
         waitForStart();
 
