@@ -113,6 +113,7 @@ public class BlueWHDeliver extends LinearOpMode{
                 base.gyroTurn(0.5,-87,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
+
                 //Positioning prior to scoring
                 base.encoderDrive(0.7, 10, 10, this); //Clears back wall
                 base.gyroTurn(0.5,90,this); //Faces shipping hub

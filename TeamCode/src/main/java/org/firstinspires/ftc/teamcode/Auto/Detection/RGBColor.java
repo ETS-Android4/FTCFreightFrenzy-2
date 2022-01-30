@@ -38,7 +38,7 @@ public class RGBColor {
         return blue;
     }
     public int getBlack() { return -(green + blue + red); } //this makes a black value
-    public int getYellow(){
-        return green + blue;
+    public int getdBlue(){
+        return -(green + red);
     }
 }

@@ -18,13 +18,13 @@ public class VisionTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
+        ObjectDetector detector = new ObjectDetector(this, true,true);
 
         base.init(hardwareMap, this);
 
         boolean keepGoing = true;
         while (keepGoing) {
-            ObjectDetector.POSITIONS positionBefore = detector.getDecision();
+            ObjectDetector.POSITIONS positionBefore = detector.getDecision("red");
             telemetry.addData("", positionBefore);
         }
     }
