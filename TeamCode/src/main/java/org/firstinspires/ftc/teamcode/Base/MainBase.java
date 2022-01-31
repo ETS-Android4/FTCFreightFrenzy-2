@@ -285,6 +285,66 @@ public class MainBase {
         }
     }
 
+    //Method overload to add in end powers of encoderDrive()
+    public void encoderDrive(double speed, double leftDTInches, double rightDTInches,
+                             double endLPower, double endRPower, LinearOpMode opMode){
+        int newleftDTTarget;
+        int newrightDTTarget;
+        double ErrorAmount;
+        boolean goodEnough = false;
+
+        // Ensure that the opmode is still active
+        if (opMode.opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newleftDTTarget = leftDT.getCurrentPosition() + (int) (leftDTInches * COUNTS_PER_INCH);
+            newrightDTTarget = rightDT.getCurrentPosition() + (int) (rightDTInches * COUNTS_PER_INCH);
+            leftDT.setTargetPosition(newleftDTTarget);
+            rightDT.setTargetPosition(newrightDTTarget);
+
+            // Turn On RUN_TO_POSITION
+            leftDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightDT.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            leftDT.setPower(Math.abs(speed));
+            rightDT.setPower(Math.abs(speed));
+
+
+            while (opMode.opModeIsActive() &&
+                    ((leftDT.isBusy() || rightDT.isBusy()) && !goodEnough)) {
+
+                // Display it for the driver.
+                opMode.telemetry.addData("Path1", "Running to %7d :%7d", newleftDTTarget, newrightDTTarget);
+                opMode.telemetry.addData("Path2", "Running at %7d :%7d",
+
+                        leftDT.getCurrentPosition(),
+                        rightDT.getCurrentPosition());
+                opMode.telemetry.addData("leftDT", leftDT.getCurrentPosition());
+                opMode.telemetry.addData("rightDT", rightDT.getCurrentPosition());
+
+                ErrorAmount = (Math.abs(newleftDTTarget - leftDT.getCurrentPosition())
+                        + Math.abs(newrightDTTarget - rightDT.getCurrentPosition())) / COUNTS_PER_INCH;
+                if (ErrorAmount < amountError) {
+                    goodEnough = true;
+                }
+
+                opMode.telemetry.addData("Error Amount", ErrorAmount);
+                opMode.telemetry.update();
+            }
+
+            leftDT.setPower(endLPower);
+            rightDT.setPower(endRPower);
+
+            // Turn off RUN_TO_POSITION
+            leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
+    }
+
+
+
     //3-Check Function for rangeDrive
     private boolean rangeCheck(ModernRoboticsI2cRangeSensor range_sensor, double desired_distance, LinearOpMode opMode){
         final int TRIES = 3;
