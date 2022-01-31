@@ -19,13 +19,6 @@ public class ObjectDetector {
 
     CustomPipeline pipeline;
 
-    private final Point SWITCH_LEFT_TL    = new Point(10,160);
-    private final Point SWITCH_LEFT_BR    = new Point(40, 200);
-    private final Point SWITCH_MIDDLE_TL  = new Point(150, 160);
-    private final Point SWITCH_MIDDLE_BR  = new Point(180,  200);
-    private final Point SWITCH_RIGHT_TL   = new Point(290, 160);
-    private final Point SWITCH_RIGHT_BR   = new Point(320, 200);
-
     private final Point FRONT_LEFT_TL   = new Point(10,160);
     private final Point FRONT_LEFT_BR   = new Point(51, 200);
     private final Point FRONT_MIDDLE_TL = new Point(125, 160);
@@ -40,6 +33,13 @@ public class ObjectDetector {
     private final Point R_FRONT_RIGHT_TL  = new Point(10, 180);
     private final Point R_FRONT_RIGHT_BR  = new Point(51, 220);
 
+    private final Point SWITCH_LEFT_TL    = new Point(10,160);
+    private final Point SWITCH_LEFT_BR    = new Point(40, 200);
+    private final Point SWITCH_MIDDLE_TL  = new Point(150, 160);
+    private final Point SWITCH_MIDDLE_BR  = new Point(180,  200);
+    private final Point SWITCH_RIGHT_TL   = new Point(290, 160);
+    private final Point SWITCH_RIGHT_BR   = new Point(320, 200);
+
     private Point leftTL;
     private Point leftBR;
     private Point middleTL;
@@ -52,29 +52,6 @@ public class ObjectDetector {
     private RGBColor right;
     private boolean show_value = true;
 
-    public ObjectDetector(OpMode op, boolean isFrontCAM){
-
-        opMode = op;
-
-        int cameraMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier(
-                "cameraMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
-
-        camera = OpenCvCameraFactory.getInstance().createWebcam(opMode.hardwareMap.get(WebcamName.class, "sideCAM"), cameraMonitorViewId);
-
-        pipeline = new CustomPipeline();
-        camera.openCameraDevice();
-        camera.setPipeline(pipeline);
-        camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-
-
-        leftTL   = (isFrontCAM) ? FRONT_LEFT_TL : SWITCH_LEFT_TL;
-        leftBR   = (isFrontCAM) ? FRONT_LEFT_BR : SWITCH_LEFT_BR;
-        middleTL = (isFrontCAM) ? FRONT_MIDDLE_TL : SWITCH_MIDDLE_TL;
-        middleBR = (isFrontCAM) ? FRONT_MIDDLE_BR : SWITCH_MIDDLE_BR;
-        rightTL  = (isFrontCAM) ? FRONT_RIGHT_TL : SWITCH_RIGHT_TL;
-        rightBR  = (isFrontCAM) ? FRONT_RIGHT_BR : SWITCH_RIGHT_BR;
-
-    }
 
     public ObjectDetector(OpMode op, boolean isFrontCAM, boolean isRed){
 
@@ -98,7 +75,7 @@ public class ObjectDetector {
             rightTL  = (isFrontCAM) ? FRONT_RIGHT_TL : SWITCH_RIGHT_TL;
             rightBR  = (isFrontCAM) ? FRONT_RIGHT_BR : SWITCH_RIGHT_BR;
         }
-        else if (isRed){
+        else{
             leftTL   = (isFrontCAM) ? R_FRONT_LEFT_TL : SWITCH_LEFT_TL;
             leftBR   = (isFrontCAM) ? R_FRONT_LEFT_BR : SWITCH_LEFT_BR;
             middleTL = (isFrontCAM) ? R_FRONT_MIDDLE_TL : SWITCH_MIDDLE_TL;
@@ -115,47 +92,33 @@ public class ObjectDetector {
     public enum POSITIONS {
         LEFT, MIDDLE, RIGHT
     }
-    public POSITIONS getDecision(String isRed) {
 
-        int leftValue   = left.getdBlue();
-        int middleValue = middle.getdBlue();
-        int rightValue  = right.getBlack();
-
-        if (show_value){
-            opMode.telemetry.addData("Left Value: ", leftValue);
-            opMode.telemetry.addData("Middle Value: ", middleValue);
-            opMode.telemetry.addData("Right Value: ", rightValue);
-            opMode.telemetry.update();
-        }
-        if(leftValue > middleValue && leftValue > rightValue){
-            return POSITIONS.LEFT;
-        }
-        else if(middleValue > leftValue && middleValue > rightValue){
-            return POSITIONS.MIDDLE;
-        }
-        return POSITIONS.RIGHT;
-    }
     public POSITIONS getDecision() {
 
+        POSITIONS position = POSITIONS.RIGHT;
+
         int leftValue   = left.getdBlue();
         int middleValue = middle.getdBlue();
         int rightValue  = right.getBlack();
 
+        if(leftValue > middleValue && leftValue > rightValue){
+            position = POSITIONS.LEFT;
+        }
+        else if(middleValue > leftValue && middleValue > rightValue){
+            position = POSITIONS.MIDDLE;
+        }
+
         if (show_value){
+
+            opMode.telemetry.addData("Position: ", position);
             opMode.telemetry.addData("Left Value: ", leftValue);
             opMode.telemetry.addData("Middle Value: ", middleValue);
             opMode.telemetry.addData("Right Value: ", rightValue);
             opMode.telemetry.update();
         }
-        if(leftValue > middleValue && leftValue > rightValue){
-            return POSITIONS.LEFT;
-        }
-        else if(middleValue > leftValue && middleValue > rightValue){
-            return POSITIONS.MIDDLE;
-        }
-        return POSITIONS.RIGHT;
-    }
 
+        return position;
+    }
 
     class CustomPipeline extends OpenCvPipeline {
 
@@ -205,7 +168,7 @@ public class ObjectDetector {
         private void sendTelemetry() {
             opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getdBlue());
             opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getdBlue());
-            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getdBlue()); //this makes the telemetry prettier. (for anish)
+            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getdBlue());
             opMode.telemetry.update();
         }
 

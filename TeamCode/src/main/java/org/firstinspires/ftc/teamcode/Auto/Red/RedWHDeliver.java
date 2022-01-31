@@ -28,14 +28,15 @@ public class RedWHDeliver extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        detector.setTelemShow(true);
 
         waitForStart();
 
         base.gyro.resetZAxisIntegrator();
 
-        ObjectDetector.POSITIONS position = detector.getDecision("red");
+        ObjectDetector.POSITIONS position = detector.getDecision();
         //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
-        detector.setTelemShow(true);
+
 
 
         //Resets bucket & claw to avoid lift collision

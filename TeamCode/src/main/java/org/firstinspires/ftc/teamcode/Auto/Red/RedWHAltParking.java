@@ -19,7 +19,7 @@ public class RedWHAltParking extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, true);
+        ObjectDetector detector = new ObjectDetector(this,true,true);
 
         base.init(hardwareMap, this);
 
@@ -34,8 +34,8 @@ public class RedWHAltParking extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        ObjectDetector.POSITIONS position = detector.getDecision();
+        //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
         detector.setTelemShow(false);
 
         //Resets bucket & claw to avoid lift collision

@@ -22,7 +22,7 @@ public class BlueSUDeliverSUParking extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, false);
+        ObjectDetector detector = new ObjectDetector(this, false,false);
 
         base.init(hardwareMap, this);
 

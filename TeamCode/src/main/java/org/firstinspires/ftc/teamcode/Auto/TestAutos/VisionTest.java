@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.AltAutos;
+package org.firstinspires.ftc.teamcode.Auto.TestAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.Base.Variables;
 public class VisionTest extends LinearOpMode{
 
     MainBase base = new MainBase();
-    Variables var = new Variables();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,10 +21,9 @@ public class VisionTest extends LinearOpMode{
 
         base.init(hardwareMap, this);
 
-        boolean keepGoing = true;
-        while (keepGoing) {
-            ObjectDetector.POSITIONS positionBefore = detector.getDecision("red");
-            telemetry.addData("", positionBefore);
+        detector.setTelemShow(true);
+
+        while (opModeIsActive()) {
         }
     }
 }
