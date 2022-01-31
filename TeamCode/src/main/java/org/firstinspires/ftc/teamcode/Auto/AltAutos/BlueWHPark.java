@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.Red;
+package org.firstinspires.ftc.teamcode.Auto.AltAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 @Disabled
-@Autonomous(name="RED-WH PARKING")
-public class RedWHPark extends LinearOpMode{
+@Autonomous(name="BLUE-WH Park")
+public class BlueWHPark extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -26,6 +26,7 @@ public class RedWHPark extends LinearOpMode{
 
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         waitForStart();
 
