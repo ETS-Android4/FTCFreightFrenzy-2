@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.SubProjects;
+package org.firstinspires.ftc.teamcode.SubProjects;
 
 import android.os.Environment;
 
@@ -12,8 +12,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 @Disabled
-@TeleOp(name = "Log Writing Test")
-public class LogWriterTest extends LinearOpMode {
+@TeleOp(name = "Log Writing")
+public class LogWriter extends LinearOpMode {
 
     private File file;
     private PrintWriter pw;
