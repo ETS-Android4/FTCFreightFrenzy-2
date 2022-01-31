@@ -99,7 +99,7 @@ public class ObjectDetector {
 
         int leftValue   = left.getdBlue();
         int middleValue = middle.getdBlue();
-        int rightValue  = right.getBlack();
+        int rightValue  = right.getBlack(); //Ensure getBlack works instead of getdBlue
 
         if(leftValue > middleValue && leftValue > rightValue){
             position = POSITIONS.LEFT;
