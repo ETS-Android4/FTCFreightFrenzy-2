@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Base.Variables;
 
 //Blue Autonomous: Scores duck, delivers pre-loaded element, and parks in SU
 //Starting Position: Back facing Carousel (10 degrees from wall)
+//REQUIRES TESTING!!!
 
 @Disabled
 @Autonomous(name= "BLUE-SU Delivery SU-Park")
@@ -38,7 +39,7 @@ public class BlueSUDeliverSUParking extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT; //Running case RIGHT for testing purposes.
 
 
         //Resets bucket & claw to avoid lift collision

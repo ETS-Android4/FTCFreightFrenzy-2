@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-//Red autonomous: Delivers duck, delivers pre-loaded, and parks in WH
-//Position: Back facing Carousel (Back 10 degrees from wall.)
+//Red autonomous: Delivers duck, delivers pre-loaded, and parks in WH (Top-Left)
+//Position: Back facing Carousel (Back 10 degrees from wall).
 
 @Autonomous(name= "RED-SU DELIVERY")
 public class RedSUDeliver extends LinearOpMode{
