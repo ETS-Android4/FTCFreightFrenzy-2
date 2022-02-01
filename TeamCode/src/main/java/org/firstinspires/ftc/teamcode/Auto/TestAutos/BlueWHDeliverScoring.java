@@ -50,20 +50,19 @@ public class BlueWHDeliverScoring extends LinearOpMode{
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
 
                 //Positioning prior to scoring
-                base.encoderDrive(1.0, 15, 0, this); //Clears back wall & faces carousel
-                base.encoderDrive(1.0,5,15,this);
-
+                base.encoderDrive(1.0, 5, 15,this); //Clears back wall & faces carousel
                 base.liftAuto(1,false,this);
-                base.encoderDrive(0.6,8,8,this);
+                base.encoderDrive(1.0,7,7,this);
+
                 base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(400);
-                base.encoderDrive(0.5,5,5,this);
+                sleep(500);
+                base.encoderDrive(0.8,8,8,this);
 
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(600);
 
                 //Drives backwards (away) from hub
-                base.encoderDrive(1.0,-20,-10,this);
+                base.encoderDrive(1.0,-10,-20,this);
 
                 //CLOSES bucket and claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -73,7 +72,7 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //Placement before WH PARKING
-                base.gyroTurn(0.5,-87,this);
+                /*base.gyroTurn(0.5,-87,this);
                 base.encoderDrive(1.0,50,50,this); //Drives towards SHARED HUB
                 base.gyroTurn(0.5,-95,this);
 
@@ -115,7 +114,7 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.encoderDrive(1.0,50,50,this); //Drives towards SHARED HUB
                 base.gyroTurn(0.7,-55,this);
                 base.encoderDrive(0.7,10,10,this);
-                base.gyroTurn(0.7,-87,this);
+                base.gyroTurn(0.7,-87,this);*/
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
 
