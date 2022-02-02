@@ -45,9 +45,9 @@ public class RedSUDeliverSUParking extends LinearOpMode{
 
         //Scores duck at carousel
         base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
-        base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
+        base.rightDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
-        base.leftDuck.setPower(0); //Stops duck-wheel
+        base.rightDuck.setPower(0); //Stops duck-wheel
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,-10,this); //Rotate to face WH
@@ -57,12 +57,26 @@ public class RedSUDeliverSUParking extends LinearOpMode{
 
         switch (position) { //hub level test result goes there <==
             case LEFT: //lvl. 1 and open bucket
+                base.liftAuto(1, false,this);
                 base.encoderDrive(0.5,10,10,this);
-                base.liftAuto(1, this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
+
+                //Drives backward from shipping hub to prepare for WH parking
+                base.encoderDrive(0.5,-10,-10,this);
+
+                //Closes bucket & claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+                //Repositions lift to ground-level position
+                base.liftAuto(0,false, this);
+
+                //PARKING
+                base.gyroTurn(0.5,-190,this); //Turns to face SU
+                base.encoderDrive(1.0,50,50,this); //Enters SU
                 break;
             case MIDDLE: //lvl. 2 and open bucket
                 base.encoderDrive(0.5,11.2,11.2,this);
@@ -71,33 +85,46 @@ public class RedSUDeliverSUParking extends LinearOpMode{
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
+
+                //Drives backward from shipping hub to prepare for WH parking
+                base.encoderDrive(0.5,-10,-10,this);
+
+                //Closes bucket & claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+                //Repositions lift to ground-level position
+                base.liftAuto(0,false, this);
+
+                //PARKING
+                base.gyroTurn(0.5,-190,this); //Turns to face SU
+                base.encoderDrive(1.0,50,50,this); //Enters SU
                 break;
             case RIGHT: //lvl. 3 and  open bucket
+                base.liftAuto(3,false,this);
                 base.encoderDrive(0.5,13.5,13.5,this);
-                base.liftAuto(3, this);
                 base.encoderDrive(0.5,1.7,1.7,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
+
+                //Drives backward from shipping hub to prepare for WH parking
+                base.encoderDrive(0.5,-10,-10,this);
+
+                //Closes bucket & claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+                //Repositions lift to ground-level position
+                base.liftAuto(0,false, this);
+
+                //PARKING
+                base.gyroTurn(0.5,-12,this); //Turns to face SU
+                base.encoderDrive(1.0,-55,-55,this); //Enters SU
+                base.gyroTurn(0.5,-100,this);
+                base.encoderDrive(0.5,10,10,this);
                 break;
         }
-
-        //Drives backward from shipping hub to prepare for WH parking
-        base.encoderDrive(0.5,-10,-10,this);
-
-        //Closes bucket & claw
-        base.bucket.setPosition(var.BUCKET_OPEN);
-        base.leftClaw.setPosition(var.LCLAW_OPEN);
-
-        //Repositions lift to ground-level position
-        base.liftAuto(0,false, this);
-
-        //PARKING
-        base.gyroTurn(0.5,-190,this); //Turns to face SU
-        base.encoderDrive(1.0,60,60,this); //Enters SU
-
-        //Sets lift power to zero
-        base.lift.setPower(0); //Remove and test
     }
 }
