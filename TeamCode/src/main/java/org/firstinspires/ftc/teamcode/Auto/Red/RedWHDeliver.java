@@ -40,10 +40,8 @@ public class RedWHDeliver extends LinearOpMode{
         ObjectDetector.POSITIONS position = detector.getDecision();
         //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
 
-
-
         //Resets bucket & claw to avoid lift collision
-        base.bucket.setPosition(var.BUCKET_OPEN);
+        base.bucket.setPosition(0.90);
         base.leftClaw.setPosition(1.0);
 
         switch (position) {

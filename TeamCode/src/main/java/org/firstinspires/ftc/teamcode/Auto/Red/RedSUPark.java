@@ -38,9 +38,9 @@ public class RedSUPark extends LinearOpMode{
 
         //Scores duck at carousel
         base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
-        base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
+        base.rightDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
-        base.leftDuck.setPower(0); //Stops duck-wheel
+        base.rightDuck.setPower(0); //Stops duck-wheel
 
         //SU PARKING
         base.gyroTurn(var.DT_HALF_SPEED,-110,this); //rotate front towards SU
