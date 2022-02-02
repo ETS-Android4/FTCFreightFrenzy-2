@@ -87,9 +87,8 @@ public class RedSUDeliver extends LinearOpMode{
                 base.encoderDrive(0.7,15,15,this); //Drives to top-right of WH [PARKED]
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
-                base.liftAuto(2, false,this);
+                base.liftAuto(2,false,this);
                 base.encoderDrive(0.5,12,12,this);
-                sleep(800);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
                 base.encoderDrive(0.3,2.9,2.9,this);
@@ -115,14 +114,11 @@ public class RedSUDeliver extends LinearOpMode{
                 base.encoderDrive(0.8,15,15,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
-                base.encoderDrive(0.5,13.5,13.5,this); //Approaches hub head-on
-                //base.rangeDrive(0.3,40,-1,this); //To test rangeDrive
-                base.liftAuto(3, this); //Extends lift to top-tier
-                base.encoderDrive(0.5,2,2,this); //Positioning for scoring
+                base.liftAuto(3,false,this); //Extends lift to top-tier
+                base.encoderDrive(0.3,15.5,15.5,this); //Approaches hub head-on
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 base.bucket.setPosition(0.6);
                 sleep(600);
-
                 //Drives backward from shipping hub to prepare for WH parking
                 base.encoderDrive(0.5,-1.2,-1.2,this);
 
