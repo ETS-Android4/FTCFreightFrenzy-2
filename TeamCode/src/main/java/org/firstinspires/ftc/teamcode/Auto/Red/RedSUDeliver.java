@@ -47,7 +47,7 @@ public class RedSUDeliver extends LinearOpMode{
         base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
         base.rightDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
-        base.leftDuck.setPower(0); //Stops duck-wheel
+        base.rightDuck.setPower(0); //Stops duck-wheel
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,-10,this); //Rotate to face WH
@@ -58,7 +58,7 @@ public class RedSUDeliver extends LinearOpMode{
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
                 base.liftAuto(1, false,this);
-                base.encoderDrive(0.5,10.9,10.9,this);
+                base.encoderDrive(0.5,10.3,10.3,this);
                 sleep(800);
                 base.bucket.setPosition(0.53);
                 sleep(700);
@@ -67,7 +67,7 @@ public class RedSUDeliver extends LinearOpMode{
                 sleep(500);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.3,-1.3,this);
+                base.encoderDrive(0.5,-1,-1,this);
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
