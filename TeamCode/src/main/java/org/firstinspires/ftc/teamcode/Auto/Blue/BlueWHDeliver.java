@@ -121,7 +121,7 @@ public class BlueWHDeliver extends LinearOpMode{
                 base.gyroTurn(0.5,0,this);
 
                 base.liftAuto(3,false,this);
-                base.encoderDrive(0.2,11,11,this);
+                base.encoderDrive(0.2,10.7,10.7,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
 
