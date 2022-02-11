@@ -24,7 +24,10 @@ public class VisionTest extends LinearOpMode{
         detector.setTelemShow(true);
 
         while (opModeIsActive()) {
-            sleep(30000); //Test to see if it works.
+            detector.setTelemShow(true);
+            detector.setTelemShow(true);
         }
+
+        waitForStart();
     }
 }

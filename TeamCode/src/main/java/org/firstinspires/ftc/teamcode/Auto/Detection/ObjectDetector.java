@@ -165,16 +165,17 @@ public class ObjectDetector {
             return new RGBColor(red, green, blue);
         }
 
-        private void sendTelemetry() {
+        public void sendTelemetry() {
             opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getdBlue());
             opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getdBlue());
             opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getdBlue());
+
             opMode.telemetry.update();
         }
 
     }
 
-    public void setTelemShow(boolean show){
+    public void setTelemShow(boolean show) {
         this.show_value = show;
     }
 }
