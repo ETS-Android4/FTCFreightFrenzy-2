@@ -17,15 +17,14 @@ public class VisionTest extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this, true,true);
+        ObjectDetector detector = new ObjectDetector(this, true,false);
 
         base.init(hardwareMap, this);
 
-        detector.setTelemShow(true);
-
-        while (opModeIsActive()) {
-            detector.setTelemShow(true);
-            detector.setTelemShow(true);
+        boolean keepGoing = true;
+        while (!gamepad1.a) {
+            ObjectDetector.POSITIONS positionBefore = detector.getDecision();
+            telemetry.addData("", positionBefore);
         }
 
         waitForStart();

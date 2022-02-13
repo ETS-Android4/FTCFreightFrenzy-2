@@ -85,7 +85,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 //PARKING
                 base.encoderDrive(1.0,65,65,this); //Enters WH
                 base.gyroTurn(0.5,100,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,9,9,this);
+                base.encoderDrive(0.8,12,12,this);
                 base.gyroTurn(0.5, 13,this);
                 base.encoderDrive(0.7,15,15,this); //Drives to top-right of WH [PARKED]
                 break;
@@ -95,36 +95,36 @@ public class BlueSUDeliver extends LinearOpMode{
                 sleep(800);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
-                base.encoderDrive(0.3,2.9,2.9,this);
+                base.encoderDrive(0.3,2.3,2.3,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
 
+
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.2,-1.2,this);
+                base.encoderDrive(0.5,-1.9,-1.9,this);
 
                 //Closes bucket & claw
-                base.bucket.setPosition(var.BUCKET_OPEN);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
+                base.bucket.setPosition(var.BUCKET_OPEN);
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
 
                 //PARKING
-                base.gyroTurn(0.5,12,this); //Turns diagonally towards WH
-                base.encoderDrive(1.0,60,60,this); //Enters WH
+                base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
+                base.encoderDrive(1.0,64,64,this); //Enters WH
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
                 base.gyroTurn(0.5, 12,this);
                 base.encoderDrive(0.8,15,15,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
+                base.liftAuto(3, false,this); //Extends lift to top-tier
                 base.encoderDrive(0.5,13.5,13.5,this); //Approaches hub head-on
-                //base.rangeDrive(0.3,40,-1,this); //To test rangeDrive
-                base.liftAuto(3, this); //Extends lift to top-tier
-                base.encoderDrive(0.5,2,2,this); //Positioning for scoring
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                base.encoderDrive(0.5,3,3,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                base.bucket.setPosition(0.6);
-                sleep(600);
+                sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
                 base.encoderDrive(0.5,-1.2,-1.2,this);

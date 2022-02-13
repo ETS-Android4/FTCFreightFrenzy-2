@@ -75,7 +75,7 @@ public class ObjectDetector {
             rightTL  = (isFrontCAM) ? FRONT_RIGHT_TL : SWITCH_RIGHT_TL;
             rightBR  = (isFrontCAM) ? FRONT_RIGHT_BR : SWITCH_RIGHT_BR;
         }
-        else{
+        else {
             leftTL   = (isFrontCAM) ? R_FRONT_LEFT_TL : SWITCH_LEFT_TL;
             leftBR   = (isFrontCAM) ? R_FRONT_LEFT_BR : SWITCH_LEFT_BR;
             middleTL = (isFrontCAM) ? R_FRONT_MIDDLE_TL : SWITCH_MIDDLE_TL;
@@ -99,7 +99,7 @@ public class ObjectDetector {
 
         int leftValue   = left.getdBlue();
         int middleValue = middle.getdBlue();
-        int rightValue  = right.getBlack(); //Ensure getBlack works instead of getdBlue
+        int rightValue  = right.getdBlue(); //Ensure getBlack works instead of getdBlue
 
         if(leftValue > middleValue && leftValue > rightValue){
             position = POSITIONS.LEFT;
@@ -166,9 +166,9 @@ public class ObjectDetector {
         }
 
         public void sendTelemetry() {
-            opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getdBlue());
-            opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getdBlue());
-            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getdBlue());
+            opMode.telemetry.addLine("Left :" + " R " + left.getRed() + " G " + left.getGreen() + " B " + left.getBlue());
+            opMode.telemetry.addLine("Middle :" + " R " + middle.getRed() + " G " + middle.getGreen() + " B " + middle.getBlue());
+            opMode.telemetry.addLine("Right :" + " R " + right.getRed() + " G " + right.getGreen() + " B " + right.getBlue());
 
             opMode.telemetry.update();
         }
