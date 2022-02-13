@@ -39,7 +39,7 @@ public class BlueSUDeliver extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         ObjectDetector.POSITIONS position = detector.getDecision();
-        //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+        //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
 
 
         //Resets bucket & claw to avoid lift collision
@@ -55,22 +55,24 @@ public class BlueSUDeliver extends LinearOpMode{
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,10,this); //Rotate to face WH
         base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
-        //base.gyroDrive(0.8,45,45,0,0,0,this); //To test gyroDrive
         base.gyroTurn(0.5,100,this); //Turns to face shipping hub
 
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
                 base.liftAuto(1, false,this);
                 base.encoderDrive(0.5,10.9,10.9,this);
-                sleep(800);
                 base.bucket.setPosition(0.53);
-                sleep(700);
+                sleep(400);
                 base.encoderDrive(0.5,2.56,2.56,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(500);
+                sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
                 base.encoderDrive(0.5,-1.3,-1.3,this);
+
+                //Closes bucket & claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
@@ -78,9 +80,6 @@ public class BlueSUDeliver extends LinearOpMode{
                 //Positioning before parking
                 base.gyroTurn(0.5,14,this); //Turns diagonally towards WH
 
-                //Closes bucket & claw
-                base.bucket.setPosition(var.BUCKET_OPEN);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
 
                 //PARKING
                 base.encoderDrive(1.0,65,65,this); //Enters WH
@@ -110,6 +109,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
 
+
                 //PARKING
                 base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
                 base.encoderDrive(1.0,64,64,this); //Enters WH
@@ -135,6 +135,7 @@ public class BlueSUDeliver extends LinearOpMode{
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
+
 
                 //PARKING
                 base.gyroTurn(0.5,12,this); //Turns diagonally towards WH
