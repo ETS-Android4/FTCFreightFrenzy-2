@@ -21,7 +21,7 @@ public class VisionTest extends LinearOpMode{
 
         base.init(hardwareMap, this);
 
-        boolean keepGoing = true;
+        //Once Gamepad 1 'A' is pressed, code exits while loop and provides safe stoppage of VISION Test.
         while (!gamepad1.a) {
             ObjectDetector.POSITIONS positionBefore = detector.getDecision();
             telemetry.addData("", positionBefore);
