@@ -86,7 +86,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.gyroTurn(0.5,100,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,12,12,this);
                 base.gyroTurn(0.5, 13,this);
-                base.encoderDrive(0.7,15,15,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(0.5,15,15,this); //Drives to top-right of WH [PARKED]
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
                 base.liftAuto(2, false,this);
@@ -116,7 +116,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
                 base.gyroTurn(0.5, 12,this);
-                base.encoderDrive(0.8,15,15,this);
+                base.encoderDrive(0.5,15,15,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
                 base.liftAuto(3, false,this); //Extends lift to top-tier
@@ -141,23 +141,10 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.gyroTurn(0.5,12,this); //Turns diagonally towards WH
                 base.encoderDrive(1.0,60,60,this); //Enters WH
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
-                base.gyroTurn(0.5, 12,this);
-                base.encoderDrive(0.8,15,15,this);
+                base.encoderDrive(0.8,12,12,this); //Drives forward towards shared hub
+                base.gyroTurn(0.5, 12,this); //Turns towards wall facing away from shipping hub
+                base.encoderDrive(0.5,15,15,this); //Drives forward in top-right of WH [PARKED]
                 break;
         }
-
-        //UNTESTED ELEMENT PICKUP
-        /*base.gyroTurn(0.5,-72.5,this);
-        base.leftClaw.setPosition(0.1);
-        base.bucket.setPosition(var.BUCKET_CLOSED);
-
-        base.encoderDrive(0.3,5,5,this);
-
-        base.leftClaw.setPosition(var.LCLAW_OPEN);
-        sleep(400);
-        base.bucket.setPosition(var.BUCKET_OPEN);
-
-        base.encoderDrive(0.7,10,10,this);*/
     }
 }

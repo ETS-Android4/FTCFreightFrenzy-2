@@ -344,7 +344,6 @@ public class MainBase {
     }
 
 
-
     //3-Check Function for rangeDrive
     private boolean rangeCheck(ModernRoboticsI2cRangeSensor range_sensor, double desired_distance, LinearOpMode opMode){
         final int TRIES = 3;
