@@ -38,6 +38,5 @@ public class RGBColor {
     }
     public int getBlack() { return (255 * 3) - (green + blue + red); } //this makes a black value
     public int getdBlue(){ return -(green + red);
-
     }
 }

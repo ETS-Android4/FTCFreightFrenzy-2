@@ -191,7 +191,84 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
 
-                //REQUIRES REWRITING (Possible task for Immanuel or Claire)
+//Positioning prior to scoring
+                base.encoderDrive(1.0, 5, 31,this); //Clears back wall & faces carousel
+                base.liftAuto(3,false,this);
+                base.encoderDrive(1.0,20,20,this);
+                base.encoderDrive(1,26,0,this);
+                base.encoderDrive(1,13,13,this);
+
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
+
+                //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
+
+                //CLOSES bucket and claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+
+                //Drives backwards (away) from hub
+                base.encoderDrive(1.0,-10,-10,this);
+                base.liftAuto(0,false,this);
+                base.encoderDrive(1.0,0,26, this);
+                base.encoderDrive(1.0, 40,40,this);
+
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                base.encoderDrive(1.0,4,4,this);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+                base.bucket.setPosition(var.BUCKET_OPEN);
+
+                base.encoderDrive(1.0, -40,-40,this);
+                base.encoderDrive(1.0,26,0, this);
+                base.liftAuto(0,false,this);
+                base.encoderDrive(1.0,10,10,this);
+                //Drives backwards (away) from hub
+
+
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                //CLOSES bucket and claw
+
+                //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
+
+                sleep(500);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+
+                base.encoderDrive(1,-13,-13,this);
+                base.encoderDrive(1,0,26,this);
+                base.encoderDrive(1.0,-20,-20,this);
+                base.liftAuto(3,false,this);
+                base.encoderDrive(1.0, 31, 5,this); //Clears back wall & faces carousel
+
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                base.encoderDrive(1.0, 5, 31,this); //Clears back wall & faces carousel
+                base.liftAuto(3,false,this);
+                base.encoderDrive(1.0,20,20,this);
+                base.encoderDrive(1,26,0,this);
+                base.encoderDrive(1,13,13,this);
+
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
+
+                //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
+
+                //CLOSES bucket and claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
+
+
+                //Drives backwards (away) from hub
+                base.encoderDrive(1.0,-10,-10,this);
+                base.liftAuto(0,false,this);
+                base.encoderDrive(1.0,0,26, this);
+                base.encoderDrive(1.0, 40,40,this);
+
 
                 break;
         }

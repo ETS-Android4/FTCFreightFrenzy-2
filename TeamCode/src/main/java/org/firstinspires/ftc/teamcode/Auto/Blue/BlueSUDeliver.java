@@ -63,12 +63,12 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.encoderDrive(0.5,10.9,10.9,this);
                 base.bucket.setPosition(0.53);
                 sleep(400);
-                base.encoderDrive(0.5,2.56,2.56,this);
+                base.encoderDrive(0.2,2.56,2.56,this); //Must test power
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.3,-1.3,this);
+                base.encoderDrive(0.5,-3.2,-3.2,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -78,7 +78,7 @@ public class BlueSUDeliver extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //Positioning before parking
-                base.gyroTurn(0.5,14,this); //Turns diagonally towards WH
+                base.gyroTurn(0.5,20,this); //Turns diagonally towards WH
 
 
                 //PARKING
