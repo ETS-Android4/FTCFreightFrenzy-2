@@ -51,6 +51,7 @@ public class BlueSUDeliver extends LinearOpMode{
         base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
         base.leftDuck.setPower(0); //Stops duck-wheel
+        //sleep(10800); //Perfect sleep for 6168
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,10,this); //Rotate to face WH
