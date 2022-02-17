@@ -62,9 +62,9 @@ public class BlueSUDeliver extends LinearOpMode{
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
                 base.liftAuto(1, false,this);
                 base.encoderDrive(0.5,10.9,10.9,this);
-                base.bucket.setPosition(0.53);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
-                base.encoderDrive(0.2,2.56,2.56,this); //Must test power
+                base.encoderDrive(0.2,2.5,2.5,this); //Must test power
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(400);
 
@@ -121,14 +121,14 @@ public class BlueSUDeliver extends LinearOpMode{
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
                 base.liftAuto(3, false,this); //Extends lift to top-tier
-                base.encoderDrive(0.5,13.5,13.5,this); //Approaches hub head-on
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                base.encoderDrive(0.5,3,3,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(400);
+                base.encoderDrive(0.5,16.5,16.5,this); //Approaches hub head-on
+                sleep(1600);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.2,-1.2,this);
+                base.encoderDrive(0.5,-2.0,-2.0,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -139,8 +139,9 @@ public class BlueSUDeliver extends LinearOpMode{
 
 
                 //PARKING
-                base.gyroTurn(0.5,12,this); //Turns diagonally towards WH
+                base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
                 base.encoderDrive(1.0,60,60,this); //Enters WH
+                //base.encoderDrive(1.0,64,64,this); //Enters WH for 6168
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,12,12,this); //Drives forward towards shared hub
                 base.gyroTurn(0.5, 12,this); //Turns towards wall facing away from shipping hub

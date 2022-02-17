@@ -56,6 +56,7 @@ public class RedWHDeliver extends LinearOpMode{
                 base.liftAuto(1,false,this);
                 base.encoderDrive(0.5,5,5,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(400);
                 base.encoderDrive(0.2,3,3,this);
                 sleep(500);
 
@@ -107,7 +108,7 @@ public class RedWHDeliver extends LinearOpMode{
 
                 //Placement before WH PARKING
                 base.gyroTurn(0.5,65,this); //Turns towards SHARED HUB
-                base.encoderDrive(0.8,55,55,this); //Drives towards SHARED HUB
+                base.encoderDrive(0.8,53,53,this); //Drives towards SHARED HUB
                 //base.encoderDrive(0.5,5,5,this);
                 base.gyroTurn(0.5,90,this);
                 break;
@@ -115,13 +116,13 @@ public class RedWHDeliver extends LinearOpMode{
 
                 //Positioning prior to scoring
                 base.encoderDrive(0.7, 10, 10, this); //Clears back wall
-                base.gyroTurn(0.5,-30,this); //Faces shipping hub
+                base.gyroTurn(0.5,-35,this); //Faces shipping hub
 
                 base.liftAuto(3,false,this);
                 base.encoderDrive(0.25,8,8,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
-                base.encoderDrive(0.5,6.9,6.9,this);
+                base.encoderDrive(0.5,7.6,7.6,this);
 
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(600);
@@ -138,9 +139,9 @@ public class RedWHDeliver extends LinearOpMode{
 
                 //Placement before WH PARKING
                 base.gyroTurn(0.5,65,this); //Turns towards SHARED HUB
-                base.encoderDrive(1.0,45,45,this); //Drives towards SHARED HUB
+                base.encoderDrive(1.0,50,50,this); //Drives towards SHARED HUB
                 base.gyroTurn(0.5,90,this);
-                base.encoderDrive(0.5,10,10,this);
+                base.encoderDrive(0.5,8,8,this);
                 break;
         }
     }

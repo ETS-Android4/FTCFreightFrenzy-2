@@ -107,10 +107,11 @@ public class BlueWHDeliver extends LinearOpMode{
 
                 //Placement before WH PARKING
                 base.gyroTurn(0.5,-65,this); //Turns towards SHARED HUB
-                base.encoderDrive(0.8,55,55,this); //Drives towards SHARED HUB
+                base.encoderDrive(0.8,40,40,this); //Drives towards SHARED HUB
                 base.gyroTurn(0.5,0,this);
-                base.encoderDrive(0.5,5,5,this);
+                base.encoderDrive(0.5,11,11,this);
                 base.gyroTurn(0.5,-87,this);
+                base.encoderDrive(0.5,15,15,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
 

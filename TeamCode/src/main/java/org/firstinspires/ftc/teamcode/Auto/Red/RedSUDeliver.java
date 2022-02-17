@@ -30,7 +30,6 @@ public class RedSUDeliver extends LinearOpMode{
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
         waitForStart();
 
         base.gyro.resetZAxisIntegrator();
@@ -53,21 +52,26 @@ public class RedSUDeliver extends LinearOpMode{
         base.gyroTurn(0.5,-10,this); //Rotate to face WH
         base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
         //base.gyroDrive(0.8,45,45,0,0,0,this); //To test gyroDrive
-        base.gyroTurn(0.5,-100,this); //Turns to face shipping hub
+        base.gyroTurn(0.5,-99,this); //Turns to face shipping hub
 
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
-                base.liftAuto(1, false,this);
-                base.encoderDrive(0.5,10.3,10.3,this);
-                sleep(800);
-                base.bucket.setPosition(0.53);
-                sleep(700);
-                base.encoderDrive(0.5,2.56,2.56,this);
+                base.liftAutoRED(1,false,this);
+                base.encoderDrive(0.5,8,8,this);
+                sleep(600);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(550);
+                base.encoderDrive(0.5,2.7,2.7,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(500);
+                sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1,-1,this);
+                base.encoderDrive(0.5,-3,-3,this);
+                sleep(600);
+
+                //Closes bucket & claw
+                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
@@ -75,16 +79,13 @@ public class RedSUDeliver extends LinearOpMode{
                 //Positioning before parking
                 base.gyroTurn(0.5,-14,this); //Turns diagonally towards WH
 
-                //Closes bucket & claw
-                base.bucket.setPosition(var.BUCKET_OPEN);
-                base.leftClaw.setPosition(var.LCLAW_OPEN);
 
                 //PARKING
                 base.encoderDrive(1.0,65,65,this); //Enters WH
                 base.gyroTurn(0.5,-100,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,9,9,this);
+                base.encoderDrive(0.8,7,7,this);
                 base.gyroTurn(0.5, -13,this);
-                base.encoderDrive(0.7,15,15,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(0.7,12,12,this); //Drives to top-right of WH [PARKED]
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
                 base.liftAuto(2,false,this);

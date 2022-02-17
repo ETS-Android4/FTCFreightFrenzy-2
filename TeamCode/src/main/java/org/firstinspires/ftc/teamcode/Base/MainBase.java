@@ -51,6 +51,11 @@ public class MainBase {
     final int ACCEPTABLE_ERROR        = 0;
     final int TELEOP_ACCEPTABLE_ERROR = 30;
 
+    final int LEVEL_ZERO0              = 45;
+    final int LEVEL_ONE1               = 2130;
+    final int LEVEL_TWO2               = 3850;
+    final int LEVEL_THREE3             = 6250;
+
     HardwareMap hwMap = null;
 
     public void init(HardwareMap ahwMap, OpMode opMode) {
@@ -612,6 +617,51 @@ public class MainBase {
 
             // Turn off RUN_TO_POSITION
             lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            opMode.telemetry.addData("CATCH FOUR","");
+        }
+    }
+
+    //Lift method for Autonomous w/ WAIT
+    public void liftAutoRED(int level, boolean liftWait, LinearOpMode opMode) {
+        if (opMode.opModeIsActive()) {
+
+            opMode.telemetry.addData("CATCH ONE","");
+
+            int targetEncoder = 0;
+            //Setting target level of lift
+            if (level == 0) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = LEVEL_ZERO0;
+            } else if (level == 1) {
+                opMode.telemetry.addData("CATCH TWO","");
+                targetEncoder = LEVEL_ONE1;
+            } else if (level == 2) {
+                targetEncoder = LEVEL_TWO2;
+            } else if (level == 3) {
+                targetEncoder = LEVEL_THREE3;
+            }
+
+            lift.setTargetPosition(targetEncoder);
+            // Turn ON RUN_TO_POSITION
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // Turn ON lift
+            lift.setPower(1);
+            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
+
+            boolean goodEnough = false;
+            while (liftWait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
+
+                double ErrorAmount = Math.abs(targetEncoder - lift.getCurrentPosition());
+                if (ErrorAmount < ACCEPTABLE_ERROR) {
+                    goodEnough = true;
+                }
+
+                opMode.telemetry.addData("Error Amount", ErrorAmount);
+                opMode.telemetry.addData("Good Enough: ", goodEnough);
+                // opMode.telemetry.update();
+            }
+
+            // Turn off lift power
             opMode.telemetry.addData("CATCH FOUR","");
         }
     }
