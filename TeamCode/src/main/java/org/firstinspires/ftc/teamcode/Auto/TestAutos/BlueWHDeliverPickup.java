@@ -40,7 +40,7 @@ public class BlueWHDeliverPickup extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT; //Currently running left for testing purposes.
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT; //Currently running right for testing purposes.
 
         //Resets bucket & claw to avoid lift collision
         base.bucket.setPosition(var.BUCKET_OPEN);
