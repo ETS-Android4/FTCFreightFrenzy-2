@@ -64,7 +64,7 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
 
                 //Drives backwards (away) from hub
-                base.encoderDrive(1.0,-10,-20,this);
+                base.encoderDrive(1.0,-20,-10,this);
 
                 //CLOSES bucket and claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -224,10 +224,10 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.liftAuto(0,false,this);
                 base.encoderDrive(1.0,10,10,this);
 
-
+                //CLOSES bucket and claw
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 base.bucket.setPosition(var.BUCKET_OPEN);
-                //CLOSES bucket and claw
+
 
                 //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
 
