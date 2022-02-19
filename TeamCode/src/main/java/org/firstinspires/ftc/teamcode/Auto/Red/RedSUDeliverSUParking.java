@@ -36,7 +36,7 @@ public class RedSUDeliverSUParking extends LinearOpMode{
         base.gyro.resetZAxisIntegrator();
 
         //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.MIDDLE;
+        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
 
 
         //Resets bucket & claw to avoid lift collision
@@ -109,14 +109,14 @@ public class RedSUDeliverSUParking extends LinearOpMode{
                 break;
             case RIGHT: //lvl. 3 and  open bucket
                 base.liftAuto(3,false,this); //Extends lift to top-tier
-                base.encoderDrive(0.3,15.5,15.5,this); //Approaches hub head-on
+                base.encoderDrive(0.3,13.5,13.5,this); //Approaches hub head-on
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(200);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(200);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.8,-5.0,-5.0,this);
+                base.encoderDrive(0.8,-7.0,-7.0,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -129,7 +129,7 @@ public class RedSUDeliverSUParking extends LinearOpMode{
                 base.gyroTurn(0.5, -12, this); //Turns to face SU
                 base.encoderDrive(1.0, -50, -50, this); //Enters SU
                 base.gyroTurn(0.5, -100, this);
-                base.encoderDrive(0.5, 15, 15, this);
+                base.encoderDrive(0.5, 16, 16, this);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 break;
         }
