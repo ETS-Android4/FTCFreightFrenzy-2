@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 
 @Disabled
-@Autonomous(name="DT Test")
+@Autonomous(name="DT-Test (gyroDrive)")
 public class DriveTrainTest extends LinearOpMode{
 
     MainBase base = new MainBase();

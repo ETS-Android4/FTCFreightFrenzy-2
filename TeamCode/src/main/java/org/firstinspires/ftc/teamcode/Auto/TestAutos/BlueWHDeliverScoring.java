@@ -191,7 +191,6 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
 
-//Positioning prior to scoring
                 base.encoderDrive(1.0, 5, 31,this); //Clears back wall & faces carousel
                 base.liftAuto(3,false,this);
                 base.encoderDrive(1.0,20,20,this);
@@ -207,7 +206,6 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 //CLOSES bucket and claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
-
 
                 //Drives backwards (away) from hub
                 base.encoderDrive(1.0,-10,-10,this);
@@ -225,7 +223,6 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.encoderDrive(1.0,26,0, this);
                 base.liftAuto(0,false,this);
                 base.encoderDrive(1.0,10,10,this);
-                //Drives backwards (away) from hub
 
 
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
@@ -256,7 +253,6 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
 
-                //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
 
                 //CLOSES bucket and claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -268,8 +264,6 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.liftAuto(0,false,this);
                 base.encoderDrive(1.0,0,26, this);
                 base.encoderDrive(1.0, 40,40,this);
-
-
                 break;
         }
     }
