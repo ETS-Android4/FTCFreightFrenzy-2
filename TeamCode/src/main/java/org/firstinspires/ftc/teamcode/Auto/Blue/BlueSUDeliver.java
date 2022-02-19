@@ -51,7 +51,7 @@ public class BlueSUDeliver extends LinearOpMode{
         base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
         base.leftDuck.setPower(0); //Stops duck-wheel
-        //sleep(10800); //Perfect sleep for 6168
+        //sleep(10000); //Perfect sleep for 6168
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,10,this); //Rotate to face WH
@@ -80,7 +80,7 @@ public class BlueSUDeliver extends LinearOpMode{
 
                 //Positioning before parking
                 base.gyroTurn(0.5,20,this); //Turns diagonally towards WH
-
+                //sleep(5000); //Untested sleep for 5893
 
                 //PARKING
                 base.encoderDrive(1.0,65,65,this); //Enters WH
@@ -113,6 +113,7 @@ public class BlueSUDeliver extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
+                //sleep(5000); //Untested sleep for 5893
                 base.encoderDrive(1.0,64,64,this); //Enters WH
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
@@ -140,6 +141,7 @@ public class BlueSUDeliver extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
+                //sleep(5000); //Untested sleep for 5893
                 base.encoderDrive(1.0,60,60,this); //Enters WH
                 //base.encoderDrive(1.0,64,64,this); //Enters WH for 6168
                 base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall

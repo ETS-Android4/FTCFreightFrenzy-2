@@ -51,7 +51,6 @@ public class RedSUDeliver extends LinearOpMode{
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,-10,this); //Rotate to face WH
         base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
-        //base.gyroDrive(0.8,45,45,0,0,0,this); //To test gyroDrive
         base.gyroTurn(0.5,-99,this); //Turns to face shipping hub
 
         switch (position) {
@@ -78,7 +77,7 @@ public class RedSUDeliver extends LinearOpMode{
 
                 //Positioning before parking
                 base.gyroTurn(0.5,-14,this); //Turns diagonally towards WH
-
+                //sleep(5000); //Untested sleep for 5893
 
                 //PARKING
                 base.encoderDrive(1.0,65,65,this); //Enters WH
@@ -109,6 +108,7 @@ public class RedSUDeliver extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,-12,this); //Turns diagonally towards WH
+                //sleep(5000); //Untested sleep for 5893
                 base.encoderDrive(1.0,62,62,this); //Enters WH
                 base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,7,7,this); //Drives to top-right of WH [PARKED]
@@ -135,6 +135,7 @@ public class RedSUDeliver extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,-9,this); //Turns diagonally towards WH
+                //sleep(5000); //Untested sleep for 5893
                 base.encoderDrive(1.0,60,60,this); //Enters WH
                 base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
                 base.encoderDrive(0.8,9,9,this); //Drives to top-right of WH [PARKED]
