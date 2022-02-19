@@ -34,8 +34,8 @@ public class RedSUDeliver extends LinearOpMode{
 
         base.gyro.resetZAxisIntegrator();
 
-        //ObjectDetector.POSITIONS position = detector.getDecision();
-        ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.LEFT;
+        ObjectDetector.POSITIONS position = detector.getDecision();
+        //ObjectDetector.POSITIONS position = ObjectDetector.POSITIONS.RIGHT;
 
 
         //Resets bucket & claw to avoid lift collision
@@ -58,15 +58,15 @@ public class RedSUDeliver extends LinearOpMode{
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
                 base.liftAutoRED(1,false,this);
                 base.encoderDrive(0.5,8,8,this);
-                sleep(600);
+                sleep(400);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(550);
+                sleep(400);
                 base.encoderDrive(0.5,2.7,2.7,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-3,-3,this);
+                base.encoderDrive(0.8,-6,-6,this);
                 sleep(600);
 
                 //Closes bucket & claw
@@ -89,15 +89,16 @@ public class RedSUDeliver extends LinearOpMode{
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
                 base.liftAuto(2,false,this);
-                base.encoderDrive(0.5,12,12,this);
+                base.encoderDrive(0.5,10,10,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(400);
-                base.encoderDrive(0.3,2.9,2.9,this);
-                base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
+                base.encoderDrive(0.3,3.5,3.5,this);
+                base.leftClaw.setPosition(var.LCLAW_CLOSED);
+                sleep(450);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.2,-1.2,this);
+                base.encoderDrive(0.5,-3.0,-3.0,this);
+
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -108,20 +109,22 @@ public class RedSUDeliver extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,-12,this); //Turns diagonally towards WH
-                base.encoderDrive(1.0,60,60,this); //Enters WH
+                base.encoderDrive(1.0,62,62,this); //Enters WH
                 base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(0.8,7,7,this); //Drives to top-right of WH [PARKED]
                 base.gyroTurn(0.5, -12,this);
                 base.encoderDrive(0.8,15,15,this);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
                 base.liftAuto(3,false,this); //Extends lift to top-tier
                 base.encoderDrive(0.3,15.5,15.5,this); //Approaches hub head-on
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(200);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                base.bucket.setPosition(0.6);
-                sleep(600);
+                sleep(200);
+
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-1.2,-1.2,this);
+                base.encoderDrive(0.8,-5.0,-5.0,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -131,10 +134,10 @@ public class RedSUDeliver extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //PARKING
-                base.gyroTurn(0.5,-12,this); //Turns diagonally towards WH
+                base.gyroTurn(0.5,-9,this); //Turns diagonally towards WH
                 base.encoderDrive(1.0,60,60,this); //Enters WH
                 base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(0.8,9,9,this); //Drives to top-right of WH [PARKED]
                 base.gyroTurn(0.5, -12,this);
                 base.encoderDrive(0.8,15,15,this);
                 break;
