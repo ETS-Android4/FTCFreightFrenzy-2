@@ -46,7 +46,7 @@ public class RedSUDeliver6168 extends LinearOpMode{
         base.rightDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
         base.rightDuck.setPower(0); //Stops duck-wheel
-        sleep(10200);
+        sleep(8700);
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,-10,this); //Rotate to face WH
@@ -77,7 +77,6 @@ public class RedSUDeliver6168 extends LinearOpMode{
 
                 //Positioning before parking
                 base.gyroTurn(0.5,-14,this); //Turns diagonally towards WH
-                //sleep(5000); //Untested sleep for 5893
 
                 //PARKING
                 base.encoderDrive(1.0,66,66,this); //Enters WH
@@ -103,7 +102,7 @@ public class RedSUDeliver6168 extends LinearOpMode{
 
                 //PARKING
                 base.gyroTurn(0.5,-12,this); //Turns diagonally towards WH
-                base.encoderDrive(1.0,64,64,this); //Enters WH
+                base.encoderDrive(1.0,65,65,this); //Enters WH
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
                 base.liftAuto(3,false,this); //Extends lift to top-tier
