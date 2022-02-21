@@ -84,14 +84,13 @@ public class BlueWHDeliver extends LinearOpMode{
 
                 //Positioning prior to scoring
                 base.encoderDrive(0.7, 10, 10, this); //Clears back wall
-                base.gyroTurn(0.5,30,this); //Faces shipping hub
+                base.gyroTurn(0.5,33,this); //Faces shipping hub
 
                 base.liftAuto(2,false,this);
                 base.encoderDrive(0.5,8,8,this);
-                base.bucket.setPosition(0.45);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
-                base.encoderDrive(0.3,8,7,this);
-
+                base.encoderDrive(0.3,8,8,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(600);
 
@@ -106,7 +105,7 @@ public class BlueWHDeliver extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //Placement before WH PARKING
-                base.gyroTurn(0.5,-65,this); //Turns towards SHARED HUB
+                base.gyroTurn(0.5,-63,this); //Turns towards SHARED HUB
                 base.encoderDrive(0.8,40,40,this); //Drives towards SHARED HUB
                 base.gyroTurn(0.5,0,this);
                 base.encoderDrive(0.5,11,11,this);

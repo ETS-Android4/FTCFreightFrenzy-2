@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -12,9 +11,9 @@ import org.firstinspires.ftc.teamcode.Base.Variables;
 //Blue Autonomous: Delivers Duck and Parks in WH/
 //Starting Position: Back facing Carousel (10 degrees from wall)
 
-@Autonomous(name= "BLUE-SU DELIVER")
+@Autonomous(name= "BLUE-SU 6168")
 public class
-BlueSUDeliver extends LinearOpMode{
+BlueSUDeliver6168 extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -52,6 +51,7 @@ BlueSUDeliver extends LinearOpMode{
         base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
         base.leftDuck.setPower(0); //Stops duck-wheel
+        sleep(10100); //Perfect sleep for 6168
 
         //Repositioning to score pre-loaded element just before approaching hub
         base.gyroTurn(0.5,10,this); //Rotate to face WH
@@ -83,11 +83,7 @@ BlueSUDeliver extends LinearOpMode{
                 //sleep(5000); //Untested sleep for 5893
 
                 //PARKING
-                base.encoderDrive(1.0,65,65,this); //Enters WH
-                base.gyroTurn(0.5,100,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,12,12,this);
-                base.gyroTurn(0.5, 13,this);
-                base.encoderDrive(0.5,15,15,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(1.0,65.5,65.5,this); //Enters WH
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
                 base.liftAuto(2, false,this);
@@ -99,7 +95,6 @@ BlueSUDeliver extends LinearOpMode{
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(500);
 
-
                 //Drives backward from shipping hub to prepare for WH parking
                 base.encoderDrive(0.5,-1.9,-1.9,this);
 
@@ -110,16 +105,10 @@ BlueSUDeliver extends LinearOpMode{
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
 
-
                 //PARKING
                 base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
-                //sleep(5000); //Untested sleep for 5893
-                base.encoderDrive(1.0,64,64,this); //Enters WH
-
-                base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,12,12,this); //Drives to top-right of WH [PARKED]
-                base.gyroTurn(0.5, 12,this);
-                base.encoderDrive(0.5,15,15,this);
+                base.encoderDrive(1.0,65,65,this); //Enters WH
+                base.bucket.setPosition(var.BUCKET_OPEN);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
                 base.liftAuto(3, false,this); //Extends lift to top-tier
@@ -139,16 +128,9 @@ BlueSUDeliver extends LinearOpMode{
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
 
-
                 //PARKING
                 base.gyroTurn(0.5,17,this); //Turns diagonally towards WH
-                //sleep(5000); //Untested sleep for 5893
-                base.encoderDrive(1.0,60,60,this); //Enters WH
-                //base.encoderDrive(1.0,64,64,this); //Enters WH for 6168
-                base.gyroTurn(0.5,88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,11,11,this); //Drives forward towards shared hub
-                base.gyroTurn(0.5, 12,this); //Turns towards wall facing away from shipping hub
-                base.encoderDrive(0.5,15,15,this); //Drives forward in top-right of WH [PARKED]
+                base.encoderDrive(1.0,65,65,this); //Enters WH for 6168
                 break;
         }
     }
