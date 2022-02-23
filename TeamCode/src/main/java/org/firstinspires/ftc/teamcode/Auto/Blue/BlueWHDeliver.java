@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 //Autonomous: Delivers Pre-loaded Block and Parks in Warehouse
-//Position: Facing forward
+//Position: Front facing barcode. Left tread along INSIDE tile line. Back treads touching wall.
 
 @Autonomous(name="BLUE-WH DELIVERY")
 public class BlueWHDeliver extends LinearOpMode{

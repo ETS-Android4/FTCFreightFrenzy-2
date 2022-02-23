@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.TestAutos;
+package org.firstinspires.ftc.teamcode.Auto.NewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-//Autonomous: Delivers Pre-loaded Block, scores additional element, parks in WH (Top-Right)
+//Autonomous: Delivers Pre-loaded Block, scores ONE additional element, parks in WH (Top-Right)
 //Position: Facing forward. Right tread lined against inside of floor-tile. Both treads touching back wall.
 
 @Autonomous(name="BLUE-WH DELIVERY & SCORE")

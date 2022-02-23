@@ -15,13 +15,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class MainBase {
 
     // Total Motors: 5
-    // Total Servos: 2 (One inactive)
+    // Total Servos: 2
     public DcMotor leftDT      = null;
     public DcMotor rightDT     = null;
     public DcMotor leftDuck    = null;
     public DcMotor rightDuck   = null;
     public DcMotor lift        = null;
-    public Servo   rightClaw   = null;
     public Servo   bucket      = null;
     public Servo   leftClaw    = null;
 
@@ -67,7 +66,6 @@ public class MainBase {
         leftDuck  = hwMap.get(DcMotor.class, "leftDuck");
         rightDuck = hwMap.get(DcMotor.class, "rightDuck");
         lift      = hwMap.get(DcMotor.class, "lift");
-        rightClaw = hwMap.get(Servo.class,"rightClaw");
         bucket    = hwMap.get(Servo.class,"bucket");
         leftClaw  = hwMap.get(Servo.class, "leftClaw");
 
@@ -496,6 +494,7 @@ public class MainBase {
 
     //Automated lift method for TeleOp (Levels 1 & 2 NOT in use)
     public void lift(int level, LinearOpMode opmode){
+
         int currentEncoder = lift.getCurrentPosition();
         int targetEncoder;
 
@@ -517,7 +516,7 @@ public class MainBase {
 
         double power = 1;
         if(Math.abs(targetEncoder - currentEncoder) < 75) {
-            power = 0.5;
+            power = 0.7;
         }
         if(Math.abs(targetEncoder - currentEncoder) < TELEOP_ACCEPTABLE_ERROR) {
             power = 0;
@@ -532,15 +531,12 @@ public class MainBase {
     public void liftAuto(int level, boolean liftWait, LinearOpMode opMode) {
         if (opMode.opModeIsActive()) {
 
-            opMode.telemetry.addData("CATCH ONE","");
 
             int targetEncoder = 0;
             //Setting target level of lift
             if (level == 0) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ZERO;
             } else if (level == 1) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ONE;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO;
@@ -553,7 +549,6 @@ public class MainBase {
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // Turn ON lift
             lift.setPower(1);
-            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
             while (liftWait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
@@ -567,9 +562,6 @@ public class MainBase {
                 opMode.telemetry.addData("Good Enough: ", goodEnough);
                // opMode.telemetry.update();
             }
-
-            // Turn off lift power
-            opMode.telemetry.addData("CATCH FOUR","");
         }
     }
 
@@ -577,15 +569,12 @@ public class MainBase {
     public void liftAuto(int level, LinearOpMode opMode){
         if (opMode.opModeIsActive()) {
 
-            opMode.telemetry.addData("CATCH ONE","");
-
             int targetEncoder = 0;
+
             //Setting target level of lift
             if (level == 0) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ZERO;
             } else if (level == 1) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ONE;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO;
@@ -598,7 +587,6 @@ public class MainBase {
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // Turn ON lift
             lift.setPower(1);
-            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
             while (opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
@@ -618,7 +606,6 @@ public class MainBase {
 
             // Turn off RUN_TO_POSITION
             lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            opMode.telemetry.addData("CATCH FOUR","");
         }
     }
 
@@ -626,15 +613,12 @@ public class MainBase {
     public void liftAutoRED(int level, boolean liftWait, LinearOpMode opMode) {
         if (opMode.opModeIsActive()) {
 
-            opMode.telemetry.addData("CATCH ONE","");
-
             int targetEncoder = 0;
+
             //Setting target level of lift
             if (level == 0) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ZERO0;
             } else if (level == 1) {
-                opMode.telemetry.addData("CATCH TWO","");
                 targetEncoder = LEVEL_ONE1;
             } else if (level == 2) {
                 targetEncoder = LEVEL_TWO2;
@@ -647,7 +631,6 @@ public class MainBase {
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // Turn ON lift
             lift.setPower(1);
-            opMode.telemetry.addData("CATCH THREE: ", lift.getCurrentPosition());
 
             boolean goodEnough = false;
             while (liftWait && opMode.opModeIsActive() && (lift.isBusy()) && !goodEnough) {
@@ -661,9 +644,6 @@ public class MainBase {
                 opMode.telemetry.addData("Good Enough: ", goodEnough);
                 // opMode.telemetry.update();
             }
-
-            // Turn off lift power
-            opMode.telemetry.addData("CATCH FOUR","");
         }
     }
 }
