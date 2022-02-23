@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class MainBase {
 
     // Total Motors: 5
-    // Total Servos: 3
+    // Total Servos: 2 (One inactive)
     public DcMotor leftDT      = null;
     public DcMotor rightDT     = null;
     public DcMotor leftDuck    = null;
@@ -51,6 +51,7 @@ public class MainBase {
     final int ACCEPTABLE_ERROR        = 0;
     final int TELEOP_ACCEPTABLE_ERROR = 30;
 
+    //Utilized for liftAutoRED() method
     final int LEVEL_ZERO0              = 45;
     final int LEVEL_ONE1               = 2000;
     final int LEVEL_TWO2               = 3850;
@@ -621,7 +622,7 @@ public class MainBase {
         }
     }
 
-    //Lift method for Autonomous w/ WAIT
+    //Lift method for Autonomous w/ NO WAIT (Utilized for RED-Specific AUTO)
     public void liftAutoRED(int level, boolean liftWait, LinearOpMode opMode) {
         if (opMode.opModeIsActive()) {
 
