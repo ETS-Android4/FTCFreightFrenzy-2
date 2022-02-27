@@ -31,8 +31,12 @@ public class RangeTest extends LinearOpMode {
 
     public void custom_loop() {
 
-        telemetry.addData("BACK Range: ", base.backRange.getDistance(DistanceUnit.INCH));
-        telemetry.addData("SIDE Range: ", base.sideRange.getDistance(DistanceUnit.INCH));
+        //MaxBotix RangeSensor
+        telemetry.addData("Distance: ", base.MBRange.getDistance(DistanceUnit.INCH));
+
+        //ModernRobotics RangeSensor
+        /*telemetry.addData("BACK Range: ", base.backRange.getDistance(DistanceUnit.INCH));
+        telemetry.addData("SIDE Range: ", base.sideRange.getDistance(DistanceUnit.INCH));*/
         telemetry.update();
     }
 }

@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.MB1242.AsyncMB1242;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class MainBase {
@@ -26,10 +28,11 @@ public class MainBase {
     public Servo   leftClaw    = null;
 
 
-    // Total Sensors: 3
+    // Total Sensors: 4
     public ModernRoboticsI2cRangeSensor backRange   = null;
     public ModernRoboticsI2cRangeSensor sideRange   = null;
     public ModernRoboticsI2cGyro        gyro        = null;
+    public AsyncMB1242                  MBRange     = null;
 
 
     static final double     COUNTS_PER_MOTOR_REV    = 386.3;
@@ -73,8 +76,10 @@ public class MainBase {
         backRange = hwMap.get(ModernRoboticsI2cRangeSensor.class,"backRange");
         backRange.initialize();
 
-        sideRange  = hwMap.get(ModernRoboticsI2cRangeSensor.class,"sideRange");
+        sideRange = hwMap.get(ModernRoboticsI2cRangeSensor.class,"sideRange");
         sideRange.initialize();
+
+        MBRange   = hwMap.get(AsyncMB1242.class, "mb1242");
 
         gyro = hwMap.get(ModernRoboticsI2cGyro.class,"gyro");
         gyro.initialize();
