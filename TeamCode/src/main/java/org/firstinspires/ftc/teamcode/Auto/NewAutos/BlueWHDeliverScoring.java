@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.TestAutos;
+package org.firstinspires.ftc.teamcode.Auto.NewAutos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-//Autonomous: Delivers Pre-loaded Block, scores additional element, parks in WH (Top-Right)
+//Autonomous: Delivers Pre-loaded Block, scores ONE additional element, parks in WH (Top-Right)
 //Position: Facing forward. Right tread lined against inside of floor-tile. Both treads touching back wall.
 
 @Autonomous(name="BLUE-WH DELIVERY & SCORE")
@@ -64,7 +64,7 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
 
                 //Drives backwards (away) from hub
-                base.encoderDrive(1.0,-10,-20,this);
+                base.encoderDrive(1.0,-20,-10,this);
 
                 //CLOSES bucket and claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -224,10 +224,10 @@ public class BlueWHDeliverScoring extends LinearOpMode{
                 base.liftAuto(0,false,this);
                 base.encoderDrive(1.0,10,10,this);
 
-
+                //CLOSES bucket and claw
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
                 base.bucket.setPosition(var.BUCKET_OPEN);
-                //CLOSES bucket and claw
+
 
                 //ANYTHING BEYOND THIS POINT IS UNTESTED CODE!!!
 

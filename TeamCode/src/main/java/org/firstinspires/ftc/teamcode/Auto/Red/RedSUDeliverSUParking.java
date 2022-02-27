@@ -65,52 +65,58 @@ public class RedSUDeliverSUParking extends LinearOpMode{
                 sleep(500);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-10,-10,this);
+                base.encoderDrive(0.5, -5, -5, this);
 
                 //Closes bucket & claw
-                base.bucket.setPosition(var.BUCKET_OPEN);
+                base.bucket.setPosition(0.98);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
 
                 //Repositions lift to ground-level position
-                base.liftAuto(0,false, this);
+                base.liftAuto(0, false, this);
 
                 //PARKING
-                base.gyroTurn(0.5,-190,this); //Turns to face SU
-                base.encoderDrive(1.0,50,50,this); //Enters SU
+                base.gyroTurn(0.5, -12, this); //Turns to face SU
+                base.encoderDrive(1.0, -50, -50, this); //Enters SU
+                base.gyroTurn(0.5, -100, this);
+                base.encoderDrive(0.5, 14, 14, this);
                 break;
             case MIDDLE: //lvl. 2 and open bucket
-                base.encoderDrive(0.5,11.2,11.2,this);
-                base.liftAuto(2, this);
+                base.liftAuto(2,false,this);
+                base.encoderDrive(0.5,10,10,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(500);
+                base.encoderDrive(0.3,3.5,3.5,this);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(500);
+                sleep(450);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-10,-10,this);
+                base.encoderDrive(0.5,-3.0,-3.0,this);
+
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
 
+
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false, this);
 
                 //PARKING
-                base.gyroTurn(0.5,-190,this); //Turns to face SU
-                base.encoderDrive(1.0,50,50,this); //Enters SU
+                base.gyroTurn(0.5, -12, this); //Turns to face SU
+                base.encoderDrive(1.0, -50, -50, this); //Enters SU
+                base.gyroTurn(0.5, -100, this);
+                base.encoderDrive(0.5, 15.5, 15.5, this);
                 break;
             case RIGHT: //lvl. 3 and  open bucket
-                base.liftAuto(3,false,this);
-                base.encoderDrive(0.5,13.5,13.5,this);
-                base.encoderDrive(0.5,1.7,1.7,this);
+                base.liftAuto(3,false,this); //Extends lift to top-tier
+                base.encoderDrive(0.3,13.5,13.5,this); //Approaches hub head-on
                 base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(500);
+                sleep(200);
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(500);
+                sleep(200);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-10,-10,this);
+                base.encoderDrive(0.8,-7.0,-7.0,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -120,10 +126,11 @@ public class RedSUDeliverSUParking extends LinearOpMode{
                 base.liftAuto(0,false, this);
 
                 //PARKING
-                base.gyroTurn(0.5,-12,this); //Turns to face SU
-                base.encoderDrive(1.0,-55,-55,this); //Enters SU
-                base.gyroTurn(0.5,-100,this);
-                base.encoderDrive(0.5,10,10,this);
+                base.gyroTurn(0.5, -12, this); //Turns to face SU
+                base.encoderDrive(1.0, -50, -50, this); //Enters SU
+                base.gyroTurn(0.5, -100, this);
+                base.encoderDrive(0.5, 16, 16, this);
+                base.leftClaw.setPosition(var.LCLAW_OPEN);
                 break;
         }
     }

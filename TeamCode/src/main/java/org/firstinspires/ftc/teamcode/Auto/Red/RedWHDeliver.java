@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
 //Red autonomous: Scores pre-loaded and parks in WH (top-left)
-//Position: Front facing barcode. Left tread along INSIDE tile line.
+//Position: Front facing barcode. Left tread along INSIDE tile line. Back treads touching wall.
 
 @Autonomous(name="RED-WH DELIVERY")
 public class RedWHDeliver extends LinearOpMode{

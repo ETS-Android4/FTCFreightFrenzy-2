@@ -65,7 +65,7 @@ public class ObjectDetector {
         pipeline = new CustomPipeline();
         camera.openCameraDevice();
         camera.setPipeline(pipeline);
-        camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT); //Sets resolution and position of webcam
 
         if (!isRed) {
             leftTL   = (isFrontCAM) ? FRONT_LEFT_TL : SWITCH_LEFT_TL;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto.Red;
+package org.firstinspires.ftc.teamcode.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,11 +8,12 @@ import org.firstinspires.ftc.teamcode.Auto.Detection.ObjectDetector;
 import org.firstinspires.ftc.teamcode.Base.MainBase;
 import org.firstinspires.ftc.teamcode.Base.Variables;
 
-//Red autonomous: Delivers duck, delivers pre-loaded, and parks in WH (Top-Left)
-//Position: Back facing Carousel (Back 10 degrees from wall).
+//Blue Autonomous: Delivers Duck and Parks in WH/
+//Starting Position: Back facing Carousel (10 degrees from wall)
 
-@Autonomous(name= "RED-SU DELIVERY")
-public class RedSUDeliver extends LinearOpMode{
+@Autonomous(name= "BLUE-SU 6168")
+public class
+BlueSUDeliver6168 extends LinearOpMode{
 
     MainBase base = new MainBase();
     Variables var = new Variables();
@@ -20,7 +21,7 @@ public class RedSUDeliver extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        ObjectDetector detector = new ObjectDetector(this,false,false);
+        ObjectDetector detector = new ObjectDetector(this, false,false);
 
         base.init(hardwareMap, this);
 
@@ -29,6 +30,9 @@ public class RedSUDeliver extends LinearOpMode{
 
         base.rightDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         base.leftDT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        telemetry.addLine("God Speed");
+        telemetry.update();
 
         waitForStart();
 
@@ -44,29 +48,28 @@ public class RedSUDeliver extends LinearOpMode{
 
         //Scores duck at carousel
         base.encoderDrive(0.8,-19.4,-19.4,this); //Drives backwards to carousel
-        base.rightDuck.setPower(0.53); //Spins duck-wheel for duck soring
+        base.leftDuck.setPower(0.53); //Spins duck-wheel for duck soring
         sleep(2000); //Sleeps to allow for adequate spin time
-        base.rightDuck.setPower(0); //Stops duck-wheel
+        base.leftDuck.setPower(0); //Stops duck-wheel
+        sleep(8700); //Perfect sleep for 6168
 
         //Repositioning to score pre-loaded element just before approaching hub
-        base.gyroTurn(0.5,-10,this); //Rotate to face WH
+        base.gyroTurn(0.5,10,this); //Rotate to face WH
         base.encoderDrive(0.7,45,45,this); //Drives halfway to WH
-        base.gyroTurn(0.5,-99,this); //Turns to face shipping hub
+        base.gyroTurn(0.5,100,this); //Turns to face shipping hub
 
         switch (position) {
             case LEFT: //SCORES IN FIRST (BOTTOM) TIER
-                base.liftAutoRED(1,false,this);
-                base.encoderDrive(0.5,8,8,this);
-                sleep(400);
+                base.liftAuto(1, false,this);
+                base.encoderDrive(0.5,10.9,10.9,this);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
                 sleep(400);
-                base.encoderDrive(0.5,2.7,2.7,this);
+                base.encoderDrive(0.2,2.5,2.5,this); //Must test power
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
                 sleep(400);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.8,-6,-6,this);
-                sleep(600);
+                base.encoderDrive(0.5,-3.2,-3.2,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -76,55 +79,47 @@ public class RedSUDeliver extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //Positioning before parking
-                base.gyroTurn(0.5,-14,this); //Turns diagonally towards WH
+                base.gyroTurn(0.5,20,this); //Turns diagonally towards WH
                 //sleep(5000); //Untested sleep for 5893
 
                 //PARKING
-                base.encoderDrive(1.0,65,65,this); //Enters WH
-                base.gyroTurn(0.5,-100,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,7,7,this);
-                base.gyroTurn(0.5, -13,this);
-                base.encoderDrive(0.7,12,12,this); //Drives to top-right of WH [PARKED]
+                base.encoderDrive(1.0,65.5,65.5,this); //Enters WH
                 break;
             case MIDDLE: //SCORES IN SECOND (MIDDLE) TIER
-                base.liftAuto(2,false,this);
-                base.encoderDrive(0.5,10,10,this);
+                base.liftAuto(2, false,this);
+                base.encoderDrive(0.5,12,12,this);
+                sleep(800);
                 base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(500);
-                base.encoderDrive(0.3,3.5,3.5,this);
+                sleep(400);
+                base.encoderDrive(0.3,2.8,2.8,this); //2.5 check test
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(450);
+                sleep(500);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.5,-3.0,-3.0,this);
-
+                base.encoderDrive(0.5,-1.9,-1.9,this);
 
                 //Closes bucket & claw
-                base.bucket.setPosition(var.BUCKET_OPEN);
                 base.leftClaw.setPosition(var.LCLAW_OPEN);
+                base.bucket.setPosition(var.BUCKET_OPEN);
 
                 //Repositions lift to ground-level position
                 base.liftAuto(0,false,this);
 
                 //PARKING
-                base.gyroTurn(0.5,-12,this); //Turns diagonally towards WH
-                //sleep(5000); //Untested sleep for 5893
-                base.encoderDrive(1.0,62,62,this); //Enters WH
-                base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,7,7,this); //Drives to top-right of WH [PARKED]
-                base.gyroTurn(0.5, -12,this);
-                base.encoderDrive(0.8,15,15,this);
+                base.gyroTurn(0.5,16,this); //Turns diagonally towards WH
+                base.encoderDrive(1.0,65,65,this); //Enters WH
+                base.bucket.setPosition(var.BUCKET_OPEN);
                 break;
             case RIGHT: //SCORES IN THIRD (TOP) TIER
-                base.liftAuto(3,false,this); //Extends lift to top-tier
-                base.encoderDrive(0.3,15.5,15.5,this); //Approaches hub head-on
-                base.bucket.setPosition(var.BUCKET_CLOSED);
-                sleep(200);
+                base.liftAuto(3, false,this); //Extends lift to top-tier
                 base.leftClaw.setPosition(var.LCLAW_CLOSED);
-                sleep(200);
+                base.encoderDrive(0.5,16.5,16.5,this); //Approaches hub head-on
+                sleep(1600);
+                base.bucket.setPosition(var.BUCKET_CLOSED);
+                sleep(500);
 
                 //Drives backward from shipping hub to prepare for WH parking
-                base.encoderDrive(0.8,-5.0,-5.0,this);
+                base.encoderDrive(0.5,-2.0,-2.0,this);
 
                 //Closes bucket & claw
                 base.bucket.setPosition(var.BUCKET_OPEN);
@@ -134,13 +129,8 @@ public class RedSUDeliver extends LinearOpMode{
                 base.liftAuto(0,false,this);
 
                 //PARKING
-                base.gyroTurn(0.5,-9,this); //Turns diagonally towards WH
-                //sleep(5000); //Untested sleep for 5893
-                base.encoderDrive(1.0,60,60,this); //Enters WH
-                base.gyroTurn(0.5,-88,this); //Turns perpendicular to back wall
-                base.encoderDrive(0.8,9,9,this); //Drives to top-right of WH [PARKED]
-                base.gyroTurn(0.5, -12,this);
-                base.encoderDrive(0.8,15,15,this);
+                base.gyroTurn(0.5,17,this); //Turns diagonally towards WH
+                base.encoderDrive(1.0,65,65,this); //Enters WH for 6168
                 break;
         }
     }
